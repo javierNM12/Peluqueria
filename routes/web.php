@@ -1,0 +1,59 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeluqueriaController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\CitasController;
+use App\Http\Controllers\ServiciosController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+/*
+    Route::get('/add_peli', [CineController::class, 'addPeli'])->name('addPeli')->middleware(['auth']);
+    Route::post('/store_peli', [CineController::class, 'storePeli'])->name('storePeli')->middleware(['auth']);
+*/
+
+// add -> add_{item} (introducir datos)
+// store -> store_{item} (guardar datos)
+
+// {{ Route('storeRetar') }} || ->name('dashboard');
+
+
+
+//.----****** CRUDS ******----.//
+
+// CRUD Productos
+Route::resource('productos', ProductoController::class);
+
+// CRUD Proveedores
+Route::resource('proveedores', ProveedorController::class);
+
+// CRUD Productos_proveedores
+Route::resource('productos_proveedores', ProveedorController::class);
+
+// CRUD Clientes
+Route::resource('clientes', ClientesController::class);
+
+// CRUD Citas
+Route::resource('citas', CitasController::class);
+
+// CRUD servicios
+Route::resource('servicios', ServiciosController::class);
+
+
+// Inicio del sitio
+Route::get('/', [PeluqueriaController::class, 'inicio'])->name('inicio');
+Route::get('/dashboard', [PeluqueriaController::class, 'inicio'])->middleware(['alarmas'])->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';
