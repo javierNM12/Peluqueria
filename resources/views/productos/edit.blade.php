@@ -1,73 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Edit producto Form - Laravel 8 CRUD Tutorial</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Edit productos</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('productos.index') }}" enctype="multipart/form-data"> Back</a>
-                </div>
+@extends('.plantillas.base')
+@section('main')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left mb-5">
+                <h2>Editar producto</h2>
             </div>
         </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
-        </div>
-        @endif
-        <form action="{{ route('productos.update',$productos->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto nombre:</strong>
-                        <input type="text" name="nombre" value="{{ $productos->nombre }}" class="form-control" placeholder="producto nombre">
-                        @error('nombre')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto existencias:</strong>
-                        <input type="text" name="existencias" value="{{ $productos->existencias }}" class="form-control" placeholder="producto existencias">
-                        @error('existencias')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto minimo:</strong>
-                        <input type="email" name="minimo" class="form-control" placeholder="producto minimo" value="{{ $productos->minimo }}">
-                        @error('minimo')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto pvp:</strong>
-                        <input type="text" name="pvp" value="{{ $productos->pvp }}" class="form-control" placeholder="producto pvp">
-                        @error('pvp')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
-            </div>
-        </form>
     </div>
-</body>
-
-</html>
+    @if(session('status'))
+    <div class="alert alert-success mb-1 mt-1">
+        {{ session('status') }}
+    </div>
+    @endif
+    <form action="{{ route('productos.update',$productos->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del producto</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $productos->nombre }}" aria-describedby="nombre producto">
+            @error('nombre')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="existencias" class="form-label">Existencias del producto</label>
+            <input type="text" class="form-control" id="existencias" name="existencias" value="{{ $productos->existencias }}" aria-describedby="existencias producto">
+            @error('existencias')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="minimo" class="form-label">Cantidad mínima del producto (Alarma)</label>
+            <input type="text" class="form-control" id="minimo" name="minimo" value="{{ $productos->minimo }}" aria-describedby="minimo producto">
+            @error('minimo')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="pvp" class="form-label">P.V.P.</label>
+            <input type="text" class="form-control" id="pvp" name="pvp" value="{{ $productos->pvp }}" aria-describedby="pvp producto">
+            @error('pvp')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-danger" href="{{ route('productos.index') }}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection

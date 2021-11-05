@@ -1,71 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Add producto Form - Laravel 8 CRUD</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left mb-2">
-                    <h2>Add producto</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('productos.index') }}"> Back</a>
-                </div>
+@extends('.plantillas.base')
+@section('main')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left mb-5">
+                <h2>Añadir producto</h2>
             </div>
         </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
+    </div>
+    @if(session('status'))
+    <div class="alert alert-success mb-1 mt-1">
+        {{ session('status') }}
+    </div>
+    @endif
+    <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del producto</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre producto">
+            @error('nombre')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
         </div>
-        @endif
-        <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="number" name="proveedor" class="form-control" placeholder="proveedor">
-            <input type="number" name="precio" class="form-control" placeholder="precio">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto nombre:</strong>
-                        <input type="text" name="nombre" class="form-control" placeholder="producto nombre">
-                        @error('nombre')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto existencias:</strong>
-                        <input type="existencias" name="existencias" class="form-control" placeholder="producto existencias">
-                        @error('existencias')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto minimo:</strong>
-                        <input type="text" name="minimo" class="form-control" placeholder="producto minimo">
-                        @error('minimo')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <strong>producto pvp:</strong>
-                        <input type="text" name="pvp" class="form-control" placeholder="producto pvp">
-                        @error('pvp')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        <div class="mb-3">
+            <label for="proveedor" class="form-label">Proveedor del producto</label>
+            <input type="text" class="form-control" id="proveedor" name="proveedor" aria-describedby="proveedor producto">
+            @error('proveedor')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio del producto</label>
+            <input type="text" class="form-control" id="precio" name="precio" aria-describedby="precio producto">
+            @error('precio')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="existencias" class="form-label">Existencias del producto</label>
+            <input type="text" class="form-control" id="existencias" name="existencias" aria-describedby="existencias producto">
+            @error('existencias')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="minimo" class="form-label">Cantidad mínima del producto (Alarma)</label>
+            <input type="text" class="form-control" id="minimo" name="minimo" aria-describedby="minimo producto">
+            @error('minimo')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="pvp" class="form-label">P.V.P.</label>
+            <input type="text" class="form-control" id="pvp" name="pvp" aria-describedby="pvp producto">
+            @error('pvp')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6">
+                <button type="submit" class="btn btn-success">Añadir</button>
             </div>
-        </form>
-</body>
-
-</html>
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-danger" href="{{ route('productos.index') }}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
