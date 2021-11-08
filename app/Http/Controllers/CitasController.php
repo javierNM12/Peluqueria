@@ -39,7 +39,6 @@ class CitasController extends Controller
         $request->validate([
             'fecha_hora' => 'required',
             'descripcion' => 'required',
-            'finalizado' => 'required',
         ]);
         $citas = new Citas;
         $citas->fecha_hora = $request->fecha_hora;
