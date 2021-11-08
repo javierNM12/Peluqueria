@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Citas;
+use Carbon\Carbon;
+use DB;
 
 class PeluqueriaController extends Controller
 {
     // cargar en index principal
     public function inicio()
     {
-        $data['citas'] = Citas::orderBy('fecha_hora', 'asc')->where('fecha_hora', '>', 'NOW()')->paginate(5);
-        return view("inicio", $data);
+        //DB::enableQueryLog();
+        $mytime = Carbon::now();
+        $citas = Citas::orderBy('fecha_hora', 'asc')->where('fecha_hora', '>=', $mytime->startOfDay()->toDateTimeString())->where('fecha_hora', '<=', $mytime->endOfDay()->toDateTimeString())->where('finalizado', '!=', '1')->get();
+        //dd(DB::getQueryLog());
+        return view("inicio", compact('citas'));
     }
+
     /**
      * Display a listing of the resource.
      *

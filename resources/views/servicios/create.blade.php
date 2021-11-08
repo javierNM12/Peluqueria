@@ -1,62 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Add servicio Form - Laravel 8 CRUD</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left mb-2">
-                    <h2>Add servicio</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('servicios.index') }}"> Back</a>
-                </div>
+@extends('.plantillas.base')
+@section('main')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left mb-5">
+                <h2>Añadir servicio</h2>
             </div>
         </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
+    </div>
+    @if(session('status'))
+    <div class="alert alert-success mb-1 mt-1">
+        {{ session('status') }}
+    </div>
+    @endif
+    <form action="{{ route('servicios.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio del servicio</label>
+            <input type="text" class="form-control" id="precio" name="precio" aria-describedby="precio servicio">
+            @error('precio')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
         </div>
-        @endif
-        <form action="{{ route('servicios.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>servicio precio:</strong>
-                        <input type="text" name="precio" class="form-control" placeholder="servicio precio">
-                        @error('precio')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>servicio nombre:</strong>
-                        <input type="nombre" name="nombre" class="form-control" placeholder="servicio nombre">
-                        @error('nombre')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>servicio desc:</strong>
-                        <input type="text" name="desc" class="form-control" placeholder="servicio desc">
-                        @error('desc')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del servicio</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre servicio">
+            @error('nombre')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Descripción del servicio</label>
+            <input type="text" class="form-control" id="desc" name="desc" aria-describedby="descripcion servicio">
+            @error('desc')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6">
+                <button type="submit" class="btn btn-success">Guardar</button>
             </div>
-        </form>
-</body>
-
-</html>
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-danger" href="{{ route('servicios.index') }}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection

@@ -4,9 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Citas;
+use Carbon\Carbon;
 
 class CitasController extends Controller
 {
+    public function finalizar(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+        ]);
+
+        $cita = Citas::find($request->id);
+        $cita->finalizado = 1;
+        $cita->save();
+        return response()->json(['success' => $request->id]);
+    }
+
+    public function eliminar(Request $request)
+    {
+        $cita = Citas::find($request->id);
+        $cita->delete();
+        return response()->json(['success' => $request->id]);
+    }
+
+    public function listar()
+    {
+        $mytime = Carbon::now();
+        $citas = Citas::orderBy('fecha_hora', 'asc')->where('fecha_hora', '>=', $mytime->startOfDay()->toDateTimeString())->where('fecha_hora', '<=', $mytime->endOfDay()->toDateTimeString())->where('finalizado', '!=', '1')->get();
+        //dd(DB::getQueryLog());
+        return response()->json(['success' => $citas]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +72,7 @@ class CitasController extends Controller
         $citas = new Citas;
         $citas->fecha_hora = $request->fecha_hora;
         $citas->descripcion = $request->descripcion;
-        $citas->finalizado = $request->finalizado;
+        $citas->finalizado = 0; //-> si añadimos una cita siempre estará pendiente
         $citas->save();
 
 
@@ -91,12 +120,10 @@ class CitasController extends Controller
         $request->validate([
             'fecha_hora' => 'required',
             'descripcion' => 'required',
-            'finalizado' => 'required',
         ]);
         $cita = Citas::find($id);
         $cita->fecha_hora = $request->fecha_hora;
         $cita->descripcion = $request->descripcion;
-        $cita->finalizado = $request->finalizado;
         $cita->save();
         return redirect()->route('citas.index')
             ->with('success', 'Cita Has Been updated successfully');

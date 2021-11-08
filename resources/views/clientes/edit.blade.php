@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
-                <h2>Editar clientes</h2>
+                <h2>Editar cliente</h2>
             </div>
         </div>
     </div>

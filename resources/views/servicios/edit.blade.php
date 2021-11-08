@@ -1,64 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Edit producto Form - Laravel 8 CRUD Tutorial</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Edit servicios</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('servicios.index') }}" enctype="multipart/form-data"> Back</a>
-                </div>
+@extends('.plantillas.base')
+@section('main')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left mb-5">
+                <h2>Editar el servicio</h2>
             </div>
         </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
-        </div>
-        @endif
-        <form action="{{ route('servicios.update',$servicios->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto precio:</strong>
-                        <input type="text" name="precio" value="{{ $servicios->precio }}" class="form-control" placeholder="producto precio">
-                        @error('precio')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto nombre:</strong>
-                        <input type="text" name="nombre" value="{{ $servicios->nombre }}" class="form-control" placeholder="producto nombre">
-                        @error('nombre')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>producto desc:</strong>
-                        <input type="text" name="desc" class="form-control" placeholder="producto desc" value="{{ $servicios->desc }}">
-                        @error('desc')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
-            </div>
-        </form>
     </div>
-</body>
-
-</html>
+    @if(session('status'))
+    <div class="alert alert-success mb-1 mt-1">
+        {{ session('status') }}
+    </div>
+    @endif
+    <form action="{{ route('servicios.update',$servicios->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio del servicio</label>
+            <input type="text" class="form-control" value="{{ $servicios->precio }}" id="precio" name="precio" aria-describedby="precio servicio">
+            @error('precio')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del servicio</label>
+            <input type="text" class="form-control" value="{{ $servicios->nombre }}" id="nombre" name="nombre" aria-describedby="nombre servicio">
+            @error('nombre')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Descripción del servicio</label>
+            <input type="text" class="form-control" value="{{ $servicios->desc }}" id="desc" name="desc" aria-describedby="descripcion servicio">
+            @error('desc')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-danger" href="{{ route('servicios.index') }}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection

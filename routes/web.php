@@ -33,6 +33,12 @@ use App\Http\Controllers\ServiciosController;
 
 
 
+// .----****** ROUTES AJAX ******----.//
+Route::POST('ajax/finalizarcita', [CitasController::class, 'finalizar'])->name('ajaxcita.finalizar');
+Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->name('ajaxcita.eliminar');
+Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita.crear');
+Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
+
 //.----****** CRUDS ******----.//
 
 // CRUD Productos
@@ -59,3 +65,10 @@ Route::get('/', [PeluqueriaController::class, 'inicio'])->name('inicio');
 Route::get('/dashboard', [PeluqueriaController::class, 'inicio'])->middleware(['alarmas'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
+
+//CODIGO EJEMPLO AJAX
+/*
+Route::get('ajax/finalizar', [StudentController::class, 'ajaxRequest'])->name('ajax.request');
+
+Route::post('ajax/request/store', [StudentController::class, 'ajaxRequestStore'])->name('ajax.request.store');
+*/

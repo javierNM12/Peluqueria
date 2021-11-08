@@ -1,62 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Add cita Form - Laravel 8 CRUD</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left mb-2">
-                    <h2>Add Cita</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('citas.index') }}"> Back</a>
-                </div>
+@extends('.plantillas.base')
+@section('main')
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left mb-5">
+                <h2>Añadir Cita</h2>
             </div>
         </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
+    </div>
+    @if(session('status'))
+    <div class="alert alert-success mb-1 mt-1">
+        {{ session('status') }}
+    </div>
+    @endif
+    <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción de la cita</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="descripcion citas">
+            @error('descripcion')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
         </div>
-        @endif
-        <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>cita fecha_hora:</strong>
-                        <input type="text" name="fecha_hora" class="form-control" placeholder="cita fecha_hora">
-                        @error('fecha_hora')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>cita descripcion:</strong>
-                        <input type="descripcion" name="descripcion" class="form-control" placeholder="cita descripcion">
-                        @error('descripcion')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>cita finalizado:</strong>
-                        <input type="text" name="finalizado" class="form-control" placeholder="cita finalizado">
-                        @error('finalizado')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        <div class="mb-3">
+            <label for="fecha_hora" class="form-label">Fecha y hora de la cita</label>
+            <input type="text" class="form-control" id="fecha_hora" name="fecha_hora" aria-describedby="fecha y hora de la cita">
+            @error('fecha_hora')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="col-6">
+                <button type="submit" class="btn btn-success">Guardar</button>
             </div>
-        </form>
-</body>
-
-</html>
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-danger" href="{{ route('citas.index') }}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+@endsection
