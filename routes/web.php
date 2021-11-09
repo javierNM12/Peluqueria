@@ -7,6 +7,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\HistoricoController;
 
 // COMENTARIO PARA COMPROBAR QUE SE SUBE BIEN LOS FICHEROS
 
@@ -39,7 +40,7 @@ Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->name('aj
 Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita.crear');
 Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
 
-//.----****** CRUDS ******----.//
+// .----****** CRUDS ******----.//
 
 // CRUD Productos
 Route::resource('productos', ProductoController::class);
@@ -59,16 +60,13 @@ Route::resource('citas', CitasController::class);
 // CRUD servicios
 Route::resource('servicios', ServiciosController::class);
 
+// EN PROCESO ***************************************** <-
+// CRUD servicios
+Route::resource('historico', HistoricoController::class);
+
 
 // Inicio del sitio
 Route::get('/', [PeluqueriaController::class, 'inicio'])->name('inicio');
 Route::get('/dashboard', [PeluqueriaController::class, 'inicio'])->middleware(['alarmas'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
-
-//CODIGO EJEMPLO AJAX
-/*
-Route::get('ajax/finalizar', [StudentController::class, 'ajaxRequest'])->name('ajax.request');
-
-Route::post('ajax/request/store', [StudentController::class, 'ajaxRequestStore'])->name('ajax.request.store');
-*/

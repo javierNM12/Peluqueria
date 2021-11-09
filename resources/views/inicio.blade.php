@@ -19,7 +19,7 @@
     <!--<form class='row' name='mandarcita' id='mandarcita' enctype='multipart/form-data'>-->
     <table>
         <form class="row" method="post" action="/adminnavbar/gestionnavbar/" name="modificanavbar" id="modificanavbar" enctype="multipart/form-data"><input id="id_navbar" type="hidden" name="id_navbar" value=""><input id="tipo" type="hidden" name="tipo" value="">
-            <table class="table data table-bordered table-hover" data-section="1" id="table-cita">
+            <table class="table data table-bordered table-hover" data-section="1" id="tablecita">
                 <thead>
                     <tr>
                         <th scope="col">Descripción</th>
@@ -71,19 +71,19 @@
         <a class="row" href="{{ Route('clientes.index') }}">Añadir clientes</a>
         <a class="row" href="{{ Route('citas.index') }}">Añadir citas</a>
         <a class="row" href="{{ Route('servicios.index') }}">Añadir servicio</a>
-        <a class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button'>Añadir cita</a>
+        <a class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalcita' role='button'>Añadir cita</a>
 </div>
 
 {{-- MODAL AÑADIR CITA --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalcita" tabindex="-1" aria-labelledby="modalcitaLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Añadir cita</h5>
+                <h5 class="modal-title" id="modalcitaLabel">Añadir cita</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body justify-content-start">
-                <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data" id="form-modal-cita">
+                <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data" id="formmodalcita">
                     @csrf
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción de la cita</label>
@@ -189,10 +189,10 @@
     });
 
     // GESTION CITA FORMULARIO MODAL
-    $('#form-modal-cita').submit(function(event) {
+    $('#formmodalcita').submit(function(event) {
         event.preventDefault();
         // con ajax guardo la cita
-        var formData = new FormData(document.getElementById("form-modal-cita"));
+        var formData = new FormData(document.getElementById("formmodalcita"));
         formData.append("dato", "valor");
 
         $.ajaxSetup({ // cabeceras con el token csrf
@@ -208,59 +208,24 @@
             processData: false,
             contentType: false,
             success: function(data) {
-
-
-
-
+                var a = data;
                 // petición ajax para actualizar la tabla de citas del día
                 $.ajaxSetup({ // cabeceras con el token csrf
                     headers: {
                         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                     }
                 });
-
                 $.ajax({
                     url: "{{ route('ajaxcita.listar') }}",
                     type: 'POST',
                     success: function(data) { // elimino y recreo el listado de citas
-                        $("#table-cita tbody *").remove();
-
-                        data.each(function(index) {
-                            /* <tr class="table-primary" data-id="{{ $cita->id }}">
-                        <td class="col-9 align-middle">
-                            {{ $cita->descripcion }}
-                        </td>
-                        <td class="col-2 align-middle text-center">
-                            @php
-                            $arr = explode(':', Carbon::createFromFormat('Y-m-d H:i:s', $cita->fecha_hora)->format('H:i:s'));
-                            echo $arr[0] . ":" . $arr[1];
-                            @endphp
-                        </td>
-                        <td class="col-1">
-                            <div class="row">
-                                <div class="col-6 text-center">
-                                    <a href="javascript: void(0)" onclick="eliminar('{{ $cita->id }}')" class="bi-x-circle del text-danger" role="button"></a>
-                                </div>
-                                <div class="col-6 text-center">
-                                    <a href="javascript: void(0)" onclick="finalizar('{{ $cita->id }}')" class="bi-check-lg text-success" role="button"></a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table-secondary" data-id="sub_{{ $cita->id }}" style="display:none">
-                        <td colspan="3">
-                            <div class="row">
-                                <div class="col-4">NOMBRE</div>
-                                <div class="col-4">APELLIDOS</div>
-                                <div class="col-4">TELEFONO</div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-12">DESCRIPCION</div>
-                            </div>
-                        </td>
-                    </tr>*/
-                            $("#table-cita tbody").append('asd');
-                            console.log(index + ": " + $(this).text());
+                        $("#tablecita tbody *").remove();
+                        $(data).each(function(indice, cita) {
+                            $("#tablecita tbody").append('<tr class="table-primary" data-id="' + cita.id + '"><td class="col-9 align-middle">' + cita.descripcion + '</td><td class="col-2 align-middle text-center">' + cita.fecha_hora + '</td><td class="col-1"><div class="row"><div class="col-6 text-center"><a href="javascript: void(0)" onclick="eliminar(' + cita.id + ')" class="bi-x-circle del text-danger" role="button"></a></div><div class="col-6 text-center"><a href="javascript: void(0)" onclick="finalizar(' + cita.id + ')" class="bi-check-lg text-success" role="button"></a></div></div></td></tr><tr class="table-secondary" data-id="sub_' + cita.id + '" style="display:none"><td colspan="3"><div class="row"><div class="col-4">NOMBRE</div><div class="col-4">APELLIDOS</div><div class="col-4">TELEFONO</div></div><div class="row text-center"><div class="col-12">DESCRIPCION</div></div></td></tr>');
+                        });
+                        // volvemos a lanzar el EventListener para que capture los nuevos elementos
+                        $('.table-primary').click(function(e) {
+                            $(this).next(".table-secondary").toggle();
                         });
                     },
                     error: function(data) {
@@ -268,18 +233,13 @@
                     }
                 });
                 // cierro el modal
-                $('#form-modal-cita').modal('close');
-
-
-
-
+                //$('#formmodalcita').modal('close');
+                $('#modalcita').modal('hide');
             },
             error: function(data) {
                 alert("ERROR: " + data);
             }
         });
-
-
     });
 </script>
 @endif

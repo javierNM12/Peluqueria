@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Citas;
 use Carbon\Carbon;
+use DB;
 
 class CitasController extends Controller
 {
@@ -29,10 +30,11 @@ class CitasController extends Controller
 
     public function listar()
     {
+        // DB::enableQueryLog();
         $mytime = Carbon::now();
         $citas = Citas::orderBy('fecha_hora', 'asc')->where('fecha_hora', '>=', $mytime->startOfDay()->toDateTimeString())->where('fecha_hora', '<=', $mytime->endOfDay()->toDateTimeString())->where('finalizado', '!=', '1')->get();
-        //dd(DB::getQueryLog());
-        return response()->json(['success' => $citas]);
+        // dd(DB::getQueryLog());
+        return response()->json($citas);
     }
 
 
