@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\HistoricoController;
+use App\Http\Controllers\CitasServiciosController;
 
 // COMENTARIO PARA COMPROBAR QUE SE SUBE BIEN LOS FICHEROS
 
@@ -60,9 +61,13 @@ Route::resource('citas', CitasController::class);
 // CRUD servicios
 Route::resource('servicios', ServiciosController::class);
 
-// EN PROCESO ***************************************** <-
-// CRUD servicios
-Route::resource('historico', HistoricoController::class);
+// CRUD historico
+Route::resource('historicos', HistoricoController::class);
+
+// CRUD citas_servicios ********************************************* EN PROCESO (TABLA N:N PIVOT)
+Route::resource('citasservicios', CitasServiciosController::class);
+
+
 
 
 // Inicio del sitio

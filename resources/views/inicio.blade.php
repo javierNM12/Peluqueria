@@ -67,6 +67,7 @@
             </table>
         </form>
         <a class="row" href="{{ Route('productos.index') }}">Añadir producto</a>
+        <a class="row" href="{{ Route('historicos.index') }}">Añadir historico</a>
         <a class="row" href="{{ Route('proveedores.index') }}">Añadir proveedor</a>
         <a class="row" href="{{ Route('clientes.index') }}">Añadir clientes</a>
         <a class="row" href="{{ Route('citas.index') }}">Añadir citas</a>

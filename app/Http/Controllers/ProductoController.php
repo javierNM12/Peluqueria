@@ -156,6 +156,9 @@ class ProductoController extends Controller
     public function getAlarmas()
     {
         $productos = Productos::selectRaw('*')->whereRaw('existencias < minimo')->get();
+
+        $productos->historico->delete();
+
         return $productos;
     }
 }

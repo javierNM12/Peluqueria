@@ -19,6 +19,7 @@ class CreateCitasTable extends Migration
             $table->dateTime('fecha_hora');
             $table->text('descripcion');
             $table->integer('finalizado');
+            //$table->integer('finalizado'); ->foreignKey del cliente
         });
     }
 

@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Historico extends Model
+class Citas_Servicios extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'fecha_hora',
-        'cantidad',
-        'producto_id',
+        'cita_id',
+        'servicio_id',
     ];
 }

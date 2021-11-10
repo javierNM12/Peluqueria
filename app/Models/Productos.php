@@ -15,7 +15,13 @@ class Productos extends Model
         'pvp'
     ];
 
-    public function proveedores(){
-        return $this->belongsToMany( 'App\Models\Proveedores', 'productos_proveedores', 'producto_id', 'proveedor_id')->withPivot('precio');
-      }
+    public function proveedores()
+    {
+        return $this->belongsToMany('App\Models\Proveedores', 'productos_proveedores', 'producto_id', 'proveedor_id')->withPivot('precio');
+    }
+
+    public function historico()
+    {
+        return $this->hasMany(Historicos::class);
+    }
 }
