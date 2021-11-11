@@ -11,6 +11,17 @@ class Citas extends Model
     protected $fillable = [
         'fecha_hora',
         'descripcion',
-        'finalizado'
+        'finalizado',
+        'clientes_id'
     ];
+
+    public function servicios()
+    {
+        return $this->belongsToMany('App\Models\Servicios', 'citas_servicios', 'citas_id', 'servicios_id');
+    }
+
+    public function clientes()
+    {
+        return $this->belongsTo(Clientes::class);
+    }
 }

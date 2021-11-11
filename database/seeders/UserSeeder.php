@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'name' => 'Javi',
             'apellidos' => 'Nunez',
             'email' => 'javi@javi.com',
-            'password' => bcrypt('123patata'),
+            'password' => bcrypt('javi'),
             'rol' => '1', // 0 -> admin (pero no muestra el navbar)
         ]);
 /*

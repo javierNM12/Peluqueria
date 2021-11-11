@@ -147,6 +147,10 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Productos::find($id);
+        
+        $producto->historico()->delete();
+        $producto->proveedores()->detach();
+
         $producto->delete();
         return redirect()->route('productos.index')
             ->with('success', 'Company has been deleted successfully');
@@ -156,9 +160,6 @@ class ProductoController extends Controller
     public function getAlarmas()
     {
         $productos = Productos::selectRaw('*')->whereRaw('existencias < minimo')->get();
-
-        $productos->historico->delete();
-
         return $productos;
     }
 }

@@ -13,13 +13,13 @@ class CreateCitasServiciosTable extends Migration
      */
     public function up()
     {
-        Schema::create('citas__servicios', function (Blueprint $table) {
+        Schema::create('citas_servicios', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->bigInteger('cita_id')->unsigned();
-            $table->foreign('cita_id')->references('id')->on('citas');
-            $table->bigInteger('servicio_id')->unsigned();
-            $table->foreign('servicio_id')->references('id')->on('servicios');
+            $table->bigInteger('citas_id')->unsigned();
+            $table->foreign('citas_id')->references('id')->on('citas');
+            $table->bigInteger('servicios_id')->unsigned();
+            $table->foreign('servicios_id')->references('id')->on('servicios');
         });
     }
 

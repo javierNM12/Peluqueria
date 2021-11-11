@@ -97,13 +97,22 @@
                         <a class="nav-link active" href="{{ Route('inicio') }}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Comprobar entradas</a>
+                        <a class="nav-link active" href="{{ Route('productos.index') }}">Añadir producto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Comprobar películas</a>
+                        <a class="nav-link active" href="{{ Route('historicos.index') }}">Añadir historico</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Añadir película</a>
+                        <a class="nav-link active" href="{{ Route('proveedores.index') }}">Añadir proveedor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ Route('clientes.index') }}">Añadir clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ Route('citas.index') }}">Añadir citas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ Route('servicios.index') }}">Añadir servicio</a>
                     </li>
                 </ul>
             </div>

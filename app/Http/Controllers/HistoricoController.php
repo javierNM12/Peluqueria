@@ -51,7 +51,7 @@ class HistoricoController extends Controller
         $historico1 = new Historicos;
         $historico1->cantidad = $request->cantidad;
         $historico1->fecha_hora = $time;
-        $historico1->producto_id = $producto->id;
+        $historico1->productos_id = $producto->id;
 
         $historico1->save();
         $historico1->productos()->associate($producto);
@@ -99,10 +99,10 @@ class HistoricoController extends Controller
             'producto_id' => 'required',
         ]);
 
-        $historico1 = new Historicos;
+        $historico1 = Historicos::find($id);
         $historico1->cantidad = $request->cantidad;
         $historico1->fecha_hora = $request->fecha_hora;
-        $historico1->producto_id = $request->producto_id;
+        $historico1->productos_id = $request->producto_id;
 
         $historico1->save();
 

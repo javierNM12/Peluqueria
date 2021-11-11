@@ -9,7 +9,7 @@ class Citas_Servicios extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cita_id',
-        'servicio_id',
+        'citas_id',
+        'servicios_id',
     ];
 }

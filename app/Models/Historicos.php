@@ -11,7 +11,7 @@ class Historicos extends Model
     protected $fillable = [
         'fecha_hora',
         'cantidad',
-        'producto_id',
+        'productos_id',
     ];
 
     public function productos()

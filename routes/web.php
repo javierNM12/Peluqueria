@@ -44,34 +44,34 @@ Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxci
 // .----****** CRUDS ******----.//
 
 // CRUD Productos
-Route::resource('productos', ProductoController::class);
+Route::resource('productos', ProductoController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 // CRUD Proveedores
-Route::resource('proveedores', ProveedorController::class);
+Route::resource('proveedores', ProveedorController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 // CRUD Productos_proveedores
-Route::resource('productos_proveedores', ProveedorController::class);
+Route::resource('productos_proveedores', ProveedorController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 // CRUD Clientes
-Route::resource('clientes', ClientesController::class);
+Route::resource('clientes', ClientesController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 // CRUD Citas
-Route::resource('citas', CitasController::class);
+Route::resource('citas', CitasController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 // CRUD servicios
-Route::resource('servicios', ServiciosController::class);
+Route::resource('servicios', ServiciosController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 // CRUD historico
-Route::resource('historicos', HistoricoController::class);
+Route::resource('historicos', HistoricoController::class)->middleware(['alarmas'])->middleware(['auth']);
 
-// CRUD citas_servicios ********************************************* EN PROCESO (TABLA N:N PIVOT)
-Route::resource('citasservicios', CitasServiciosController::class);
+// CRUD citas_servicios
+Route::resource('citasservicios', CitasServiciosController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 
 
 
 // Inicio del sitio
-Route::get('/', [PeluqueriaController::class, 'inicio'])->name('inicio');
+Route::get('/', [PeluqueriaController::class, 'inicio'])->middleware(['alarmas'])->middleware(['auth'])->name('inicio');
 Route::get('/dashboard', [PeluqueriaController::class, 'inicio'])->middleware(['alarmas'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

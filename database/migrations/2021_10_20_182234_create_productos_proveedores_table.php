@@ -16,10 +16,10 @@ class CreateProductosProveedoresTable extends Migration
         Schema::create('productos_proveedores', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->bigInteger('producto_id')->unsigned();
-            $table->foreign('producto_id')->references('id')->on('productos');
-            $table->bigInteger('proveedor_id')->unsigned();
-            $table->foreign('proveedor_id')->references('id')->on('proveedores');
+            $table->bigInteger('productos_id')->unsigned();
+            $table->foreign('productos_id')->references('id')->on('productos');
+            $table->bigInteger('proveedores_id')->unsigned();
+            $table->foreign('proveedores_id')->references('id')->on('proveedores');
             $table->float('precio', 8, 2)->default(0);
         });
     }

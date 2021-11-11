@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Citas;
+use App\Models\Clientes;
 use Carbon\Carbon;
 use DB;
 
@@ -15,8 +16,10 @@ class PeluqueriaController extends Controller
         //DB::enableQueryLog();
         $mytime = Carbon::now();
         $citas = Citas::orderBy('fecha_hora', 'asc')->where('fecha_hora', '>=', $mytime->startOfDay()->toDateTimeString())->where('fecha_hora', '<=', $mytime->endOfDay()->toDateTimeString())->where('finalizado', '!=', '1')->get();
+
+        $clientes = Clientes::get();
         //dd(DB::getQueryLog());
-        return view("inicio", compact('citas'));
+        return view("inicio", compact(['citas', 'clientes']));
     }
 
     /**

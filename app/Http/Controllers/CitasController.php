@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Citas;
+use App\Models\Clientes;
 use Carbon\Carbon;
 use DB;
 
@@ -24,6 +25,7 @@ class CitasController extends Controller
     public function eliminar(Request $request)
     {
         $cita = Citas::find($request->id);
+        $cita->servicios()->detach();
         $cita->delete();
         return response()->json(['success' => $request->id]);
     }
@@ -71,17 +73,23 @@ class CitasController extends Controller
             'fecha_hora' => 'required',
             'descripcion' => 'required',
         ]);
+        // DB::enableQueryLog();
+        $cliente = Clientes::find($request->clientes_id)->first();
+        // dd(DB::getQueryLog());
         $citas = new Citas;
         $citas->fecha_hora = $request->fecha_hora;
         $citas->descripcion = $request->descripcion;
         $citas->finalizado = 0; //-> si añadimos una cita siempre estará pendiente
+        $citas->clientes_id = $cliente->id;
+
         $citas->save();
+        $citas->clientes()->associate($cliente);
 
+        $data = [
+            $request->servicios_id,
+        ];
+        $citas->servicios()->sync($data);
 
-        // $data = [
-        //     $request->proveedor => ['precio' => $request->precio],
-        // ];
-        // $cliente->proveedores()->sync($data);
         return redirect()->route('citas.index')
             ->with('success', 'citas has been created successfully.');
     }
@@ -126,7 +134,10 @@ class CitasController extends Controller
         $cita = Citas::find($id);
         $cita->fecha_hora = $request->fecha_hora;
         $cita->descripcion = $request->descripcion;
+        $cita->clientes_id = $request->clientes_id;
+
         $cita->save();
+
         return redirect()->route('citas.index')
             ->with('success', 'Cita Has Been updated successfully');
     }
@@ -140,6 +151,7 @@ class CitasController extends Controller
     public function destroy($id)
     {
         $cita = Citas::find($id);
+        $cita->servicios()->detach();
         $cita->delete();
         return redirect()->route('citas.index')
             ->with('success', 'Client has been deleted successfully');

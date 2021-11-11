@@ -29,6 +29,20 @@
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3">
+            <label for="servicios_id" class="form-label">Servicio ID</label>
+            <input type="text" class="form-control" id="servicios_id" name="servicios_id" aria-describedby="servicios_id de la cita">
+            @error('servicios_id')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="clientes_id" class="form-label">clientes_id</label>
+            <input type="text" class="form-control" id="clientes_id" name="clientes_id" aria-describedby="clientes_id de la cita">
+            @error('clientes_id')
+            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+            @enderror
+        </div>
         <div class="row d-flex justify-content-between">
             <div class="col-6">
                 <button type="submit" class="btn btn-success">Guardar</button>

@@ -2,77 +2,94 @@
 @section('main')
 
 
-
 @if (Auth::guest())
-<div>
-    <h1 class="display-5 fw-bold">Inicio</h1>
-    <p class="col-md-8 fs-4">Bienvenido al inicio del sitio, para poder acceder a las funcionaldades del sitio debe iniciar sesión</p>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h1 class="display-5 fw-bold py-5">Inicio</h1>
+            </div>
+            <p class="col-md-8 fs-4">Bienvenido al inicio del sitio, para poder acceder a las funcionaldades del sitio debe iniciar sesión</p>
+        </div>
+    </div>
 </div>
 @else
-<div>
-    <h1 class="display-5 fw-bold py-5">Panel de Control</h1>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h1 class="display-5 fw-bold py-5">Panel de Control</h1>
+            </div>
+            <div class="pull-right mb-2 d-flex justify-content-end">
+                <a class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalcita' role='button'>Añadir cita</a>
+            </div>
+        </div>
+    </div>
     @if(session()->get('success'))
     <div class='alert alert-success'>
         {{ session()->get('success') }}
     </div>
     @endif
     <!--<form class='row' name='mandarcita' id='mandarcita' enctype='multipart/form-data'>-->
-    <table>
-        <form class="row" method="post" action="/adminnavbar/gestionnavbar/" name="modificanavbar" id="modificanavbar" enctype="multipart/form-data"><input id="id_navbar" type="hidden" name="id_navbar" value=""><input id="tipo" type="hidden" name="tipo" value="">
-            <table class="table data table-bordered table-hover" data-section="1" id="tablecita">
-                <thead>
-                    <tr>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Hora</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($citas as $cita)
-                    <tr class="table-primary" data-id="{{ $cita->id }}">
-                        <td class="col-9 align-middle">
-                            {{ $cita->descripcion }}
-                        </td>
-                        <td class="col-2 align-middle text-center">
-                            @php
-                            $arr = explode(':', Carbon::createFromFormat('Y-m-d H:i:s', $cita->fecha_hora)->format('H:i:s'));
-                            echo $arr[0] . ":" . $arr[1];
-                            @endphp
-                        </td>
-                        <td class="col-1">
-                            <div class="row">
-                                <div class="col-6 text-center">
-                                    <a href="javascript: void(0)" onclick="eliminar('{{ $cita->id }}')" class="bi-x-circle del text-danger" role="button"></a>
-                                </div>
-                                <div class="col-6 text-center">
-                                    <a href="javascript: void(0)" onclick="finalizar('{{ $cita->id }}')" class="bi-check-lg text-success" role="button"></a>
-                                </div>
+    <form class="row" method="post" action="/adminnavbar/gestionnavbar/" name="modificanavbar" id="modificanavbar" enctype="multipart/form-data"><input id="id_navbar" type="hidden" name="id_navbar" value=""><input id="tipo" type="hidden" name="tipo" value="">
+        <table class="table data table-bordered table-hover" data-section="1" id="tablecita">
+            <thead>
+                <tr>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($citas as $cita)
+                <tr class="table-primary" data-id="{{ $cita->id }}">
+                    <td class="col-9 align-middle">
+                        {{ $cita->descripcion }}
+                    </td>
+                    <td class="col-2 align-middle text-center">
+                        @php
+                        $arr = explode(':', Carbon::createFromFormat('Y-m-d H:i:s', $cita->fecha_hora)->format('H:i:s'));
+                        echo $arr[0] . ":" . $arr[1];
+                        @endphp
+                    </td>
+                    <td class="col-1">
+                        <div class="row">
+                            <div class="col-6 text-center">
+                                <a href="javascript: void(0)" onclick="eliminar('{{ $cita->id }}')" class="bi-x-circle del text-danger" role="button"></a>
                             </div>
-                        </td>
-                    </tr>
-                    <tr class="table-secondary" data-id="sub_{{ $cita->id }}" style="display:none">
-                        <td colspan="3">
-                            <div class="row">
-                                <div class="col-4">NOMBRE</div>
-                                <div class="col-4">APELLIDOS</div>
-                                <div class="col-4">TELEFONO</div>
+                            <div class="col-6 text-center">
+                                <a href="javascript: void(0)" onclick="finalizar('{{ $cita->id }}')" class="bi-check-lg text-success" role="button"></a>
                             </div>
-                            <div class="row text-center">
-                                <div class="col-12">DESCRIPCION</div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="table-secondary" data-id="sub_{{ $cita->id }}" style="display:none">
+                    <td colspan="3">
+                        @foreach ($clientes as $cliente)
+                        @if ($cliente->id == $cita->clientes_id)
+                        <div class="row">
+                            <div class="col-4">{{ $cliente->nombre }}</div>
+                            <div class="col-4">{{ $cliente->apellidos }}</div>
+                            <div class="col-4">{{ $cliente->telefono }}</div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-12">{{ $cliente->descripcion }}</div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </form>
+    <!--
         <a class="row" href="{{ Route('productos.index') }}">Añadir producto</a>
         <a class="row" href="{{ Route('historicos.index') }}">Añadir historico</a>
         <a class="row" href="{{ Route('proveedores.index') }}">Añadir proveedor</a>
         <a class="row" href="{{ Route('clientes.index') }}">Añadir clientes</a>
         <a class="row" href="{{ Route('citas.index') }}">Añadir citas</a>
-        <a class="row" href="{{ Route('servicios.index') }}">Añadir servicio</a>
-        <a class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalcita' role='button'>Añadir cita</a>
+        <a class="row" href="{{ Route('servicios.index') }}">Añadir servicio</a>-->
 </div>
 
 {{-- MODAL AÑADIR CITA --}}
@@ -97,6 +114,20 @@
                         <label for="fecha_hora" class="form-label">Fecha y hora de la cita</label>
                         <input type="text" class="form-control" id="fecha_hora" name="fecha_hora" aria-describedby="fecha y hora de la cita">
                         @error('fecha_hora')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="servicios_id" class="form-label">Servicio ID</label>
+                        <input type="text" class="form-control" id="servicios_id" name="servicios_id" aria-describedby="servicios_id de la cita">
+                        @error('servicios_id')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="clientes_id" class="form-label">Clientes ID</label>
+                        <input type="text" class="form-control" id="clientes_id" name="clientes_id" aria-describedby="clientes_id de la cita">
+                        @error('clientes_id')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
