@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" integrity="sha384-7ynz3n3tAGNUYFZD3cWe5PDcE36xj85vyFkawcF6tIwxvIecqKvfwLiaFdizhPpN" crossorigin="anonymous">
-    
+
     <!-- JQUERY CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -23,7 +23,8 @@
 
 <body>
 
-    @if (Auth::guest()) <!-- Invitado -->
+    @if (Auth::guest())
+    <!-- Invitado -->
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
@@ -48,7 +49,8 @@
         </div>
     </nav>
 
-    @elseif(Auth::user()->rol =="2") <!-- Trabajador -->
+    @elseif(Auth::user()->rol =="2")
+    <!-- Trabajador -->
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
@@ -81,7 +83,8 @@
         </div>
     </nav>
 
-    @elseif(Auth::user()->rol == "1") <!-- Empresario -->
+    @elseif(Auth::user()->rol == "1")
+    <!-- Empresario -->
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
@@ -90,29 +93,83 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
+                    <li class="nav-item me-5">
                         <button type="button" class="btn btn-info">Empresario</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Inicio</a>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-secondary" href="{{ Route('inicio') }}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('productos.index') }}">Añadir producto</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Inventario
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Añadir historico (ver histórico *)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Añadir proveedor</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Reponer productos *</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Actualizar inventario *</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('historicos.index') }}">Añadir historico</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Clientes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar clidentes *</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Añadir cliente</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('proveedores.index') }}">Añadir proveedor</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Citas
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar citas *</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Añadir citas</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('clientes.index') }}">Añadir clientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('citas.index') }}">Añadir citas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('servicios.index') }}">Añadir servicio</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Servicios
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Carta de servicios *</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('servicios.index') }}">Añadir servicio</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -126,7 +183,8 @@
         </div>
     </nav>
 
-    @elseif(Auth::user()->rol == "0") <!-- Administrador -->
+    @elseif(Auth::user()->rol == "0")
+    <!-- Administrador -->
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
