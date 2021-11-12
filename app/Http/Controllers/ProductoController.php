@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Productos;
+use App\Models\Proveedores;
 
 class ProductoController extends Controller
 {
@@ -41,7 +42,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        $proveedores = Proveedores::get();
+
+        return view('productos.create', compact('proveedores'));
     }
 
     /**
@@ -65,24 +68,31 @@ class ProductoController extends Controller
         $producto->pvp = $request->pvp;
         $producto->save();
 
-        $data = [
-            $request->proveedor => ['precio' => $request->precio],
-        ];
-        $producto->proveedores()->sync($data);
 
-        // $data = $request->proveedor;
-        // $pvp = $request->precio;
-        // $producto->proveedores()->sync(['proveedor_id' => $data], ['precio' => 12]);
+        foreach ($request->get('proveedor') as $dato => $value) {
+            foreach ($request->get('precio') as $dato2 => $value2) {
+                $new[$dato] = array('proveedores_id' => $value, 'precio' => $value2);
+            }
+        }
+
+        $producto->proveedores()->sync($new);
+
 
         /*
-            //Create Contract in database
-            $contract = Contract::create($request->contract);
-            //Get skills id to link with contract
-            $data = $request->skills;
-            //syncs with additional data
-            $contract->skills()->sync(array_column($data, 'id'), ['user_id' => auth()->guard('api')->user()->id]);
-            return $contract->refresh()->skills;
-        */
+
+        foreach ($items as $key => $item) {
+            $new[$item['product_id']] = array('quantity' => 0, 'price' => 0);
+        }
+
+
+                $data = [
+                    $dato => ['precio' => $dato2],
+                ];
+                $producto->proveedores()->sync($data);
+*/
+
+
+
         return redirect()->route('productos.index')
             ->with('success', 'Company has been created successfully.');
     }
@@ -147,7 +157,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Productos::find($id);
-        
+
         $producto->historico()->delete();
         $producto->proveedores()->detach();
 
