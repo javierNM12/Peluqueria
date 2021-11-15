@@ -68,6 +68,14 @@ Route::resource('historicos', HistoricoController::class)->middleware(['alarmas'
 Route::resource('citasservicios', CitasServiciosController::class)->middleware(['alarmas'])->middleware(['auth']);
 
 
+// .----****** RUTAS ******----.//
+
+// Mostrar formulario para actualizar el inventario
+Route::get('/actuinventario', [ProductoController::class, 'actuinventario'])->middleware(['alarmas'])->middleware(['auth'])->name('actuinventario');
+Route::POST('/storeactuproductos', [ProductoController::class, 'storeactuproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeactuproductos');
+// ######################################### queda que estos cambios se almacenen en la tabla de movimientos de los productos
+
+
 
 
 // Inicio del sitio

@@ -6,9 +6,6 @@
             <div class="pull-left">
                 <h2>Lista de movimientos</h2>
             </div>
-            <div class="pull-right mb-2 d-flex justify-content-end">
-                <a class="btn btn-success" href="{{ route('historicos.create') }}"> Crear historico</a>
-            </div>
         </div>
     </div>
     @if ($message = Session::get('success'))

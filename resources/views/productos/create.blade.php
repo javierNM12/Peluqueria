@@ -137,12 +137,10 @@
     $(".bi-dash-circle").click(function() {
         if ($('.proveedor').length > 1) {
             $(".proveedor").last().remove();
-
             $("#proveedores").val(parseInt($("#proveedores").val()) - 1);
         } else {
             $("#alarmaproveedores").show();
         }
-
     });
 </script>
 @endsection

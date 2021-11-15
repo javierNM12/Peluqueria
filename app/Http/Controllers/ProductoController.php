@@ -5,9 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Productos;
 use App\Models\Proveedores;
+use DB;
 
 class ProductoController extends Controller
 {
+
+    public function actuinventario()
+    {
+        $productos = Productos::get();
+
+        return view('productos.actualizar', compact('productos'));
+    }
+
+    public function storeactuproductos(Request $request)
+    {
+        foreach ($request->get('producto') as $prod => $value) {
+            foreach ($request->get('cantidad') as $cant => $value2) {
+                $producto = Productos::find($value);
+                $cantidad = $producto->existencias + $value2;
+                $producto->existencias = $cantidad;
+                $producto->save();
+            }
+        }
+        return redirect()->route('productos.index')
+            ->with('success', 'Company has been created successfully.');
+    }
 
     /*public function getProductos()
     {
@@ -76,22 +98,6 @@ class ProductoController extends Controller
         }
 
         $producto->proveedores()->sync($new);
-
-
-        /*
-
-        foreach ($items as $key => $item) {
-            $new[$item['product_id']] = array('quantity' => 0, 'price' => 0);
-        }
-
-
-                $data = [
-                    $dato => ['precio' => $dato2],
-                ];
-                $producto->proveedores()->sync($data);
-*/
-
-
 
         return redirect()->route('productos.index')
             ->with('success', 'Company has been created successfully.');

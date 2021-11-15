@@ -16,25 +16,27 @@
     <form action="{{ route('proveedores.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono del proveedor</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono proveedor">
-            @error('telefono')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="mb-3">
             <label for="nombre" class="form-label">Nombre del proveedor</label>
             <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre proveedor">
             @error('nombre')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
-        <div class="mb-3">
-            <label for="web" class="form-label">Web del proveedor</label>
-            <input type="text" class="form-control" id="web" name="web" aria-describedby="web proveedor">
-            @error('web')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
+        <div class="row">
+            <div class="mb-3 col-6">
+                <label for="telefono" class="form-label">Teléfono del proveedor</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono proveedor">
+                @error('telefono')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 col-6">
+                <label for="web" class="form-label">Web del proveedor</label>
+                <input type="text" class="form-control" id="web" name="web" aria-describedby="web proveedor">
+                @error('web')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <div class="row d-flex justify-content-between">
             <div class="col-6">

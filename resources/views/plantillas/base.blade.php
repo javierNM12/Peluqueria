@@ -19,6 +19,10 @@
 
     <!-- SWEETALERT2 CDN  -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Jquery DataTables CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </head>
 
 <body>
@@ -112,16 +116,16 @@
                                     <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Añadir historico (ver histórico *)</a>
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Añadir proveedor</a>
+                                    <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Reponer productos *</a>
+                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar inventario *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Actualizar inventario *</a>
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
                                 </li>
                             </ul>
                         </div>
