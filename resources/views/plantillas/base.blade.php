@@ -122,10 +122,16 @@
                                     <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar inventario *</a>
+                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar inventario</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Mostrar ventas *</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Compras presenciales *</a>
                                 </li>
                             </ul>
                         </div>
@@ -142,6 +148,9 @@
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('clientes.index') }}">Añadir cliente</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Historial de citas por cliente *</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -156,6 +165,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('citas.index') }}">Añadir citas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Historico de citas *</a>
                                 </li>
                             </ul>
                         </div>

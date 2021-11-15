@@ -12,6 +12,7 @@ class Historicos extends Model
         'fecha_hora',
         'cantidad',
         'productos_id',
+        'usuarios_id'
     ];
 
     public function productos()

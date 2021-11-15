@@ -20,6 +20,8 @@ class CreateHistoricosTable extends Migration
             $table->bigInteger('cantidad');
             $table->bigInteger('productos_id')->unsigned();
             $table->foreign('productos_id')->references('id')->on('productos');
+            $table->bigInteger('users_id')->unsigned();
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

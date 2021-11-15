@@ -19,6 +19,7 @@
             <th class="col-2">fecha hora</th>
             <th class="col-2">cantidad</th>
             <th class="col-2">producto id</th>
+            <th class="col-2">Usuario id</th>
             <th class="col-2">Acciones</th>
         </tr>
         @foreach ($historicos as $historico)
@@ -26,7 +27,8 @@
             <td>{{ $historico->id }}</td>
             <td>{{ $historico->fecha_hora }}</td>
             <td>{{ $historico->cantidad }}</td>
-            <td>{{ $historico->producto_id }}</td>
+            <td>{{ $historico->productos_id }}</td>
+            <td>{{ $historico->users_id }}</td>
             <td>
                 <form action="{{ route('historicos.destroy',$historico->id) }}" method="Post" class="d-flex justify-content-between">
                     <a class="btn btn-primary ms-2" href="{{ route('historicos.edit',$historico->id) }}">Editar</a>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Productos;
 use App\Models\Proveedores;
+use App\Models\Historicos;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use DB;
 
 class ProductoController extends Controller
@@ -19,32 +22,26 @@ class ProductoController extends Controller
 
     public function storeactuproductos(Request $request)
     {
-        foreach ($request->get('producto') as $prod => $value) {
-            foreach ($request->get('cantidad') as $cant => $value2) {
-                $producto = Productos::find($value);
-                $cantidad = $producto->existencias + $value2;
-                $producto->existencias = $cantidad;
-                $producto->save();
-            }
+        $id = Auth::id();
+        $mytime = Carbon::now();
+
+        for ($i = 0; $i < count($request->get('producto')); $i++) {
+            $producto = Productos::find($request->get('producto')[$i]);
+            $cantidad = $producto->existencias + $request->get('cantidad')[$i];
+            $producto->existencias = $cantidad;
+            $producto->save();
+
+            $historico = new Historicos();
+            $historico->users_id = $id;
+            $historico->cantidad = $request->get('cantidad')[$i];
+            $historico->fecha_hora = $mytime->toDateTimeString();
+
+            $producto->historico()->save($historico);
         }
+
         return redirect()->route('productos.index')
             ->with('success', 'Company has been created successfully.');
     }
-
-    /*public function getProductos()
-    {
-        $productos = Productos::with('proveedores')->find(1)->first();
-            echo "</br>*****</br>";
-            echo $productos;
-            echo "</br>*****</br>";
-            for ($z=0; $z < count($productos['proveedores']); $z++) { 
-                echo "</br>-----</br>";
-                echo $productos['proveedores'][$z]['pivot']['producto_id'];
-                echo "</br>-----</br>";
-            }
-        exit;
-    }*/
-
 
     /**
      * Display a listing of the resource.
@@ -90,12 +87,15 @@ class ProductoController extends Controller
         $producto->pvp = $request->pvp;
         $producto->save();
 
+        for ($i = 0; $i < count($request->get('proveedor')); $i++) {
+            $new[$i] = array('proveedores_id' => $request->get('proveedor')[$i], 'precio' => $request->get('precio')[$i]);
+        }
 
-        foreach ($request->get('proveedor') as $dato => $value) {
+        /*foreach ($request->get('proveedor') as $dato => $value) {
             foreach ($request->get('precio') as $dato2 => $value2) {
                 $new[$dato] = array('proveedores_id' => $value, 'precio' => $value2);
             }
-        }
+        }*/
 
         $producto->proveedores()->sync($new);
 
