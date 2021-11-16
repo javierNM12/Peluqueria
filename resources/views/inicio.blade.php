@@ -31,7 +31,9 @@
     </div>
     @endif
     <!--<form class='row' name='mandarcita' id='mandarcita' enctype='multipart/form-data'>-->
-    <form class="row" method="post" action="/adminnavbar/gestionnavbar/" name="modificanavbar" id="modificanavbar" enctype="multipart/form-data"><input id="id_navbar" type="hidden" name="id_navbar" value=""><input id="tipo" type="hidden" name="tipo" value="">
+    <form class="row" method="post" action="/adminnavbar/gestionnavbar/" name="modificanavbar" id="modificanavbar" enctype="multipart/form-data">
+        <input id="id_navbar" type="hidden" name="id_navbar" value="">
+        <input id="tipo" type="hidden" name="tipo" value="">
         <table class="table data table-bordered table-hover" data-section="1" id="tablecita">
             <thead>
                 <tr>

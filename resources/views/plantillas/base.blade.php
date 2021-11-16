@@ -128,7 +128,7 @@
                                     <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Mostrar ventas *</a>
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Mostrar ventas * (añadir id tipo producto)</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('historicos.index') }}">Compras presenciales *</a>

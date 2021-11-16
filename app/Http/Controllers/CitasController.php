@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Citas;
 use App\Models\Clientes;
+use App\Models\Servicios;
 use Carbon\Carbon;
 use DB;
 
@@ -39,6 +40,16 @@ class CitasController extends Controller
         return response()->json($citas);
     }
 
+    public function horas(Request $request)
+    {
+        // DB::enableQueryLog();
+        $request->fecha;
+        // ************************SELECT CONCAT(fecha_hora_i, fecha_hora_f) AS WHOLENAME FROM `citas` WHERE fecha_hora_i LIKE '%2021/11/16%' OR fecha_hora_f LIKE '%2021/11/16%'; 
+        $citas = Citas::select('CONCAT(fecha_hora_i, fecha_hora_f) AS fecha_hora')->where('fecha_hora_i', 'LIKE', '%' . $request->fecha . '%')->where('fecha_hora_f', 'LIKE', '%' . $request->fecha . '%')->get();
+        // dd(DB::getQueryLog());
+        return response()->json($citas);
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -58,7 +69,10 @@ class CitasController extends Controller
      */
     public function create()
     {
-        return view('citas.create');
+        $servicios = Servicios::get();
+        $clientes = Clientes::get();
+
+        return view('citas.create', compact(['servicios', 'clientes']));
     }
 
     /**
@@ -70,14 +84,29 @@ class CitasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fecha_hora' => 'required',
             'descripcion' => 'required',
         ]);
+
+
+
+
+
         // DB::enableQueryLog();
         $cliente = Clientes::find($request->clientes_id)->first();
         // dd(DB::getQueryLog());
         $citas = new Citas;
-        $citas->fecha_hora = $request->fecha_hora;
+
+
+        //dia y hora
+
+        $fecha_hora_i = $request->dia . " " . $request->get('hora')[0] . ":00";
+        $fecha_hora_f = $request->dia . " " . $request->get('hora')[count($request->get('hora')) - 1] . ":00";
+        
+        $citas->fecha_hora_i = $fecha_hora_i;
+        $citas->fecha_hora_f = $fecha_hora_f;
+
+
+
         $citas->descripcion = $request->descripcion;
         $citas->finalizado = 0; //-> si añadimos una cita siempre estará pendiente
         $citas->clientes_id = $cliente->id;
@@ -85,11 +114,11 @@ class CitasController extends Controller
         $citas->save();
         $citas->clientes()->associate($cliente);
 
-        $data = [
-            $request->servicios_id,
-        ];
-        $citas->servicios()->sync($data);
+        for ($i = 0; $i < count($request->get('servicios_id')); $i++) {
+            $new[$i] = array('servicios_id' => $request->get('servicios_id')[$i]);
+        }
 
+        $citas->servicios()->sync($new);
         return redirect()->route('citas.index')
             ->with('success', 'citas has been created successfully.');
     }

@@ -9,7 +9,8 @@ class Citas extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'fecha_hora',
+        'fecha_hora_i',
+        'fecha_hora_f',
         'descripcion',
         'finalizado',
         'clientes_id'

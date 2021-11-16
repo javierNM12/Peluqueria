@@ -40,6 +40,7 @@ Route::POST('ajax/finalizarcita', [CitasController::class, 'finalizar'])->name('
 Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->name('ajaxcita.eliminar');
 Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita.crear');
 Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
+Route::POST('ajax/horas', [CitasController::class, 'horas'])->name('ajaxcita.horas');
 
 // .----****** CRUDS ******----.//
 
