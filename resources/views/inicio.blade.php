@@ -50,7 +50,7 @@
                     </td>
                     <td class="col-2 align-middle text-center">
                         @php
-                        $arr = explode(':', Carbon::createFromFormat('Y-m-d H:i:s', $cita->fecha_hora)->format('H:i:s'));
+                        $arr = explode(':', Carbon::createFromFormat('Y-m-d H:i:s', $cita->fecha_hora_i)->format('H:i:s'));
                         echo $arr[0] . ":" . $arr[1];
                         @endphp
                     </td>

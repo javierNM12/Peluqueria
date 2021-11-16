@@ -146,7 +146,7 @@
                                     <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar clidentes *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Añadir cliente</a>
+                                    <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('clientes.index') }}">Historial de citas por cliente *</a>
@@ -161,10 +161,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar citas *</a>
+                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Listar citas *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Añadir citas</a>
+                                    <a class="dropdown-item" href="{{ Route('citas.create') }}">Añadir citas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('citas.index') }}">Historico de citas *</a>

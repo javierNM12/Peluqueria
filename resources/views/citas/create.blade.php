@@ -39,7 +39,7 @@
                 @enderror
             </div>
             <div class="col-6">
-                <select id="hora" class="form-select" multiple aria-label="multiple select example">
+                <select id="hora[]" name="hora[]" class="form-select horas" multiple aria-label="multiple select example">
                     <option selected>No se ha seleccionado un día</option>
                 </select>
             </div>
@@ -91,96 +91,104 @@
 <script>
     // comprobar horas disponibles cuando se selecciona el día
     $("#dia").change(function(e) {
-                var array = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
-                //ajax recupero horas ya utilizadas
-                var fecha = $("#dia").val();
-                $.ajaxSetup({ // cabeceras con el token csrf
-                    headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                        url: "{{ route('ajaxcita.horas') }}",
-                        type: 'POST',
-                        data: {
-                            fecha: fecha,
-                        },
-                        success: function(data) {
-                            if ($(data).length >= 1) {
-                                // elimino la fila predeterminada
-                                $("#hora").children().remove();
-                                $.each(array, function(index2, disponibles) {
-                                    contador = 0;
-                                    $.each(data, function(index1, ocupadas) {
-                                        var datetime = ocupadas['fecha_hora'].split(' ');
-                                        var time = datetime[1].split(':');
-                                        var actualhm = time[0] + ":" + time[1];
-                                        if (actualhm == disponibles) {
-                                            contador++;
-                                        }
-                                    });
-                                    // terminamos de comprobar si esa hora estaba o no adjudicada
-                                    // y dependiendo de si está o no solicitada la mostramos disabled
+        var array = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+        var horas = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+        //ajax recupero horas ya utilizadas
+        var fecha = $("#dia").val();
+        $.ajaxSetup({ // cabeceras con el token csrf
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('ajaxcita.horas') }}",
+            type: 'POST',
+            data: {
+                fecha: fecha,
+            },
+            success: function(data) {
+                if ($(data).length >= 1) {
+                    // elimino la fila predeterminada
+                    $(".horas").children().remove();
+                    $.each(array, function(index2, disponibles) {
+                        $.each(data, function(index1, ocupadas) {
+                            var datetime = ocupadas['fecha_hora_i'].split(' ');
+                            var time = datetime[1].split(':');
+                            var hmi = time[0] + ":" + time[1];
 
+                            datetime = ocupadas['fecha_hora_f'].split(' ');
+                            time = datetime[1].split(':');
+                            var hmf = time[0] + ":" + time[1];
 
-                                    if (contador >= 1) {
-                                        var texto = '<option disabled class="text-danger" value="' + disponibles + '">' + disponibles + '</option>';
-                                    } else {
-                                        var texto = '<option value="' + disponibles + '">' + disponibles + '</option>';
-                                    }
-                                    $("#hora").append(texto)
-                                });
-                            } else {
-                                $("#hora").children().remove();
-                                $.each(array, function(index2, disponibles) {
-                                        var texto = '<option value="' + disponibles + '">' + disponibles + '</option>';
-                                        $("#hora").append(texto)
-                                    });
-                                }
-                            },
-                            error: function(data) {
-                                alert("ERROR: " + data);
+                            var inicio = jQuery.inArray(hmi, horas);
+                            var final = (jQuery.inArray(hmf, horas) - inicio) + 1;
+                            if (inicio >= 0 && final >= 0) {
+                                horas.splice(inicio, final);
                             }
+
                         });
-                });
 
-            //cambiar el raton cuando esté por encima de los botones de puntuación
-            $(".bi-plus-circle").hover(function() {
-                $(this).css("cursor", "pointer");
-            }); $(".bi-dash-circle").hover(function() {
-                $(this).css("cursor", "pointer");
-            });
-
-            // evento click añadir proveedor
-            $(".bi-plus-circle").click(function() {
-                if ($('.servicio').length >= 1) {
-                    $("#alarmaservicio").hide();
-                }
-                $("#servicios").val(parseInt($("#servicios").val()) + 1);
-
-                var texto = '<div class="row mb-3 servicio">';
-                texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
-                texto += '<option selected>Seleccione un servicio</option>';
-                texto += '@foreach ($servicios as $servicio)';
-                texto += '<option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>';
-                texto += '@endforeach';
-                texto += '</select>';
-                texto += '@error("servicios_id")';
-                texto += '<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>';
-                texto += '@enderror';
-                texto += '</div>';
-
-                $(texto).insertAfter($(".servicio").last());
-            });
-
-            // evento quitar añadir proveedor
-            $(".bi-dash-circle").click(function() {
-                if ($('.servicio').length > 1) {
-                    $(".servicio").last().remove();
-                    $("#servicios").val(parseInt($("#servicios").val()) - 1);
+                    });
+                    for (let index = 0; index < array.length; index++) {
+                        if (jQuery.inArray(array[index], horas) >= 0) {
+                            var texto = '<option value="' + array[index] + '">' + array[index] + '</option>';
+                        } else {
+                            var texto = '<option disabled class="text-danger" value="' + array[index] + '">' + array[index] + '</option>';
+                        }
+                        $(".horas").append(texto);
+                    }
                 } else {
-                    $("#alarmaservicio").show();
+                    $(".horas").children().remove();
+                    $.each(array, function(index2, disponibles) {
+                        var texto = '<option value="' + disponibles + '">' + disponibles + '</option>';
+                        $(".horas").append(texto)
+                    });
                 }
-            });
+            },
+            error: function(data) {
+                alert("ERROR: " + data);
+            }
+        });
+    });
+
+    //cambiar el raton cuando esté por encima de los botones de puntuación
+    $(".bi-plus-circle").hover(function() {
+        $(this).css("cursor", "pointer");
+    });
+    $(".bi-dash-circle").hover(function() {
+        $(this).css("cursor", "pointer");
+    });
+
+    // evento click añadir proveedor
+    $(".bi-plus-circle").click(function() {
+        if ($('.servicio').length >= 1) {
+            $("#alarmaservicio").hide();
+        }
+        $("#servicios").val(parseInt($("#servicios").val()) + 1);
+
+        var texto = '<div class="row mb-3 servicio">';
+        texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
+        texto += '<option selected>Seleccione un servicio</option>';
+        texto += '@foreach ($servicios as $servicio)';
+        texto += '<option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>';
+        texto += '@endforeach';
+        texto += '</select>';
+        texto += '@error("servicios_id")';
+        texto += '<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>';
+        texto += '@enderror';
+        texto += '</div>';
+
+        $(texto).insertAfter($(".servicio").last());
+    });
+
+    // evento quitar añadir proveedor
+    $(".bi-dash-circle").click(function() {
+        if ($('.servicio').length > 1) {
+            $(".servicio").last().remove();
+            $("#servicios").val(parseInt($("#servicios").val()) - 1);
+        } else {
+            $("#alarmaservicio").show();
+        }
+    });
 </script>
 @endsection

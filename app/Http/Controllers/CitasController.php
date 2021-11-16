@@ -45,7 +45,7 @@ class CitasController extends Controller
         // DB::enableQueryLog();
         $request->fecha;
         // ************************SELECT CONCAT(fecha_hora_i, fecha_hora_f) AS WHOLENAME FROM `citas` WHERE fecha_hora_i LIKE '%2021/11/16%' OR fecha_hora_f LIKE '%2021/11/16%'; 
-        $citas = Citas::select('CONCAT(fecha_hora_i, fecha_hora_f) AS fecha_hora')->where('fecha_hora_i', 'LIKE', '%' . $request->fecha . '%')->where('fecha_hora_f', 'LIKE', '%' . $request->fecha . '%')->get();
+        $citas = Citas::select('fecha_hora_i', 'fecha_hora_f')->where('fecha_hora_i', 'LIKE', '%' . $request->fecha . '%')->where('fecha_hora_f', 'LIKE', '%' . $request->fecha . '%')->get();
         // dd(DB::getQueryLog());
         return response()->json($citas);
     }
@@ -87,10 +87,6 @@ class CitasController extends Controller
             'descripcion' => 'required',
         ]);
 
-
-
-
-
         // DB::enableQueryLog();
         $cliente = Clientes::find($request->clientes_id)->first();
         // dd(DB::getQueryLog());
@@ -101,11 +97,9 @@ class CitasController extends Controller
 
         $fecha_hora_i = $request->dia . " " . $request->get('hora')[0] . ":00";
         $fecha_hora_f = $request->dia . " " . $request->get('hora')[count($request->get('hora')) - 1] . ":00";
-        
+
         $citas->fecha_hora_i = $fecha_hora_i;
         $citas->fecha_hora_f = $fecha_hora_f;
-
-
 
         $citas->descripcion = $request->descripcion;
         $citas->finalizado = 0; //-> si añadimos una cita siempre estará pendiente

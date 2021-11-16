@@ -15,7 +15,7 @@ class PeluqueriaController extends Controller
     {
         //DB::enableQueryLog();
         $mytime = Carbon::now();
-        $citas = Citas::orderBy('fecha_hora', 'asc')->where('fecha_hora', '>=', $mytime->startOfDay()->toDateTimeString())->where('fecha_hora', '<=', $mytime->endOfDay()->toDateTimeString())->where('finalizado', '!=', '1')->get();
+        $citas = Citas::orderBy('fecha_hora_i', 'asc')->where('fecha_hora_i', '>=', $mytime->startOfDay()->toDateTimeString())->where('fecha_hora_f', '<=', $mytime->endOfDay()->toDateTimeString())->where('finalizado', '!=', '1')->get();
 
         $clientes = Clientes::get();
         //dd(DB::getQueryLog());
