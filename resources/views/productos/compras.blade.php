@@ -19,7 +19,6 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Existencias</th>
-                <th>Mínimo</th>
                 <th>P.V.P.</th>
                 <th>Acciones</th>
             </tr>
@@ -30,7 +29,6 @@
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->existencias }}</td>
-                <td>{{ $producto->minimo }}</td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
                     <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', '{{ $producto->existencias }}', '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
@@ -39,16 +37,15 @@
             @endforeach
         </tbody>
     </table>
-    <form class="my-5"  action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data">
+    <form class="my-5" action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="accion" id="accion" value="actu">
+        <input type="hidden" name="accion" id="accion" value="compra">
         <table id="tablaprincipal" class="table table-borderless">
             <thead>
                 <tr>
                     <th>Eliminar</th>
                     <th>Nombre</th>
                     <th>Existencias</th>
-                    <th>Mínimo</th>
                     <th>P.V.P.</th>
                     <th>Cantidad</th>
                 </tr>
@@ -75,7 +72,6 @@
             texto += '<td><a href="javascript: void(0)" onclick="del(' + id + ')" class="bi bi-trash-fill fs-3 text me-3 text-danger" role="button"></a></td>';
             texto += '<td>' + nombre + '</td>';
             texto += '<td>' + existencias + '</td>';
-            texto += '<td>' + minimo + '</td>';
             texto += '<td>' + pvp + '</td>';
             texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
             texto += '</tr>';
@@ -89,16 +85,16 @@
     }
 
     function delcantidad(id) {
-        var cantidad = parseInt($("span[data-spanid='" + id + "']").text());
-        $("span[data-spanid='" + id + "']").text(cantidad - 1);
-
-        $("tr[data-trid='" + id + "'] input:last").val(cantidad - 1);
+        if ($("span[data-spanid='" + id + "']").text() >= 1) {
+            var cantidad = parseInt($("span[data-spanid='" + id + "']").text());
+            $("span[data-spanid='" + id + "']").text(cantidad - 1);
+            $("tr[data-trid='" + id + "'] input:last").val(cantidad - 1);
+        }
     }
 
     function addcantidad(id) {
         var cantidad = parseInt($("span[data-spanid='" + id + "']").text());
         $("span[data-spanid='" + id + "']").text(cantidad + 1);
-
         $("tr[data-trid='" + id + "'] input:last").val(cantidad + 1);
     }
 </script>

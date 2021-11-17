@@ -14,4 +14,9 @@ class Clientes extends Model
         'telefono',
         'descripcion'
     ];
+
+    public function citas()
+    {
+        return $this->hasMany(Citas::class);
+    }
 }

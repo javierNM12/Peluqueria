@@ -12,7 +12,8 @@ class Productos extends Model
         'nombre',
         'existencias',
         'minimo',
-        'pvp'
+        'pvp',
+        'tipo'
     ];
 
     public function proveedores()

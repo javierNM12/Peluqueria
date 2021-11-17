@@ -41,6 +41,7 @@ Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->name('aj
 Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita.crear');
 Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
 Route::POST('ajax/horas', [CitasController::class, 'horas'])->name('ajaxcita.horas');
+Route::POST('ajax/historicoclientes', [ClientesController::class, 'historicoclientes'])->name('ajax.historicoclientes');
 
 // .----****** CRUDS ******----.//
 
@@ -74,9 +75,15 @@ Route::resource('citasservicios', CitasServiciosController::class)->middleware([
 // Mostrar formulario para actualizar el inventario
 Route::get('/actuinventario', [ProductoController::class, 'actuinventario'])->middleware(['alarmas'])->middleware(['auth'])->name('actuinventario');
 Route::POST('/storeactuproductos', [ProductoController::class, 'storeactuproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeactuproductos');
-// ######################################### queda que estos cambios se almacenen en la tabla de movimientos de los productos
 
+// Mostrar formulario para realizar compras presenciales
+Route::get('/compras', [ProductoController::class, 'compras'])->middleware(['alarmas'])->middleware(['auth'])->name('compras');
 
+// Listar las compras
+Route::get('/listarcompras', [ProductoController::class, 'listarcompras'])->middleware(['alarmas'])->middleware(['auth'])->name('listarcompras');
+
+// Permitir elegir el cliente para ver su historial
+Route::get('/formhistorial', [ClientesController::class, 'formhistorial'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistorial');
 
 
 // Inicio del sitio

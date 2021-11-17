@@ -128,10 +128,10 @@
                                     <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Mostrar ventas * (añadir id tipo producto)</a>
+                                    <a class="dropdown-item" href="{{ Route('listarcompras') }}">Mostrar ventas (permitir elegir el producto) * </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Compras presenciales *</a>
+                                    <a class="dropdown-item" href="{{ Route('compras') }}">Realizar compra presencial</a>
                                 </li>
                             </ul>
                         </div>
@@ -143,13 +143,13 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar clidentes *</a>
+                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes *</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Historial de citas por cliente *</a>
+                                    <a class="dropdown-item" href="{{ Route('formhistorial') }}">Historial de citas por cliente *</a>
                                 </li>
                             </ul>
                         </div>
@@ -179,10 +179,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Carta de servicios *</a>
+                                    <a class="dropdown-item" href="{{ Route('servicios.index') }}">Carta de servicios *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('servicios.index') }}">Añadir servicio</a>
+                                    <a class="dropdown-item" href="{{ Route('servicios.create') }}">Añadir servicio</a>
                                 </li>
                             </ul>
                         </div>

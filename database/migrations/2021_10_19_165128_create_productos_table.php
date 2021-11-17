@@ -20,6 +20,7 @@ class CreateProductosTable extends Migration
             $table->bigInteger('existencias');
             $table->bigInteger('minimo');
             $table->float('pvp', 8,2);
+            $table->tinyInteger('tipo'); // -> 0 para los productos de consumo propio | -> 1 para los productos de venta
         });
     }
 

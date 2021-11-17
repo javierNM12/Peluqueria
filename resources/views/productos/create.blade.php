@@ -67,16 +67,27 @@
         </div>
 
         <div class="row">
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-5">
                 <label for="existencias" class="form-label">Existencias del producto</label>
                 <input type="number" class="form-control" id="existencias" name="existencias" aria-describedby="existencias producto">
                 @error('existencias')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-5">
                 <label for="minimo" class="form-label">Cantidad mínima del producto (Alarma)</label>
                 <input type="number" class="form-control" id="minimo" name="minimo" aria-describedby="minimo producto">
+                @error('minimo')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 col-2">
+                <label for="tipo" class="form-label">Tipo de producto</label>
+                <select class="form-select" aria-label="Tipo de producto" name="tipo" id="tipo">
+                    <option selected>Seleccionar</option>
+                    <option value="0">Consumo propio</option>
+                    <option value="1">Venta al público</option>
+                </select>
                 @error('minimo')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror

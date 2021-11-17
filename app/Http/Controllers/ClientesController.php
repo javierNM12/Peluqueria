@@ -7,6 +7,20 @@ use App\Models\Clientes;
 
 class ClientesController extends Controller
 {
+    public function historicoclientes(Request $request)
+    {
+        $historico = Clientes::find($request->id)->citas()->get();
+
+        return response()->json($historico);
+        //return view('productos.listarcompras', compact(['productos', 'historicos']));
+    }
+
+    public function formhistorial()
+    {
+        $clientes = Clientes::get();
+        return view('clientes.formhistorial', compact('clientes'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +62,7 @@ class ClientesController extends Controller
         $cliente->telefono = $request->telefono;
         $cliente->descripcion = $request->descripcion;
         $cliente->save();
-        
+
 
         // $data = [
         //     $request->proveedor => ['precio' => $request->precio],

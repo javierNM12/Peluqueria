@@ -16,18 +16,38 @@ class ProductoController extends Controller
     public function actuinventario()
     {
         $productos = Productos::get();
-
         return view('productos.actualizar', compact('productos'));
+    }
+
+    public function compras()
+    {
+        $productos = Productos::selectRaw('*')->whereRaw('tipo = 0')->get(); // 0 = productos de venta
+        return view('productos.compras', compact('productos'));
+    }
+
+    public function listarcompras()
+    {
+        $productos = Productos::selectRaw('*')->whereRaw('tipo = 0')->get(); // 0 = productos de venta
+        foreach ($productos as $key => $value) {
+            $historicos[$value->id] = Productos::find($value->id)->historico()->get();
+        }
+        return view('productos.listarcompras', compact(['productos', 'historicos']));
     }
 
     public function storeactuproductos(Request $request)
     {
+
         $id = Auth::id();
         $mytime = Carbon::now();
 
         for ($i = 0; $i < count($request->get('producto')); $i++) {
             $producto = Productos::find($request->get('producto')[$i]);
-            $cantidad = $producto->existencias + $request->get('cantidad')[$i];
+            if ($request->accion == "actu") {
+                $cantidad = $producto->existencias + $request->get('cantidad')[$i];
+            } else {
+                $cantidad = $producto->existencias - $request->get('cantidad')[$i];
+            }
+
             $producto->existencias = $cantidad;
             $producto->save();
 
@@ -38,6 +58,7 @@ class ProductoController extends Controller
 
             $producto->historico()->save($historico);
         }
+
 
         return redirect()->route('productos.index')
             ->with('success', 'Company has been created successfully.');
@@ -79,12 +100,14 @@ class ProductoController extends Controller
             'existencias' => 'required',
             'minimo' => 'required',
             'pvp' => 'required',
+            'tipo' => 'required'
         ]);
         $producto = new Productos;
         $producto->nombre = $request->nombre;
         $producto->existencias = $request->existencias;
         $producto->minimo = $request->minimo;
         $producto->pvp = $request->pvp;
+        $producto->tipo = $request->tipo;
         $producto->save();
 
         for ($i = 0; $i < count($request->get('proveedor')); $i++) {

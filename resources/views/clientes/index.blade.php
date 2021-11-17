@@ -22,7 +22,6 @@
             <th class="col-2">Nombre</th>
             <th class="col-2">Apellidos</th>
             <th class="col-2">Teléfono</th>
-            <th class="col-2">Descripción</th>
             <th class="col-2">Acciones</th>
         </tr>
         @foreach ($clientes as $cliente)
@@ -31,7 +30,6 @@
             <td>{{ $cliente->nombre }}</td>
             <td>{{ $cliente->apellidos }}</td>
             <td>{{ $cliente->telefono }}</td>
-            <td>{{ $cliente->descripcion }}</td>
             <td>
                 <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post"  class="d-flex justify-content-between">
                     <a class="btn btn-primary" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
