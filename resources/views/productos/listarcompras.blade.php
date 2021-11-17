@@ -26,6 +26,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if ($historicos)
                 @foreach($historicos[$producto->id] as $historico)
                 <tr>
                     <td>{{ $historico->id }}</td>
@@ -38,6 +39,11 @@
                     <td>{{ $historico->users_id }}</td>
                 </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td>Sin entradas</td>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>

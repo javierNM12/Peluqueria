@@ -28,8 +28,13 @@ class ProductoController extends Controller
     public function listarcompras()
     {
         $productos = Productos::selectRaw('*')->whereRaw('tipo = 0')->get(); // 0 = productos de venta
+        $contador = 0;
         foreach ($productos as $key => $value) {
             $historicos[$value->id] = Productos::find($value->id)->historico()->get();
+            $contador++;
+        }
+        if ($contador <= 0) {
+            $historicos = false;
         }
         return view('productos.listarcompras', compact(['productos', 'historicos']));
     }

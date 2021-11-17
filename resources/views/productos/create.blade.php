@@ -85,8 +85,8 @@
                 <label for="tipo" class="form-label">Tipo de producto</label>
                 <select class="form-select" aria-label="Tipo de producto" name="tipo" id="tipo">
                     <option selected>Seleccionar</option>
-                    <option value="0">Consumo propio</option>
-                    <option value="1">Venta al público</option>
+                    <option value="1">Consumo propio</option>
+                    <option value="0">Venta al público</option>
                 </select>
                 @error('minimo')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
