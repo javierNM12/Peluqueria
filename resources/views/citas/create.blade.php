@@ -16,7 +16,7 @@
     <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="servicios" id="servicios" value="1">
-        <div class="mb-3">
+        <div class="row mb-3">
             <label for="descripcion" class="form-label">Descripción de la cita</label>
             <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="descripcion citas">
             @error('descripcion')
@@ -31,20 +31,20 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>-->
-            <div class="col-6 mb-3">
+            <div class="col-6 mb-3 ps-0">
                 <label for="dia" class="form-label">Seleccione un día</label>
                 <input type="date" class="form-control" id="dia" name="dia" aria-describedby="Día">
                 @error('dia')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-6">
+            <div class="col-6 pe-0">
                 <select id="hora[]" name="hora[]" class="form-select horas" multiple aria-label="multiple select example">
                     <option selected>No se ha seleccionado un día</option>
                 </select>
             </div>
         </div>
-        <div class="mb-3">
+        <div class="row mb-3">
             <label for="clientes_id" class="form-label">Cliente</label>
             <select class="form-select" aria-label="Seleccione un cliente" name="clientes_id" id="clientes_id">
                 <option selected>Seleccione un cliente</option>
@@ -62,7 +62,7 @@
                 <i class="bi bi-dash-circle fs-3 text"></i>
             </div>
         </div>
-        <div>
+        <div class="row">
             <div class="row mb-3 servicio">
                 <label for="servicios_id" class="form-label">Servicio</label>
                 <select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">

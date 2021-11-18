@@ -11,6 +11,31 @@ use DB;
 
 class CitasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
+
+    public function historicocitas(Request $request)
+    {
+        $data['citas'] = Citas::selectRaw('*')->whereRaw('fecha_hora_i >= "' . $request->fechai . ' 00:00:00"')->whereRaw('fecha_hora_f <= "' . $request->fechaf . ' 23:59:59"')->get();
+
+        foreach ($data['citas'] as $key => $value) {
+            $data['clientes'][$value->id] = Citas::find($value->id)->clientes()->get();
+        }
+
+        foreach ($data['citas'] as $key => $value) {
+            $data['servicios'][$value->id] = Citas::find($value->id)->servicios()->get();
+        }
+
+        return response()->json($data);
+    }
+
+    public function formhistorico()
+    {
+        return view('citas.formhistorico');
+    }
+
     public function finalizar(Request $request)
     {
         $request->validate([
@@ -19,6 +44,18 @@ class CitasController extends Controller
 
         $cita = Citas::find($request->id);
         $cita->finalizado = 1;
+        $cita->save();
+        return response()->json(['success' => $request->id]);
+    }
+
+    public function cancelar(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+        ]);
+
+        $cita = Citas::find($request->id);
+        $cita->finalizado = 2;
         $cita->save();
         return response()->json(['success' => $request->id]);
     }

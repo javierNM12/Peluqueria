@@ -7,6 +7,11 @@ use App\Models\Servicios;
 
 class ServiciosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
+    
     /**
      * Display a listing of the resource.
      *

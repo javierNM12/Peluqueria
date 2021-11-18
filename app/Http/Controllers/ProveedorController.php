@@ -4,9 +4,47 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proveedores;
+use App\Models\Productos;
 
 class ProveedorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
+
+    public function formaddproductos()
+    {
+        $data['proveedores'] = Proveedores::get();
+
+        foreach ($data['proveedores'] as $key => $value) {
+            $data['productos'][$value->id] = Proveedores::find($value->id)->productos()->get();
+        }
+        //var_dump(Proveedores::find(1)->productos()->get());exit;
+
+        $productos = Productos::get();
+
+        return view('proveedores.addproductos', compact(['data', 'productos']));
+    }
+
+    public function storeaddproductos(Request $request)
+    {
+        $datosrecuperados = json_decode($request->datos);
+
+        $proveedor = Proveedores::find($request->proveedor)->first();
+        $productos = Productos::get();
+        
+        for ($i = 0; $i < count($productos); $i++) { //recorro todos los productos disponibles
+            if (isset($datosrecuperados[$productos[$i]['id']])) { //compruebo que ese producto ha sido enviado
+                $new[$i] = array('productos_id' => $productos[$i]['id'], 'precio' => $datosrecuperados[$productos[$i]['id']], 'proveedores_id' => $proveedor->id);
+            }
+        }
+        $proveedor->productos()->sync($new);
+
+        return redirect()->route('proveedores.index')
+            ->with('success', 'proveedor has been created successfully.');
+    }
+
     /**
      * Display a listing of the resource.
      *

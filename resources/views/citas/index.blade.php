@@ -19,7 +19,8 @@
     <table class="table table-bordered">
         <tr>
             <th class="col-2">ID</th>
-            <th class="col-3">Fecha</th>
+            <th class="col-3">Fecha inicio</th>
+            <th class="col-3">Fecha fin</th>
             <th class="col-3">Descripción</th>
             <th class="col-2">Estado</th>
             <th class="col-2">Action</th>
@@ -27,15 +28,18 @@
         @foreach ($citas as $cita)
         <tr>
             <td>{{ $cita->id }}</td>
-            <td>{{ $cita->fecha_hora }}</td>
+            <td>{{ $cita->fecha_hora_i }}</td>
+            <td>{{ $cita->fecha_hora_f }}</td>
             <td>{{ $cita->descripcion }}</td>
             @if($cita->finalizado == 1)
             <td class="text-success">Finalizado</td>
             @elseif($cita->finalizado == 0)
             <td class="text-warning">En proceso</td>
+            @elseif($cita->finalizado == 2)
+            <td class="text-danger">Cancelada</td>
             @endif
             <td>
-                <form action="{{ route('citas.destroy',$cita->id) }}" method="Post"  class="d-flex justify-content-between">
+                <form action="{{ route('citas.destroy',$cita->id) }}" method="Post" class="d-flex justify-content-between">
                     <a class="btn btn-primary" href="{{ route('citas.edit',$cita->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')

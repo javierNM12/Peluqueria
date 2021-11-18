@@ -56,10 +56,13 @@
                     </td>
                     <td class="col-1">
                         <div class="row">
-                            <div class="col-6 text-center">
-                                <a href="javascript: void(0)" onclick="eliminar('{{ $cita->id }}')" class="bi-x-circle del text-danger" role="button"></a>
+                            <div class="col-4 text-center">
+                                <a href="javascript: void(0)" onclick="eliminar('{{ $cita->id }}')" class="bi-trash del text-danger" role="button"></a>
                             </div>
-                            <div class="col-6 text-center">
+                            <div class="col-4 text-center">
+                                <a href="javascript: void(0)" onclick="cancelar('{{ $cita->id }}')" class="bi-x-circle del text-warning" role="button"></a>
+                            </div>
+                            <div class="col-4 text-center">
                                 <a href="javascript: void(0)" onclick="finalizar('{{ $cita->id }}')" class="bi-check-lg text-success" role="button"></a>
                             </div>
                         </div>
@@ -150,6 +153,32 @@
 
 
 <script>
+    // PETICION AJAX PARA MARCAR CANCELAR CITA
+    function cancelar(e) {
+        event.stopPropagation(); // evita que el se muestre la fila con los datos del cliente (por culpa del onClick event)
+        var id = e;
+        $.ajaxSetup({ // cabeceras con el token csrf
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('ajaxcita.cancelar') }}",
+            type: 'POST',
+            data: {
+                id: id,
+            },
+            success: function(data) {
+                $('[data-id="' + id + '"]').next(".table-secondary").remove();
+                $('[data-id="' + id + '"]').remove();
+            },
+            error: function(data) {
+                alert("ERROR: " + data);
+            }
+        });
+    };
+
     // PETICION AJAX PARA MARCAR COMO FINALIZADA LA CITA
     function finalizar(e) {
         event.stopPropagation(); // evita que el se muestre la fila con los datos del cliente (por culpa del onClick event)

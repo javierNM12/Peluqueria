@@ -12,6 +12,10 @@ use DB;
 
 class ProductoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
 
     public function actuinventario()
     {
@@ -21,13 +25,13 @@ class ProductoController extends Controller
 
     public function compras()
     {
-        $productos = Productos::selectRaw('*')->whereRaw('tipo = 0')->get(); // 0 = productos de venta
+        $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
         return view('productos.compras', compact('productos'));
     }
 
     public function listarcompras()
     {
-        $productos = Productos::selectRaw('*')->whereRaw('tipo = 0')->get(); // 0 = productos de venta
+        $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
         $contador = 0;
         foreach ($productos as $key => $value) {
             $historicos[$value->id] = Productos::find($value->id)->historico()->get();

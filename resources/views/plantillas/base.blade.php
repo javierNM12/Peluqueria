@@ -116,6 +116,9 @@
                                     <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('formaddproductos') }}">Añadir productos a un proveedor ***</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
                                 </li>
                                 <li class="nav-item">
@@ -149,7 +152,7 @@
                                     <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('formhistorial') }}">Historial de citas por cliente *</a>
+                                    <a class="dropdown-item" href="{{ Route('formhistorial') }}">Historial de citas por cliente</a>
                                 </li>
                             </ul>
                         </div>
@@ -167,7 +170,7 @@
                                     <a class="dropdown-item" href="{{ Route('citas.create') }}">Añadir citas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Historico de citas *</a>
+                                    <a class="dropdown-item" href="{{ Route('formhistoricocitas') }}">Historico de citas</a>
                                 </li>
                             </ul>
                         </div>

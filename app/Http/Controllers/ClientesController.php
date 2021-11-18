@@ -7,6 +7,11 @@ use App\Models\Clientes;
 
 class ClientesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
+    
     public function historicoclientes(Request $request)
     {
         $historico = Clientes::find($request->id)->citas()->get();

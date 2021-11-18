@@ -31,6 +31,6 @@ class CreateProductosProveedoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productos__proveedores');
+        Schema::dropIfExists('productos_proveedores');
     }
 }

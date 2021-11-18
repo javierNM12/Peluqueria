@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class ProductosProveedoresController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
+    
     /**
      * Display a listing of the resource.
      *

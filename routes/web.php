@@ -37,11 +37,13 @@ use App\Http\Controllers\CitasServiciosController;
 
 // .----****** ROUTES AJAX ******----.//
 Route::POST('ajax/finalizarcita', [CitasController::class, 'finalizar'])->name('ajaxcita.finalizar');
+Route::POST('ajax/cancelarcita', [CitasController::class, 'cancelar'])->name('ajaxcita.cancelar');
 Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->name('ajaxcita.eliminar');
 Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita.crear');
 Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
 Route::POST('ajax/horas', [CitasController::class, 'horas'])->name('ajaxcita.horas');
 Route::POST('ajax/historicoclientes', [ClientesController::class, 'historicoclientes'])->name('ajax.historicoclientes');
+Route::POST('ajax/historicocitas', [CitasController::class, 'historicocitas'])->name('ajax.historicocitas');// *-*-*-*-*-*
 
 // .----****** CRUDS ******----.//
 
@@ -84,6 +86,18 @@ Route::get('/listarcompras', [ProductoController::class, 'listarcompras'])->midd
 
 // Permitir elegir el cliente para ver su historial
 Route::get('/formhistorial', [ClientesController::class, 'formhistorial'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistorial');
+
+// Seleccionar tramo de fechas historico citas
+Route::get('/formhistoricocitas', [CitasController::class, 'formhistorico'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistoricocitas');
+
+// Añadir a un proveedor nuevos productos
+Route::get('/formaddproductos', [ProveedorController::class, 'formaddproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('formaddproductos');
+// Store a un proveedor nuevos productos
+Route::POST('/storeaddproductos', [ProveedorController::class, 'storeaddproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeaddproductos');
+
+
+
+
 
 
 // Inicio del sitio
