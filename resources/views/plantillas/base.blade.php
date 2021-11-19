@@ -106,24 +106,42 @@
                     <li class="nav-item me-2">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Inventario
+                                Productos
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar productos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto *TEMA CONTROLAR PRODUCTO-PROVEEDOR</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('formaddproductos') }}">Añadir productos a un proveedor ***</a>
                                 </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Proveedores
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor</a>
                                 </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Inventario
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar inventario</a>
                                 </li>
@@ -131,10 +149,10 @@
                                     <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('listarcompras') }}">Mostrar ventas (permitir elegir el producto) * </a>
+                                    <a class="dropdown-item" href="{{ Route('listarcompras') }}">Histórico de ventas por producto</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('compras') }}">Realizar compra presencial</a>
+                                    <a class="dropdown-item" href="{{ Route('compras') }}">Realizar venta presencial</a>
                                 </li>
                             </ul>
                         </div>
@@ -146,7 +164,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes *</a>
+                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente</a>
@@ -164,7 +182,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Listar citas *</a>
+                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Listar citas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('citas.create') }}">Añadir citas</a>
@@ -182,7 +200,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('servicios.index') }}">Carta de servicios *</a>
+                                    <a class="dropdown-item" href="{{ Route('servicios.index') }}">Carta de servicios</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('servicios.create') }}">Añadir servicio</a>

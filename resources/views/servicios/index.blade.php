@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Listado de servicios</h2>
+                <h2>Carta de servicios</h2>
             </div>
             <div class="pull-right mb-2 d-flex justify-content-end">
                 <a class="btn btn-success" href="{{ route('servicios.create') }}"> Añadir servicio</a>

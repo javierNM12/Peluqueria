@@ -17,6 +17,13 @@ class ProductoController extends Controller
         $this->middleware('alarmas');
     }
 
+    public function historicoventas(Request $request)
+    {
+        $historico = Historicos::selectRaw('*')->whereRaw('productos_id = ' . $request->id)->get();
+        return response()->json($historico);
+        //return view('productos.listarcompras', compact(['productos', 'historicos']));
+    }
+
     public function actuinventario()
     {
         $productos = Productos::get();
@@ -32,15 +39,15 @@ class ProductoController extends Controller
     public function listarcompras()
     {
         $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
-        $contador = 0;
-        foreach ($productos as $key => $value) {
-            $historicos[$value->id] = Productos::find($value->id)->historico()->get();
-            $contador++;
-        }
-        if ($contador <= 0) {
-            $historicos = false;
-        }
-        return view('productos.listarcompras', compact(['productos', 'historicos']));
+        // $contador = 0;
+        // foreach ($productos as $key => $value) {
+        //     $historicos[$value->id] = Productos::find($value->id)->historico()->get();
+        //     $contador++;
+        // }
+        // if ($contador <= 0) {
+        //     $historicos = false;
+        // }
+        return view('productos.listarcompras', compact('productos'));
     }
 
     public function storeactuproductos(Request $request)

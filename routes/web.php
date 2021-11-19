@@ -43,7 +43,8 @@ Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita
 Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
 Route::POST('ajax/horas', [CitasController::class, 'horas'])->name('ajaxcita.horas');
 Route::POST('ajax/historicoclientes', [ClientesController::class, 'historicoclientes'])->name('ajax.historicoclientes');
-Route::POST('ajax/historicocitas', [CitasController::class, 'historicocitas'])->name('ajax.historicocitas');// *-*-*-*-*-*
+Route::POST('ajax/historicoventas', [ProductoController::class, 'historicoventas'])->name('ajax.historicoventas');
+Route::POST('ajax/historicocitas', [CitasController::class, 'historicocitas'])->name('ajax.historicocitas');
 
 // .----****** CRUDS ******----.//
 
