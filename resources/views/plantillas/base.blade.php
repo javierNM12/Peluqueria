@@ -110,13 +110,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar productos</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Carta de productos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto *TEMA CONTROLAR PRODUCTO-PROVEEDOR</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('formaddproductos') }}">Añadir productos a un proveedor ***</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto a la carta *TEMA CONTROLAR PRODUCTO-PROVEEDOR</a>
                                 </li>
                             </ul>
                         </div>
@@ -143,7 +140,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar inventario</a>
+                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar productos gastados</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="">Añadir nuevos productos (entrega de productos por parte del proveedor)</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
@@ -299,15 +299,20 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                        
                             @if(Session::get('alarmas') != null)
-                            @foreach (Session::get('alarmas'); as $key => $alarma)
-                            <tr>
-                                <td>Sin existencias del producto <strong>{{ $alarma->nombre }}</strong></td>
-                                <td>Existencias: {{ $alarma->existencias }}</td>
-                                <td>Mínimo: {{ $alarma->minimo }}</td>
-                            </tr>
-                            @endforeach
+                            
+                                @foreach (Session::get('alarmas')['productos']; as $key => $producto)
+                                    @if(isset(Session::get('alarmas')['inventario'][$producto['id']]['existencias']))
+                                        @if($producto['minimo'] > Session::get('alarmas')['inventario'][$producto['id']]['existencias'])
+                                        <tr>
+                                            <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
+                                            <td>Existencias: {{ Session::get('alarmas')['inventario'][$producto['id']]['existencias'] }}</td>
+                                            <td>Mínimo: {{ $producto->minimo }}</td>
+                                        </tr>
+                                        @endif
+                                    @endif
+                                @endforeach
                             @endif
                         </tbody>
                     </table>

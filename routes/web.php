@@ -9,6 +9,7 @@ use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\HistoricoController;
 use App\Http\Controllers\CitasServiciosController;
+use App\Http\Controllers\InventarioController;
 
 // COMENTARIO PARA COMPROBAR QUE SE SUBE BIEN LOS FICHEROS
 
@@ -76,8 +77,8 @@ Route::resource('citasservicios', CitasServiciosController::class)->middleware([
 // .----****** RUTAS ******----.//
 
 // Mostrar formulario para actualizar el inventario
-Route::get('/actuinventario', [ProductoController::class, 'actuinventario'])->middleware(['alarmas'])->middleware(['auth'])->name('actuinventario');
-Route::POST('/storeactuproductos', [ProductoController::class, 'storeactuproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeactuproductos');
+Route::get('/actuinventario', [InventarioController::class, 'actuinventario'])->middleware(['alarmas'])->middleware(['auth'])->name('actuinventario');
+Route::POST('/storeactuproductos', [InventarioController::class, 'storeactuproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeactuproductos');
 
 // Mostrar formulario para realizar compras presenciales
 Route::get('/compras', [ProductoController::class, 'compras'])->middleware(['alarmas'])->middleware(['auth'])->name('compras');
@@ -90,11 +91,6 @@ Route::get('/formhistorial', [ClientesController::class, 'formhistorial'])->midd
 
 // Seleccionar tramo de fechas historico citas
 Route::get('/formhistoricocitas', [CitasController::class, 'formhistorico'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistoricocitas');
-
-// Añadir a un proveedor nuevos productos
-Route::get('/formaddproductos', [ProveedorController::class, 'formaddproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('formaddproductos');
-// Store a un proveedor nuevos productos
-Route::POST('/storeaddproductos', [ProveedorController::class, 'storeaddproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeaddproductos');
 
 
 

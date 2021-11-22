@@ -19,6 +19,7 @@
             <th class="col-2">fecha hora</th>
             <th class="col-2">cantidad</th>
             <th class="col-2">producto id</th>
+            <th class="col-2">precio</th>
             <th class="col-2">Usuario id</th>
         </tr>
         @foreach ($historicos as $historico)
@@ -27,6 +28,7 @@
             <td>{{ $historico->fecha_hora }}</td>
             <td>{{ $historico->cantidad }}</td>
             <td>{{ $historico->productos_id }}</td>
+            <td>{{ $historico->precio }}</td>
             <td>{{ $historico->users_id }}</td>
         </tr>
         @endforeach

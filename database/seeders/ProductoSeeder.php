@@ -17,7 +17,6 @@ class ProductoSeeder extends Seeder
         Productos::create([
             'id' => '1',
             'nombre' => 'Tinte rojo',
-            'existencias' => '10',
             'minimo' => '12',
             'pvp' => '12.90',
             'tipo' => '1',
@@ -26,7 +25,6 @@ class ProductoSeeder extends Seeder
         Productos::create([
             'id' => '2',
             'nombre' => 'Crema de manos marca X 100ml',
-            'existencias' => '20',
             'minimo' => '5',
             'pvp' => '7.99',
             'tipo' => '1',
@@ -35,7 +33,6 @@ class ProductoSeeder extends Seeder
         Productos::create([
             'id' => '3',
             'nombre' => 'Champú calidad premium 1L para peluquerías',
-            'existencias' => '5',
             'minimo' => '2',
             'pvp' => '20',
             'tipo' => '0',

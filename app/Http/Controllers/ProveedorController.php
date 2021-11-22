@@ -13,7 +13,10 @@ class ProveedorController extends Controller
         $this->middleware('alarmas');
     }
 
-    public function formaddproductos()
+    #region
+    // AL CAMBIAR LA TABLA YA NO GUARDAMOS QUE PRODUCTOS VENDE CADA PROVEEDOR
+    // DEPRECATED
+    /*public function formaddproductos()
     {
         $data['proveedores'] = Proveedores::get();
 
@@ -43,7 +46,8 @@ class ProveedorController extends Controller
 
         return redirect()->route('proveedores.index')
             ->with('success', 'proveedor has been created successfully.');
-    }
+    }*/
+    #endregion
 
     /**
      * Display a listing of the resource.
@@ -121,7 +125,6 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'telefono' => 'required',
             'nombre' => 'required',

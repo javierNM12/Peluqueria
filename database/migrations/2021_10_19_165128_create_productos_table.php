@@ -13,11 +13,11 @@ class CreateProductosTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('nombre');
-            $table->bigInteger('existencias');
             $table->bigInteger('minimo');
             $table->float('pvp', 8,2);
             $table->tinyInteger('tipo'); // -> 0 para los productos de consumo propio | -> 1 para los productos de venta

@@ -1,0 +1,153 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Productos;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Historicos;
+use App\Models\Inventario;
+
+
+class InventarioController extends Controller
+{
+    public function actuinventario()
+    {
+        $productos = Productos::whereRaw("tipo = 1")->get();
+        return view('productos.actualizar', compact('productos'));
+    }
+
+    public function storeactuproductos(Request $request)
+    {
+        $id = Auth::id();
+        $mytime = Carbon::now();
+
+
+        /*
+        $producto = Productos::find($id);
+        $producto->historico()->delete();
+        $producto->proveedores()->detach();
+        $producto->delete();
+        */
+
+
+        $contador = 0;
+        $precio = 0;
+        for ($i = 0; $i < count($request->get('producto')); $i++) {
+            $producto = Productos::find($request->get('producto')[$i]);
+            if ($request->accion == "actu") {
+                for ($f = 0; $f < $request->get('cantidad')[$i]; $f++) {
+                    $item = Inventario::select("*")->whereRaw('productos_id = ' . $request->get('producto')[$i])->orderBy('created_at', 'ASC')->first();
+                    if ($item != null) {
+                        $item->delete();
+                        $precio += $item->precio;
+                        $contador--;
+                    } else { // no hay existencias de ese producto
+
+                    }
+                }
+            } else {
+                // $cantidad = $producto->existencias - $request->get('cantidad')[$i];
+            }
+
+            // $producto->existencias = $cantidad;
+            // $producto->save();
+
+
+            // fecha_hora
+            // cantidad
+            // productos_id
+            // precio
+            // users_id
+
+            $historico = new Historicos();
+            $historico->users_id = $id;
+            $historico->cantidad = $contador;
+            $historico->precio = $precio;
+            $historico->fecha_hora = $mytime->toDateTimeString();
+
+            $producto->historico()->save($historico);
+        }
+
+
+        return redirect()->route('productos.index')
+            ->with('success', 'Company has been created successfully.');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

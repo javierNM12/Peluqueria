@@ -10,15 +10,15 @@ class Productos extends Model
     use HasFactory;
     protected $fillable = [
         'nombre',
-        'existencias',
+        // 'existencias',
         'minimo',
         'pvp',
         'tipo'
     ];
 
-    public function proveedores()
+    public function inventario()
     {
-        return $this->belongsToMany('App\Models\Proveedores', 'productos_proveedores', 'productos_id', 'proveedores_id')->withPivot('precio');
+        return $this->hasMany(Inventario::class);
     }
 
     public function historico()

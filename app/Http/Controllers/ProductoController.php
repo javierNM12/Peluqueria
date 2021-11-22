@@ -24,12 +24,6 @@ class ProductoController extends Controller
         //return view('productos.listarcompras', compact(['productos', 'historicos']));
     }
 
-    public function actuinventario()
-    {
-        $productos = Productos::get();
-        return view('productos.actualizar', compact('productos'));
-    }
-
     public function compras()
     {
         $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
@@ -48,36 +42,6 @@ class ProductoController extends Controller
         //     $historicos = false;
         // }
         return view('productos.listarcompras', compact('productos'));
-    }
-
-    public function storeactuproductos(Request $request)
-    {
-
-        $id = Auth::id();
-        $mytime = Carbon::now();
-
-        for ($i = 0; $i < count($request->get('producto')); $i++) {
-            $producto = Productos::find($request->get('producto')[$i]);
-            if ($request->accion == "actu") {
-                $cantidad = $producto->existencias + $request->get('cantidad')[$i];
-            } else {
-                $cantidad = $producto->existencias - $request->get('cantidad')[$i];
-            }
-
-            $producto->existencias = $cantidad;
-            $producto->save();
-
-            $historico = new Historicos();
-            $historico->users_id = $id;
-            $historico->cantidad = $request->get('cantidad')[$i];
-            $historico->fecha_hora = $mytime->toDateTimeString();
-
-            $producto->historico()->save($historico);
-        }
-
-
-        return redirect()->route('productos.index')
-            ->with('success', 'Company has been created successfully.');
     }
 
     /**
@@ -214,7 +178,11 @@ class ProductoController extends Controller
     /* Get listado de alarmas */
     public function getAlarmas()
     {
-        $productos = Productos::selectRaw('*')->whereRaw('existencias < minimo')->get();
-        return $productos;
+        // SELECT productos_id, count(productos_id) as existencias FROM `inventarios` WHERE 1 group BY `productos_id`; 
+        $data['productos'] = Productos::selectRaw('*')->get();
+        for ($i = 0; $i < count($data['productos']); $i++) {
+            $data['inventario'][$data['productos'][$i]['id']] = $data['productos'][$i]->inventario()->selectRaw('productos_id, count(productos_id) as existencias')->groupBy('productos_id')->where('productos_id', '=', $data['productos'][$i]['id'])->first();
+        }
+        return $data;
     }
 }

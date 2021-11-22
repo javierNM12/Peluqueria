@@ -20,7 +20,6 @@
         <tr>
             <th class="col-2">ID</th>
             <th class="col-2">Nombre</th>
-            <th class="col-2">Existencias</th>
             <th class="col-2">Mínimo</th>
             <th class="col-2">P.V.P.</th>
             <th class="col-2">Acciones</th>
@@ -29,7 +28,6 @@
         <tr>
             <td>{{ $producto->id }}</td>
             <td>{{ $producto->nombre }}</td>
-            <td>{{ $producto->existencias }}</td>
             <td>{{ $producto->minimo }}</td>
             <td>{{ $producto->pvp }}</td>
             <td>

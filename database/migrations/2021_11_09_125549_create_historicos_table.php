@@ -18,6 +18,7 @@ class CreateHistoricosTable extends Migration
             $table->timestamps();
             $table->dateTime('fecha_hora');
             $table->bigInteger('cantidad');
+            $table->float('precio', 8,2);
             $table->bigInteger('productos_id')->unsigned();
             $table->foreign('productos_id')->references('id')->on('productos');
             $table->bigInteger('users_id')->unsigned();

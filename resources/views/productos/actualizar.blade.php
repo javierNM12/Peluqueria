@@ -5,6 +5,9 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
                 <h2>Actualizar inventario</h2>
+                <p class="lead text-muted">
+                    Productos utilizados a restar del inventario de la peluquería
+                </p>
             </div>
         </div>
     </div>
@@ -18,10 +21,8 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Existencias</th>
-                <th>Mínimo</th>
                 <th>P.V.P.</th>
-                <th>Acciones</th>
+                <th>Selecionar</th>
             </tr>
         </thead>
         <tbody>
@@ -29,8 +30,6 @@
             <tr>
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
-                <td>{{ $producto->existencias }}</td>
-                <td>{{ $producto->minimo }}</td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
                     <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', '{{ $producto->existencias }}', '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
@@ -39,7 +38,7 @@
             @endforeach
         </tbody>
     </table>
-    <form class="my-5"  action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data">
+    <form class="my-5" action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="accion" id="accion" value="actu">
         <table id="tablaprincipal" class="table table-borderless">
@@ -90,9 +89,11 @@
 
     function delcantidad(id) {
         var cantidad = parseInt($("span[data-spanid='" + id + "']").text());
-        $("span[data-spanid='" + id + "']").text(cantidad - 1);
-
-        $("tr[data-trid='" + id + "'] input:last").val(cantidad - 1);
+        if (cantidad >= 1) {
+            $("span[data-spanid='" + id + "']").text(cantidad - 1);
+        } else {
+            $("tr[data-trid='" + id + "'] input:last").val(cantidad - 1);
+        }
     }
 
     function addcantidad(id) {
