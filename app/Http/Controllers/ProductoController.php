@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Productos;
 use App\Models\Proveedores;
 use App\Models\Historicos;
+use App\Models\Inventario;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DB;
@@ -22,12 +23,6 @@ class ProductoController extends Controller
         $historico = Historicos::selectRaw('*')->whereRaw('productos_id = ' . $request->id)->get();
         return response()->json($historico);
         //return view('productos.listarcompras', compact(['productos', 'historicos']));
-    }
-
-    public function compras()
-    {
-        $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
-        return view('productos.compras', compact('productos'));
     }
 
     public function listarcompras()
@@ -77,30 +72,22 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'existencias' => 'required',
             'minimo' => 'required',
             'pvp' => 'required',
             'tipo' => 'required'
         ]);
         $producto = new Productos;
         $producto->nombre = $request->nombre;
-        $producto->existencias = $request->existencias;
         $producto->minimo = $request->minimo;
         $producto->pvp = $request->pvp;
         $producto->tipo = $request->tipo;
         $producto->save();
-
-        for ($i = 0; $i < count($request->get('proveedor')); $i++) {
-            $new[$i] = array('proveedores_id' => $request->get('proveedor')[$i], 'precio' => $request->get('precio')[$i]);
-        }
 
         /*foreach ($request->get('proveedor') as $dato => $value) {
             foreach ($request->get('precio') as $dato2 => $value2) {
                 $new[$dato] = array('proveedores_id' => $value, 'precio' => $value2);
             }
         }*/
-
-        $producto->proveedores()->sync($new);
 
         return redirect()->route('productos.index')
             ->with('success', 'Company has been created successfully.');

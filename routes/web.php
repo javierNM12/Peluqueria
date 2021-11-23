@@ -81,7 +81,10 @@ Route::get('/actuinventario', [InventarioController::class, 'actuinventario'])->
 Route::POST('/storeactuproductos', [InventarioController::class, 'storeactuproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeactuproductos');
 
 // Mostrar formulario para realizar compras presenciales
-Route::get('/compras', [ProductoController::class, 'compras'])->middleware(['alarmas'])->middleware(['auth'])->name('compras');
+Route::get('/compras', [InventarioController::class, 'compras'])->middleware(['alarmas'])->middleware(['auth'])->name('compras');
+
+// Mostrar el formulario para añadir productos al inventario
+Route::get('/addproductos', [InventarioController::class, 'addproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('addproductos');
 
 // Listar las compras
 Route::get('/listarcompras', [ProductoController::class, 'listarcompras'])->middleware(['alarmas'])->middleware(['auth'])->name('listarcompras');

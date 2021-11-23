@@ -90,8 +90,8 @@
     @elseif(Auth::user()->rol == "1")
     <!-- Empresario -->
 
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #a8dadc !important;">
+    
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -99,13 +99,13 @@
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item me-2">
-                        <a class="nav-link fw-bolder text-secondary" href="{{ Route('inicio') }}">Inicio</a>
+                        <a class="btn btn-secondary" href="{{ Route('inicio') }}">Inicio</a>
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Carta de productos
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar carta de productos</a>
@@ -118,9 +118,9 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Proveedores
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
@@ -133,9 +133,9 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Inventario
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar productos gastados</a>
@@ -157,9 +157,9 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Clientes
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes</a>
@@ -175,9 +175,9 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Citas
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('citas.index') }}">Listar citas</a>
@@ -193,9 +193,9 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Servicios
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('servicios.index') }}">Carta de servicios</a>
@@ -297,20 +297,20 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                        
                             @if(Session::get('alarmas') != null)
-
-                            @foreach (Session::get('alarmas')['productos']; as $key => $producto)
-                            @if(isset(Session::get('alarmas')['inventario'][$producto['id']]['existencias']))
-                            @if($producto['minimo'] > Session::get('alarmas')['inventario'][$producto['id']]['existencias'])
-                            <tr>
-                                <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
-                                <td>Existencias: {{ Session::get('alarmas')['inventario'][$producto['id']]['existencias'] }}</td>
-                                <td>Mínimo: {{ $producto->minimo }}</td>
-                            </tr>
-                            @endif
-                            @endif
-                            @endforeach
+                            
+                                @foreach (Session::get('alarmas')['productos']; as $key => $producto)
+                                    @if(isset(Session::get('alarmas')['inventario'][$producto['id']]['existencias']))
+                                        @if($producto['minimo'] > Session::get('alarmas')['inventario'][$producto['id']]['existencias'])
+                                        <tr>
+                                            <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
+                                            <td>Existencias: {{ Session::get('alarmas')['inventario'][$producto['id']]['existencias'] }}</td>
+                                            <td>Mínimo: {{ $producto->minimo }}</td>
+                                        </tr>
+                                        @endif
+                                    @endif
+                                @endforeach
                             @endif
                         </tbody>
                     </table>

@@ -15,65 +15,18 @@
     @endif
     <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="proveedores" id="proveedores" value="1">
         <div class="row">
-            <div class="d-flex justify-content-end">
-                <i class="bi bi-plus-circle fs-3 text me-3"></i>
-                <i class="bi bi-dash-circle fs-3 text"></i>
-            </div>
-        </div>
-        <div>
-            <div class="row proveedor">
-                <span class="fs-4">Proveedores</span>
-                <div class="mb-3 col-10 d-flex align-items-end">
-                    <select class="form-select" aria-label="Seleccione un proveedor" name="proveedor[]" id="proveedor[]">
-                        <option selected>Seleccione un proveedor</option>
-                        @foreach ($proveedores as $proveedor)
-                        <option value="{{ $proveedor->id}}">{{ $proveedor->nombre }}</option>
-                        @endforeach
-                    </select>
-                    @error('proveedor')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="mb-3 col-2">
-                    <label for="precio" class="form-label">Precio del producto</label>
-                    <input type="number" step="0.01" class="form-control" id="precio[]" name="precio[]" aria-describedby="precio producto">
-                    @error('precio')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div id="alarmaproveedores" class="alert alert-danger mt-1 mb-1" style="display:none">No se pueden eliminar todos los proveedores</div>
-
-
-        <div class="row mt-5">
-            <span class="fs-4 mb-3">Proveedores</span>
-            <div class="mb-3 col-8">
+            <div class="mb-3 col-6">
                 <label for="nombre" class="form-label">Nombre del producto</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre producto">
                 @error('nombre')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3 col-4">
-                <label for="pvp" class="form-label">P.V.P.</label>
-                <input type="number" step="0.01" class="form-control" id="pvp" name="pvp" aria-describedby="pvp producto">
-                @error('pvp')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-            </div>
+            
         </div>
 
         <div class="row">
-            <div class="mb-3 col-5">
-                <label for="existencias" class="form-label">Existencias del producto</label>
-                <input type="number" class="form-control" id="existencias" name="existencias" aria-describedby="existencias producto">
-                @error('existencias')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-            </div>
             <div class="mb-3 col-5">
                 <label for="minimo" class="form-label">Cantidad mínima del producto (Alarma)</label>
                 <input type="number" class="form-control" id="minimo" name="minimo" aria-describedby="minimo producto">
@@ -82,11 +35,18 @@
                 @enderror
             </div>
             <div class="mb-3 col-2">
+                <label for="pvp" class="form-label">P.V.P.</label>
+                <input type="number" step="0.01" class="form-control" id="pvp" name="pvp" aria-describedby="pvp producto">
+                @error('pvp')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 col-4">
                 <label for="tipo" class="form-label">Tipo de producto</label>
                 <select class="form-select" aria-label="Tipo de producto" name="tipo" id="tipo">
                     <option selected>Seleccionar</option>
-                    <option value="1">Consumo propio</option>
-                    <option value="0">Venta al público</option>
+                    <option value="0">Consumo propio</option>
+                    <option value="1">Venta al público</option>
                 </select>
                 @error('minimo')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

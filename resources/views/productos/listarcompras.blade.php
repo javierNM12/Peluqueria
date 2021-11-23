@@ -67,16 +67,14 @@
                     $("#display tbody *").remove();
 
                     $.each(data, function(index, history) {
-                        var texto = '<tr>';
-                        texto += '<td>' + history['id'] + '</td>';
-                        texto += '<td>' + history['fecha_hora'] + '</td>';
-                        if (history['cantidad'] >= 1) { // mostramos la cantidad vendida, cambiando el signo ya que si hemos sacado 5 productos (-5) del inventario significa que son 5 ventas (+5)
-                            texto += '<td class="text-danger">' + history['cantidad'] * -1 + '</td>';
-                        } else {
+                        if (history['cantidad'] <= 1) { // mostramos solamente los productos vendidos a los clientes
+                            var texto = '<tr>';
+                            texto += '<td>' + history['id'] + '</td>';
+                            texto += '<td>' + history['fecha_hora'] + '</td>';
                             texto += '<td class="text-success">' + history['cantidad'] * -1 + '</td>';
+                            texto += '</tr>';
+                            $("#display tbody").append(texto);
                         }
-                        texto += '</tr>';
-                        $("#display tbody").append(texto);
                     });
                 },
                 error: function(data) {

@@ -32,7 +32,7 @@
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
-                    <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', '{{ $producto->existencias }}', '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
+                    <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', @foreach($inventario as $invent) @if($invent->productos_id == $producto->id) {{ $invent->existencias }} @endif @endforeach  , '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
                 </td>
             </tr>
             @endforeach
@@ -76,7 +76,7 @@
             texto += '<td>' + existencias + '</td>';
             texto += '<td>' + minimo + '</td>';
             texto += '<td>' + pvp + '</td>';
-            texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
+            texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
             texto += '</tr>';
 
             $(texto).insertAfter($("#tablaprincipal tbody"));
@@ -96,11 +96,12 @@
         }
     }
 
-    function addcantidad(id) {
+    function addcantidad(id, existencias) {
         var cantidad = parseInt($("span[data-spanid='" + id + "']").text());
-        $("span[data-spanid='" + id + "']").text(cantidad + 1);
-
-        $("tr[data-trid='" + id + "'] input:last").val(cantidad + 1);
+        if (cantidad < existencias) {
+            $("span[data-spanid='" + id + "']").text(cantidad + 1);
+            $("tr[data-trid='" + id + "'] input:last").val(cantidad + 1);
+        }
     }
 </script>
 @endsection

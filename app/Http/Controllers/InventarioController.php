@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Productos;
+use App\Models\Proveedores;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Historicos;
@@ -12,10 +13,26 @@ use App\Models\Inventario;
 
 class InventarioController extends Controller
 {
+    public function compras()
+    {
+        $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
+        $inventario = Inventario::selectRaw('productos_id, COUNT(id) as existencias')->groupBy('productos_id')->get();
+        return view('productos.compras', compact(['productos', 'inventario']));
+    }
+    public function addproductos()
+    {
+        $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
+        $inventario = Inventario::selectRaw('productos_id, COUNT(id) as existencias')->groupBy('productos_id')->get();
+        $proveedores = Proveedores::select('*')->get();
+        return view('productos.addproductos', compact(['productos', 'inventario', 'proveedores']));
+    }
+
     public function actuinventario()
     {
         $productos = Productos::whereRaw("tipo = 1")->get();
-        return view('productos.actualizar', compact('productos'));
+        // SELECT `productos_id`, COUNT(`id`) as cantidad FROM `inventarios` GROUP BY `productos_id`; 
+        $inventario = Inventario::selectRaw('productos_id, COUNT(id) as existencias')->groupBy('productos_id')->get();
+        return view('productos.actualizar', compact(['productos', 'inventario']));
     }
 
     public function storeactuproductos(Request $request)
@@ -36,25 +53,27 @@ class InventarioController extends Controller
         $precio = 0;
         for ($i = 0; $i < count($request->get('producto')); $i++) {
             $producto = Productos::find($request->get('producto')[$i]);
-            if ($request->accion == "actu") {
+            if ($request->accion == "actu" or $request->accion == "compra") {
                 for ($f = 0; $f < $request->get('cantidad')[$i]; $f++) {
                     $item = Inventario::select("*")->whereRaw('productos_id = ' . $request->get('producto')[$i])->orderBy('created_at', 'ASC')->first();
                     if ($item != null) {
                         $item->delete();
                         $precio += $item->precio;
                         $contador--;
-                    } else { // no hay existencias de ese producto
-
                     }
                 }
-            } else {
-                // $cantidad = $producto->existencias - $request->get('cantidad')[$i];
+            } else if ($request->accion == "add") {
+                for ($f = 0; $f < $request->get('cantidad')[$i]; $f++) {
+                    $item = new Inventario();
+                    $item->productos_id = $request->get('producto')[$i];
+                    $item->proveedores_id = $request->get('proveedores')[$i];
+                    $item->precio = $request->get('precio')[$i];
+                    $item->save();
+                }
             }
 
             // $producto->existencias = $cantidad;
             // $producto->save();
-
-
             // fecha_hora
             // cantidad
             // productos_id
