@@ -99,11 +99,11 @@
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item me-2">
-                        <a class="nav-link fw-bolder text-secondary" href="{{ Route('inicio') }}">Inicio</a>
+                        <a class="nav-link fw-bolder text-dark" href="{{ Route('inicio') }}">Inicio</a>
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Carta de productos
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -118,7 +118,7 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Proveedores
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -133,7 +133,7 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Inventario
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -157,7 +157,7 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Clientes
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -175,7 +175,7 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Citas
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -193,7 +193,7 @@
                     </li>
                     <li class="nav-item me-2">
                         <div class="dropdown">
-                            <a class="nav-link fw-bolder dropdown-toggle text-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Servicios
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -210,10 +210,10 @@
             </div>
             <form class="form-inline my-2 my-lg-0" method="POST" action="{{ Route ('logout') }}">
                 @csrf
-                <a class='px-1 mnutop text-warning text-decoration-none' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button'>
+                <a class='fw-bolder px-1 mnutop text-decoration-none' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button' style="color: #fb8500 !important;">
                     <span class="bi bi-exclamation-octagon-fill"></span> Alarmas
                 </a>
-                <button class="btn btn-outline-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
+                <button class="fw-bolder border-3 btn btn-outline-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
             </form>
         </div>
     </nav>
