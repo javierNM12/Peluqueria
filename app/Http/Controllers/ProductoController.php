@@ -46,7 +46,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $data['productos'] = Productos::orderBy('id', 'desc')->paginate(5);
+        $data['productos'] = Productos::orderBy('id', 'desc')->simplePaginate(5);
         return view('productos.index', $data);
     }
 

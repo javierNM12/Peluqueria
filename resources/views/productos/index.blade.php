@@ -18,10 +18,10 @@
     @endif
     <table class="table table-bordered">
         <tr>
-            <th class="col-2">ID</th>
-            <th class="col-2">Nombre</th>
-            <th class="col-2">Mínimo</th>
-            <th class="col-2">P.V.P.</th>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Mínimo</th>
+            <th>P.V.P.</th>
             <th class="col-2">Acciones</th>
         </tr>
         @foreach ($productos as $producto)
@@ -32,7 +32,7 @@
             <td>{{ $producto->pvp }}</td>
             <td>
                 <form action="{{ route('productos.destroy',$producto->id) }}" method="Post" class="d-flex justify-content-between">
-                    <a class="btn btn-primary ms-2" href="{{ route('productos.edit',$producto->id) }}">Editar</a>
+                    <a class="btn btn-primary ms-2 me-2" href="{{ route('productos.edit',$producto->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger me-2">Eliminar</button>

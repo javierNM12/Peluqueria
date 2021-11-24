@@ -22,7 +22,7 @@ class HistoricoController extends Controller
      */
     public function index()
     {
-        $data['historicos'] = Historicos::orderBy('id', 'desc')->paginate(5);
+        $data['historicos'] = Historicos::orderBy('id', 'desc')->simplePaginate(5);
         return view('historicos.index', $data);
     }
 

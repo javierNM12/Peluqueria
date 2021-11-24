@@ -40,10 +40,10 @@
             @endif
             <td>
                 <form action="{{ route('citas.destroy',$cita->id) }}" method="Post" class="d-flex justify-content-between">
-                    <a class="btn btn-primary" href="{{ route('citas.edit',$cita->id) }}">Editar</a>
+                    <a class="btn btn-primary ms-2 me-2" href="{{ route('citas.edit',$cita->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
                 </form>
             </td>
         </tr>

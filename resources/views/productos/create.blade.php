@@ -16,17 +16,23 @@
     <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-9">
                 <label for="nombre" class="form-label">Nombre del producto</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre producto">
                 @error('nombre')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            
+            <div class="mb-3 col-3">
+                <label for="pvp" class="form-label">P.V.P.</label>
+                <input type="number" step="0.01" class="form-control" id="pvp" name="pvp" aria-describedby="pvp producto">
+                @error('pvp')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
-        <div class="row">
+        <div class="d-flex align-items-end row">
             <div class="mb-3 col-5">
                 <label for="minimo" class="form-label">Cantidad mínima del producto (Alarma)</label>
                 <input type="number" class="form-control" id="minimo" name="minimo" aria-describedby="minimo producto">
@@ -34,14 +40,7 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3 col-2">
-                <label for="pvp" class="form-label">P.V.P.</label>
-                <input type="number" step="0.01" class="form-control" id="pvp" name="pvp" aria-describedby="pvp producto">
-                @error('pvp')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3 col-4">
+            <div class="mb-3 col-7">
                 <label for="tipo" class="form-label">Tipo de producto</label>
                 <select class="form-select" aria-label="Tipo de producto" name="tipo" id="tipo">
                     <option selected>Seleccionar</option>

@@ -31,7 +31,19 @@
                 <td>{{ $producto->existencias }}</td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
-                    <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}',  @foreach($inventario as $invent) @if($invent->productos_id == $producto->id) {{ $invent->existencias }} @endif @endforeach  , '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
+                    <?php
+                    $existtemp = 0;
+                    if (isset($inventario)) {
+                        foreach ($inventario as $key => $invent) {
+                            if ($invent->productos_id == $producto->id) {
+                                $existtemp =  $invent->existencias;
+                            }
+                        }
+                    } else {
+                        $existtemp = 0;
+                    }
+                    ?>
+                    <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}',  <?php echo $existtemp; ?>  , '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
                 </td>
             </tr>
             @endforeach
@@ -65,18 +77,27 @@
         /*        if ($('.proveedor').length >= 1) {
                     $("#alarmaproveedores").hide();
                 }*/
-        if ($("tr[data-trid='" + id + "']").length <= 0) {
-            var texto = '<tr data-trid="' + id + '">';
-            texto += '<input type="hidden" id="producto[]" name="producto[]" value="' + id + '">';
-            texto += '<input type="hidden" id="cantidad[]" name="cantidad[]" value="0">';
-            texto += '<td><a href="javascript: void(0)" onclick="del(' + id + ')" class="bi bi-trash-fill fs-3 text me-3 text-danger" role="button"></a></td>';
-            texto += '<td>' + nombre + '</td>';
-            texto += '<td>' + existencias + '</td>';
-            texto += '<td>' + pvp + '</td>';
-            texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
-            texto += '</tr>';
+        if (existencias >= 1) {
+            if ($("tr[data-trid='" + id + "']").length <= 0) {
+                var texto = '<tr data-trid="' + id + '">';
+                texto += '<input type="hidden" id="producto[]" name="producto[]" value="' + id + '">';
+                texto += '<input type="hidden" id="cantidad[]" name="cantidad[]" value="0">';
+                texto += '<td><a href="javascript: void(0)" onclick="del(' + id + ')" class="bi bi-trash-fill fs-3 text me-3 text-danger" role="button"></a></td>';
+                texto += '<td>' + nombre + '</td>';
+                texto += '<td>' + existencias + '</td>';
+                texto += '<td>' + pvp + '</td>';
+                texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
+                texto += '</tr>';
 
-            $("#tablaprincipal tbody").append(texto);
+                $("#tablaprincipal tbody").append(texto);
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No ha existencias de este producto',
+                footer: 'Revisa si hay una entrega sin añadir'
+            })
         }
     }
 

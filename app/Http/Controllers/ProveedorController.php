@@ -56,7 +56,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $data['proveedores'] = Proveedores::orderBy('id', 'desc')->paginate(5);
+        $data['proveedores'] = Proveedores::orderBy('id', 'desc')->simplePaginate(5);
         return view('proveedores.index', $data);
     }
 

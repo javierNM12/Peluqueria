@@ -31,11 +31,11 @@
             <td>{{ $servicio->nombre }}</td>
             <td>{{ $servicio->desc }}</td>
             <td>
-                <form action="{{ route('servicios.destroy',$servicio->id) }}" method="Post">
-                    <a class="btn btn-primary" href="{{ route('servicios.edit',$servicio->id) }}">Editar</a>
+                <form action="{{ route('servicios.destroy',$servicio->id) }}" method="Post" class="d-flex justify-content-between">
+                    <a class="btn btn-primary ms-2 me-2" href="{{ route('servicios.edit',$servicio->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
                 </form>
             </td>
         </tr>

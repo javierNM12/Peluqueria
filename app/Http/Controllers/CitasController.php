@@ -97,7 +97,7 @@ class CitasController extends Controller
      */
     public function index()
     {
-        $data['citas'] = Citas::orderBy('id', 'desc')->paginate(5);
+        $data['citas'] = Citas::orderBy('id', 'desc')->simplePaginate(5);
         return view('citas.index', $data);
     }
 

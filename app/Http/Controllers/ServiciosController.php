@@ -19,7 +19,7 @@ class ServiciosController extends Controller
      */
     public function index()
     {
-        $data['servicios'] = Servicios::orderBy('id', 'desc')->paginate(5);
+        $data['servicios'] = Servicios::orderBy('id', 'desc')->simplePaginate(5);
         return view('servicios.index', $data);
     }
 

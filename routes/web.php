@@ -96,7 +96,7 @@ Route::get('/formhistorial', [ClientesController::class, 'formhistorial'])->midd
 Route::get('/formhistoricocitas', [CitasController::class, 'formhistorico'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistoricocitas');
 
 
-
+//https://codepen.io/AllThingsSmitty/pen/MyqmdM <--- Tabla responsive, revisar para implementar
 
 
 

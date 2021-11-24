@@ -33,7 +33,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        $data['clientes'] = Clientes::orderBy('id', 'desc')->paginate(5);
+        $data['clientes'] = Clientes::orderBy('id', 'desc')->simplePaginate(5);
         return view('clientes.index', $data);
     }
 

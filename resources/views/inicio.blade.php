@@ -177,7 +177,7 @@
                             <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
-                            <a class="btn btn-danger" href="{{ route('citas.index') }}">Cancelar</a>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
                         </div>
                     </div>
                 </form>
@@ -410,6 +410,47 @@
                 alert("ERROR: " + data);
             }
         });
+    });
+
+    //cambiar el raton cuando esté por encima de los botones de puntuación
+    $(".bi-plus-circle").hover(function() {
+        $(this).css("cursor", "pointer");
+    });
+    $(".bi-dash-circle").hover(function() {
+        $(this).css("cursor", "pointer");
+    });
+
+
+    // evento click añadir servicio
+    $(".bi-plus-circle").click(function() {
+        if ($('.servicio').length >= 1) {
+            $("#alarmaservicio").hide();
+        }
+        $("#servicios").val(parseInt($("#servicios").val()) + 1);
+
+        var texto = '<div class="row mb-3 servicio">';
+        texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
+        texto += '<option selected>Seleccione un servicio</option>';
+        texto += '@foreach ($servicios as $servicio)';
+        texto += '<option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>';
+        texto += '@endforeach';
+        texto += '</select>';
+        texto += '@error("servicios_id")';
+        texto += '<div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>';
+        texto += '@enderror';
+        texto += '</div>';
+
+        $(texto).insertAfter($(".servicio").last());
+    });
+
+    // evento quitar servicio
+    $(".bi-dash-circle").click(function() {
+        if ($('.servicio').length > 1) {
+            $(".servicio").last().remove();
+            $("#servicios").val(parseInt($("#servicios").val()) - 1);
+        } else {
+            $("#alarmaservicio").show();
+        }
     });
 </script>
 @endif

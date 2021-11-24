@@ -159,7 +159,7 @@
         $(this).css("cursor", "pointer");
     });
 
-    // evento click añadir proveedor
+    // evento click añadir servicio
     $(".bi-plus-circle").click(function() {
         if ($('.servicio').length >= 1) {
             $("#alarmaservicio").hide();
@@ -181,7 +181,7 @@
         $(texto).insertAfter($(".servicio").last());
     });
 
-    // evento quitar añadir proveedor
+    // evento quitar servicio
     $(".bi-dash-circle").click(function() {
         if ($('.servicio').length > 1) {
             $(".servicio").last().remove();

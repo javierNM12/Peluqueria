@@ -23,19 +23,13 @@
     <!-- Jquery DataTables CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-
-    <style>
-        .navbar-dark .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(33, 37, 41)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-        }
-    </style>
 </head>
 
 <body>
 
     @if (Auth::guest())
     <!-- Invitado -->
-    #region
+
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,15 +52,48 @@
             </form>
         </div>
     </nav>
-    #endregion
 
+    @elseif(Auth::user()->rol =="2")
+    <!-- Trabajador -->
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExample04">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-info">Cliente</button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ Route('inicio') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ Route('inicio') }}">Comprar entrada</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ Route('inicio') }}">Ver mis entradas</a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline my-2 my-lg-0" method="POST" action="{{ Route ('logout') }}">
+                @csrf
+                <a class='mnutop text-warning' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button'>
+                    <i class="bi bi-exclamation-octagon text-warning"></i> Alarmas
+                </a>
+                <button class="btn btn-outline-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
+            </form>
+        </div>
+    </nav>
 
     @elseif(Auth::user()->rol == "1")
     <!-- Empresario -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #90e0ef !important;">
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #90e0ef !important;">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgb(33, 37, 41) !important; border:3px solid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarsExample04">
@@ -193,7 +220,7 @@
 
     @elseif(Auth::user()->rol == "0")
     <!-- Administrador -->
-    #region
+
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -227,7 +254,7 @@
             </form>
         </div>
     </nav>
-        #endregion
+
     @endif
 
     <main>

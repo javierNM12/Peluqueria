@@ -18,10 +18,10 @@
     @endif
     <table class="table table-bordered">
         <tr>
-            <th class="col-2">ID</th>
-            <th class="col-2">Nombre</th>
-            <th class="col-2">Apellidos</th>
-            <th class="col-2">Teléfono</th>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Teléfono</th>
             <th class="col-2">Acciones</th>
         </tr>
         @foreach ($clientes as $cliente)
@@ -31,11 +31,11 @@
             <td>{{ $cliente->apellidos }}</td>
             <td>{{ $cliente->telefono }}</td>
             <td>
-                <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post"  class="d-flex justify-content-between">
-                    <a class="btn btn-primary" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
+                <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post"  class="d-flex justify-content-center">
+                    <a class="btn btn-primary ms-2 me-2" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
                 </form>
             </td>
         </tr>

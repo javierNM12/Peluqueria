@@ -26,9 +26,13 @@
         <tr>
             <td>{{ $historico->id }}</td>
             <td>{{ $historico->fecha_hora }}</td>
-            <td>{{ $historico->cantidad }}</td>
+            @if ($historico->cantidad >=1)
+            <td class="text-success">{{ $historico->cantidad }}</td>
+            @else
+            <td class="text-danger">{{ $historico->cantidad }}</td>
+            @endif
             <td>{{ $historico->productos_id }}</td>
-            <td>{{ $historico->precio }}</td>
+            <td>{{ $historico->precio }} €</td>
             <td>{{ $historico->users_id }}</td>
         </tr>
         @endforeach

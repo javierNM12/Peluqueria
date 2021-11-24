@@ -15,8 +15,8 @@
     @endif
     <form action="{{ route('clientes.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="row d-flex justify-content-center align-items-end">
-            <div class="mx-auto me-0 col-2">
+        <div class="row d-flex justify-content-center">
+            <div class="me-0 w-auto align-self-end">
                 <label for="cliente" class="form-label">Seleccione el cliente</label>
                 <select class="form-select" aria-label="Tipo de producto" name="cliente" id="cliente">
                     <option selected>Seleccionar</option>
@@ -28,7 +28,7 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mx-auto ms-0 col-6 w-auto">
+            <div class="mt-3 ms-0 w-auto align-self-end">
                 <button type="button" id="cargar" class="btn btn-success">Cargar</button>
             </div>
         </div>

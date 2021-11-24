@@ -32,7 +32,19 @@
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
-                    <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', @foreach($inventario as $invent) @if($invent->productos_id == $producto->id) {{ $invent->existencias }} @endif @endforeach  , '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
+                    <?php
+                    $existtemp = 0;
+                    if (isset($inventario)) {
+                        foreach ($inventario as $key => $invent) {
+                            if ($invent->productos_id == $producto->id) {
+                                $existtemp =  $invent->existencias;
+                            }
+                        }
+                    } else {
+                        $existtemp = 0;
+                    }
+                    ?>
+                    <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', <?php echo $existtemp; ?>  , '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
                 </td>
             </tr>
             @endforeach
@@ -67,7 +79,7 @@
     });
 
     function addproducto(id, nombre, existencias, minimo, pvp) {
-        
+
         var select = '<select class="form-select border-bottom" id="proveedores[]" name="proveedores[]">';
         select += '<option selected value="-1">Seleccione un proveedor</option>';
         for (let index = 0; index < proveedores.length; index++) {
@@ -108,8 +120,8 @@
 
     function addcantidad(id, existencias) {
         var cantidad = parseInt($("span[data-spanid='" + id + "']").text());
-            $("span[data-spanid='" + id + "']").text(cantidad + 1);
-            $("tr[data-trid='" + id + "'] input.hid").val(cantidad + 1);
+        $("span[data-spanid='" + id + "']").text(cantidad + 1);
+        $("tr[data-trid='" + id + "'] input.hid").val(cantidad + 1);
     }
 </script>
 @endsection

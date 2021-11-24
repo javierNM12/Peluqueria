@@ -7,7 +7,7 @@
                 <h2>Lista de proveedores</h2>
             </div>
             <div class="pull-right mb-2 d-flex justify-content-end">
-                <a class="offset-10 btn btn-success" href="{{ route('proveedores.create') }}">Añadir proveedor</a>
+                <a class="offset-10 btn btn-success" href="{{ route('proveedores.create') }}">Añadir</a>
             </div>
         </div>
     </div>
@@ -18,10 +18,10 @@
     @endif
     <table class="table table-bordered">
         <tr>
-            <th class="col-1">ID</th>
-            <th class="col-3">Teléfono</th>
-            <th class="col-3">Nombre</th>
-            <th class="col-3">Web</th>
+            <th>ID</th>
+            <th>Teléfono</th>
+            <th>Nombre</th>
+            <th>Web</th>
             <th class="col-2">Acciones</th>
         </tr>
         @foreach ($proveedores as $proveedor)
@@ -31,11 +31,11 @@
             <td>{{ $proveedor->nombre }}</td>
             <td>{{ $proveedor->web }}</td>
             <td>
-                <form action="{{ route('proveedores.destroy',$proveedor->id) }}" method="Post" class="d-flex justify-content-between">
-                    <a class="btn btn-primary" href="{{ route('proveedores.edit',$proveedor->id) }}">Editar</a>
+                <form action="{{ route('proveedores.destroy',$proveedor->id) }}" method="Post" class="d-flex justify-content-center">
+                    <a class="btn btn-primary ms-2 me-2" href="{{ route('proveedores.edit',$proveedor->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
                 </form>
             </td>
         </tr>
