@@ -17,8 +17,8 @@
         @csrf
         <input type="hidden" name="servicios" id="servicios" value="1">
         <div class="row mb-3">
-            <label for="descripcion" class="form-label">Descripción de la cita</label>
-            <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="descripcion citas">
+            <label for="descripcion" class="form-label ps-0">Descripción de la cita</label>
+            <textarea class="form-control" id="descripcion" rows="3" name="descripcion" aria-describedby="descripcion citas"></textarea>
             @error('descripcion')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
@@ -31,7 +31,7 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>-->
-            <div class="col-6 mb-3 ps-0">
+            <div class="col-6 mb-3 ps-0 align-self-center">
                 <label for="dia" class="form-label">Seleccione un día</label>
                 <input type="date" class="form-control" id="dia" name="dia" aria-describedby="Día">
                 @error('dia')
@@ -52,7 +52,7 @@
                 <option value="{{ $cliente->id}}">{{ $cliente->apellidos }}, {{ $cliente->nombre }}</option>
                 @endforeach
             </select>
-            @error('servicios_id')
+            @error('clientes_id')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="row mb-3 servicio">
+            <div class="mb-3 pe-0 ps-0 servicio">
                 <label for="servicios_id" class="form-label">Servicio</label>
                 <select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">
                     <option selected>Seleccione un servicio</option>
@@ -79,10 +79,10 @@
         <div id="alarmaservicio" class="alert alert-danger mt-1 mb-1" style="display:none">Mínimo se debe seleccionar un servicio</div>
 
         <div class="row d-flex justify-content-between">
-            <div class="col-6">
+            <div class="col-6 ps-0">
                 <button type="submit" class="btn btn-success">Guardar</button>
             </div>
-            <div class="col-6 d-flex justify-content-end">
+            <div class="col-6 d-flex justify-content-end pe-0">
                 <a class="btn btn-danger" href="{{ route('citas.index') }}">Cancelar</a>
             </div>
         </div>

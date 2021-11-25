@@ -177,7 +177,11 @@ class CitasController extends Controller
     public function edit($id)
     {
         $citas = Citas::selectRaw('*')->where('id', 'like', $id)->first();
-        return view('citas.edit', compact('citas'));
+        $clientes = $citas->clientes()->get();
+        $clientesall = Clientes::all();
+        $servicios = $citas->servicios()->get();
+        $serviciosall = Servicios::all();
+        return view('citas.edit', compact(['citas', 'clientes', 'clientesall', 'servicios', 'serviciosall']));
     }
 
     /**
@@ -190,15 +194,26 @@ class CitasController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'fecha_hora' => 'required',
+            'fecha_hora_i' => 'required',
+            'fecha_hora_f' => 'required',
             'descripcion' => 'required',
         ]);
         $cita = Citas::find($id);
-        $cita->fecha_hora = $request->fecha_hora;
+        $cita->fecha_hora_i = $request->fecha_hora_i;
+        $cita->fecha_hora_f = $request->fecha_hora_f;
+
+        $cliente = Clientes::find($request->clientes_id)->first();
+
         $cita->descripcion = $request->descripcion;
-        $cita->clientes_id = $request->clientes_id;
+        $cita->clientes_id = $cliente->id;
 
         $cita->save();
+        $cita->clientes()->associate($cliente);
+
+        for ($i = 0; $i < count($request->get('servicios_id')); $i++) {
+            $new[$i] = array('servicios_id' => $request->get('servicios_id')[$i]);
+        }
+        $cita->servicios()->sync($new);
 
         return redirect()->route('citas.index')
             ->with('success', 'Cita Has Been updated successfully');

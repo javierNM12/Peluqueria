@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ServicioSeeder::class,
             CitaSeeder::class,
             CitaServicioSeeder::class,
+            InventarioSeeder::class,
         ]);
     }
 }

@@ -88,6 +88,10 @@
             });
         } else {
             $("#display tbody *").remove();
+            var texto = '<tr>';
+            texto += '<td colspan="4" class="text-danger text-center">Sin resultados</td>';
+            texto += '</tr>';
+            $("#display tbody").append(texto);
         }
     });
 </script>

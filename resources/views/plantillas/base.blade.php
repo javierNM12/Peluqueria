@@ -28,6 +28,21 @@
         .navbar-dark .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(33, 37, 41)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
         }
+
+        div.p-5.mb-4.bg-light.border.rounded-3 {
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+        }
+
+        div.container-fluid.py-5 {
+            padding-left: 0px;
+            padding-right: 0px;
+            max-width: 720px !important;
+        }
+
+        div.container {
+            max-width: 720px !important;
+        }
     </style>
 </head>
 
@@ -64,7 +79,7 @@
     @elseif(Auth::user()->rol == "1")
     <!-- Empresario -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #90e0ef !important;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #457b9d !important;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgb(33, 37, 41) !important; border:3px solid">
                 <span class="navbar-toggler-icon"></span>
@@ -77,14 +92,14 @@
                     <li class="nav-item me-2">
                         <div class="dropdown">
                             <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Carta de productos
+                                Carta de productos *
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar carta de productos</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar carta de productos *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto a la carta</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto a la carta *</a>
                                 </li>
                             </ul>
                         </div>
@@ -92,14 +107,14 @@
                     <li class="nav-item me-2">
                         <div class="dropdown">
                             <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Proveedores
+                                Proveedores *
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor</a>
+                                    <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor *</a>
                                 </li>
                             </ul>
                         </div>
@@ -107,23 +122,24 @@
                     <li class="nav-item me-2">
                         <div class="dropdown">
                             <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Inventario
+                                Inventario *
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar productos gastados</a>
+                                    <a class="dropdown-item" href="{{ Route('compras') }}">Realizar venta presencial *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('addproductos') }}">Entrega de nuevos productos</a>
+                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar productos gastados *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
+                                    <a class="dropdown-item" href="{{ Route('addproductos') }}">Entrega de nuevos productos *</a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('listarcompras') }}">Histórico de ventas por producto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('compras') }}">Realizar venta presencial</a>
+                                    <a class="dropdown-item" href="{{ Route('listarcompras') }}">Histórico de ventas por producto *</a>
                                 </li>
                             </ul>
                         </div>
@@ -131,14 +147,14 @@
                     <li class="nav-item me-2">
                         <div class="dropdown">
                             <a class="nav-link fw-bolder dropdown-toggle text-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Clientes
+                                Clientes *
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes</a>
+                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes *</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente</a>
+                                    <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente *</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('formhistorial') }}">Historial de citas por cliente</a>
@@ -183,10 +199,10 @@
             </div>
             <form class="form-inline my-2 my-lg-0" method="POST" action="{{ Route ('logout') }}">
                 @csrf
-                <a class='fw-bolder px-1 mnutop text-decoration-none' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button' style="color: #fb8500 !important;">
+                <a class='fw-bolder px-1 mnutop text-decoration-none' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button' style="color: #ee9b00 !important;">
                     <span class="bi bi-exclamation-octagon-fill"></span> Alarmas
                 </a>
-                <button class="fw-bolder border-3 btn btn-outline-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
+                <button class="fw-bolder border-3 btn btn-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
             </form>
         </div>
     </nav>
@@ -223,16 +239,17 @@
                 <a class='px-1 mnutop text-warning' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button'>
                     <i class="bi bi-exclamation-octagon text-warning"></i> Alarmas
                 </a>
-                <button class="btn btn-outline-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
+                <button class="btn btn-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
             </form>
         </div>
     </nav>
-        #endregion
+    #endregion
     @endif
 
     <main>
-        <div class="container py-4">
-            <header class="pb-3 mb-4 border-bottom">
+        <!--<div class="container py-4">-->
+        <div>
+            <header class="ps-5 py-4 border-bottom" style="background-color: #ee9b00 !important;">
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                     <i class="bi bi-scissors"></i>
                     <span class="fs-4"> Peluquería Yadira</span>
@@ -244,7 +261,14 @@
                 </div>
             </div>
             <footer class="pt-3 mt-4 text-muted border-top">
-                © Javier NM 2021
+                <div class="d-flex d-flex justify-content-between">
+                    <div class="col">
+                        © Javier NM 2021
+                    </div>
+                    <div class="d-flex col justify-content-end me-2">
+                        Proyecto fin de grado DAW
+                    </div>
+                </div>
             </footer>
         </div>
     </main>

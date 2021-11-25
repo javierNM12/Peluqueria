@@ -15,26 +15,30 @@
     @endif
     <form action="{{ route('servicios.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="mb-3">
-            <label for="precio" class="form-label">Precio del servicio</label>
-            <input type="text" class="form-control" id="precio" name="precio" aria-describedby="precio servicio">
-            @error('precio')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
+        <div class="row">
+            <div class="align-self-end mb-3 col-md-10 col-sm-12">
+                <label for="nombre" class="form-label">Nombre del servicio</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre servicio">
+                @error('nombre')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="align-self-end mb-3 col-md-2 col-sm-12">
+                <label for="precio" class="form-label">Precio del servicio</label>
+                <input type="number" class="form-control" id="precio" name="precio" aria-describedby="precio servicio">
+                @error('precio')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre del servicio</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre servicio">
-            @error('nombre')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="desc" class="form-label">Descripción del servicio</label>
-            <input type="text" class="form-control" id="desc" name="desc" aria-describedby="descripcion servicio">
-            @error('desc')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
+        <div class="row">
+            <div class="mb-3">
+                <label for="desc" class="form-label">Descripción del servicio</label>
+                <textarea class="form-control" id="desc" rows="3" name="desc" aria-describedby="descripción del servicio"></textarea>
+                @error('desc')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <div class="row d-flex justify-content-between">
             <div class="col-6">
