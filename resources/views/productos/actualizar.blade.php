@@ -4,9 +4,9 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
-                <h2>Actualizar inventario</h2>
+                <h2>Actualizar productos gastados</h2>
                 <p class="lead text-muted">
-                    Productos utilizados a restar del inventario de la peluquería
+                    Productos gastado a restar del inventario de la peluquería
                 </p>
             </div>
         </div>
@@ -21,36 +21,38 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Existencias</th>
                 <th>P.V.P.</th>
                 <th>Selecionar</th>
             </tr>
         </thead>
         <tbody>
             @foreach($productos as $producto)
+            <?php
+            $existtemp = 0;
+            if (isset($inventario)) {
+                foreach ($inventario as $key => $invent) {
+                    if ($invent->productos_id == $producto->id) {
+                        $existtemp =  $invent->existencias;
+                    }
+                }
+            } else {
+                $existtemp = 0;
+            }
+            ?>
             <tr>
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
+                <td>{{ $existtemp }}</td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
-                    <?php
-                    $existtemp = 0;
-                    if (isset($inventario)) {
-                        foreach ($inventario as $key => $invent) {
-                            if ($invent->productos_id == $producto->id) {
-                                $existtemp =  $invent->existencias;
-                            }
-                        }
-                    } else {
-                        $existtemp = 0;
-                    }
-                    ?>
                     <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', <?php echo $existtemp; ?>, '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <form class="my-5" action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data">
+    <form class="my-5" action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data" id="formdataactualizar">
         @csrf
         <input type="hidden" name="accion" id="accion" value="actu">
         <table id="tablaprincipal" class="table table-borderless">
@@ -67,10 +69,38 @@
             <tbody>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="submit" class="btn btn-success" id="cli">Actualizar</button>
     </form>
 </div>
 <script>
+    // comprobar si se quiere enviar el formulario vacío
+    $("#cli").click(function(e) {
+        e.preventDefault();
+        if ($("#tablaprincipal tbody span").length <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se ha seleccionado un producto',
+            })
+        } else {
+            var llave = true;
+            $("#tablaprincipal tbody span").each(function(a) {
+                if ($(this).text() <= 0) {
+                    llave = false;
+                }
+            });
+            if (llave) {
+                $("#formdataactualizar").submit();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ningún producto debe estar a cero',
+                })
+            }
+        }
+    });
+
     $(document).ready(function() {
         $('#example').DataTable();
     });
@@ -92,7 +122,7 @@
                 texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
                 texto += '</tr>';
 
-                $(texto).insertAfter($("#tablaprincipal tbody"));
+                $("#tablaprincipal tbody").append(texto);
             }
         } else {
             Swal.fire({

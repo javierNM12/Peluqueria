@@ -19,7 +19,7 @@ class CreateProductosTable extends Migration
             $table->timestamps();
             $table->string('nombre');
             $table->bigInteger('minimo');
-            $table->float('pvp', 8,2);
+            $table->float('pvp', 8,2)->nullable(); // permitimos que pueda ser null porque los productos de consumo propio no tienen PVP
             $table->tinyInteger('tipo'); // -> 0 para los productos de consumo propio | -> 1 para los productos de venta
         });
     }

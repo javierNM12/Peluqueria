@@ -20,4 +20,9 @@ class Historicos extends Model
     {
         return $this->belongsTo(Productos::class);
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

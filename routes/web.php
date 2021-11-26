@@ -73,6 +73,9 @@ Route::resource('historicos', HistoricoController::class)->middleware(['alarmas'
 // CRUD citas_servicios
 Route::resource('citasservicios', CitasServiciosController::class)->middleware(['alarmas'])->middleware(['auth']);
 
+// CRUD inventario
+Route::resource('inventario', InventarioController::class)->middleware(['alarmas'])->middleware(['auth']);
+
 
 // .----****** RUTAS ******----.//
 

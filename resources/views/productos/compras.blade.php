@@ -5,6 +5,9 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
                 <h2>Venta de producto</h2>
+                <p class="lead text-muted">
+                    Vender un producto a un cliente presencial
+                </p>
             </div>
         </div>
     </div>
@@ -25,31 +28,33 @@
         </thead>
         <tbody>
             @foreach($productos as $producto)
+            <?php
+            $existtemp = 0;
+            if (isset($inventario)) {
+                foreach ($inventario as $key => $invent) {
+                    if ($invent->productos_id == $producto->id) {
+                        $existtemp =  $invent->existencias;
+                    }
+                }
+            } else {
+                $existtemp = 0;
+            }
+            ?>
             <tr>
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
-                <td>{{ $producto->existencias }}</td>
+                <td>
+                    {{ $existtemp }}
+                </td>
                 <td>{{ $producto->pvp }}</td>
                 <td>
-                    <?php
-                    $existtemp = 0;
-                    if (isset($inventario)) {
-                        foreach ($inventario as $key => $invent) {
-                            if ($invent->productos_id == $producto->id) {
-                                $existtemp =  $invent->existencias;
-                            }
-                        }
-                    } else {
-                        $existtemp = 0;
-                    }
-                    ?>
                     <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}',  <?php echo $existtemp; ?>  , '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <form class="my-5" action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data">
+    <form class="my-5" action="{{ route('storeactuproductos') }}" method="POST" enctype="multipart/form-data" id="formdataactualizar">
         @csrf
         <input type="hidden" name="accion" id="accion" value="compra">
         <table id="tablaprincipal" class="table table-borderless">
@@ -69,6 +74,34 @@
     </form>
 </div>
 <script>
+    // comprobar si se quiere enviar el formulario vacío
+    $("#cli").click(function(e) {
+        e.preventDefault();
+        if ($("#tablaprincipal tbody span").length <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se ha seleccionado un producto',
+            })
+        } else {
+            var llave = true;
+            $("#tablaprincipal tbody span").each(function(a) {
+                if ($(this).text() <= 0) {
+                    llave = false;
+                }
+            });
+            if (llave) {
+                $("#formdataactualizar").submit();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ningún producto debe estar a cero',
+                })
+            }
+        }
+    });
+
     $(document).ready(function() {
         $('#example').DataTable();
     });

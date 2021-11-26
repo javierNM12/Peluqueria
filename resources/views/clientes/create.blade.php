@@ -16,31 +16,31 @@
     <form action="{{ route('clientes.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-md-5 col-sm-12">
                 <label for="nombre" class="form-label">Nombre del cliente</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre cliente">
                 @error('nombre')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-md-5 col-sm-12">
                 <label for="apellidos" class="form-label">Apellidos del cliente</label>
                 <input type="text" class="form-control" id="apellidos" name="apellidos" aria-describedby="apellidos cliente">
                 @error('apellidos')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono del cliente</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono cliente">
-            @error('telefono')
-            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-            @enderror
+            <div class="mb-3 col-md-2 col-sm-12">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="telefono cliente">
+                @error('telefono')
+                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción del cliente</label>
-            <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="descripcion cliente">
+            <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
             @error('descripcion')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror

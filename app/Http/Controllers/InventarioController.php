@@ -101,7 +101,13 @@ class InventarioController extends Controller
      */
     public function index()
     {
-        //
+        $data['productos'] = Productos::orderBy('id', 'asc')->simplePaginate(5);
+
+        foreach ($data['productos'] as $key => $producto) {
+            $data['inventario'][$producto['id']] = $producto->inventario()->get();
+        }
+
+        return view('inventario.index', $data);
     }
 
     /**

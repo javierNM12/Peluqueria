@@ -58,20 +58,25 @@
                 }
             });
             $.ajax({
-                    url: "{{ route('ajax.historicoventas') }}",
-                    type: 'POST',
-                    data: {
-                        id: $("#producto").val(),
-                    },
-                    success: function(data) {
-                        $("#display tbody *").remove();
-                        if ($(data).length >= 1) {
+                url: "{{ route('ajax.historicoventas') }}",
+                type: 'POST',
+                data: {
+                    id: $("#producto").val(),
+                },
+                success: function(data) {
+                    $("#display tbody *").remove();
+                    if (data.length >= 1) {
                         $.each(data, function(index, history) {
-                            if (history['cantidad'] <= 1) { // mostramos solamente los productos vendidos a los clientes
+                            if (history['cantidad'] <= -1) { // mostramos solamente los productos vendidos a los clientes
                                 var texto = '<tr>';
                                 texto += '<td>' + history['id'] + '</td>';
                                 texto += '<td>' + history['fecha_hora'] + '</td>';
                                 texto += '<td class="text-success">' + history['cantidad'] * -1 + '</td>';
+                                texto += '</tr>';
+                                $("#display tbody").append(texto);
+                            } else {
+                                var texto = '<tr>';
+                                texto += '<td colspan="3" class="text-danger text-center">No hay entradas</td>';
                                 texto += '</tr>';
                                 $("#display tbody").append(texto);
                             }
@@ -87,9 +92,13 @@
                     alert("ERROR: " + data);
                 }
             });
-    } else {
-        $("#display tbody *").remove();
-    }
+        } else {
+            $("#display tbody *").remove();
+            var texto = '<tr>';
+            texto += '<td colspan="4" class="text-danger text-center">Seleccione un producto</td>';
+            texto += '</tr>';
+            $("#display tbody").append(texto);
+        }
     });
 </script>
 @endsection

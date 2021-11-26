@@ -22,7 +22,16 @@ class HistoricoController extends Controller
      */
     public function index()
     {
-        $data['historicos'] = Historicos::orderBy('id', 'desc')->simplePaginate(5);
+        $data['historicos'] = Historicos::orderBy('id', 'desc')->simplePaginate(5); // Las entradas nuevas primero
+
+        foreach ($data['historicos'] as $key => $historico) {
+            $data['productos'][$historico['id']] = $historico->productos()->get();
+        }
+
+        foreach ($data['historicos'] as $key => $historico) {
+            $data['users'][$historico['id']] = $historico->users()->get();
+        }
+
         return view('historicos.index', $data);
     }
 

@@ -66,21 +66,28 @@
                 },
                 success: function(data) {
                     $("#display tbody *").remove();
-                    $.each(data, function(index, history) {
+                    if (data.length >= 1) {
+                        $.each(data, function(index, history) {
+                            var texto = '<tr>';
+                            texto += '<td>' + history['fecha_hora_i'] + '</td>';
+                            texto += '<td>' + history['fecha_hora_f'] + '</td>';
+                            if (history['finalizado'] == 0) {
+                                texto += '<td class="text-warning">En proceso</td>';
+                            } else if (history['finalizado'] == 1) {
+                                texto += '<td class="text-success">Finalizado</td>';
+                            } else {
+                                texto += '<td class="text-danger">Cancelado</td>';
+                            }
+                            texto += '<td>' + history['descripcion'] + '</td>';
+                            texto += '</tr>';
+                            $("#display tbody").append(texto);
+                        });
+                    } else {
                         var texto = '<tr>';
-                        texto += '<td>' + history['fecha_hora_i'] + '</td>';
-                        texto += '<td>' + history['fecha_hora_f'] + '</td>';
-                        if (history['finalizado'] == 0) {
-                            texto += '<td class="text-warning">En proceso</td>';
-                        } else if (history['finalizado'] == 1) {
-                            texto += '<td class="text-success">Finalizado</td>';
-                        } else {
-                            texto += '<td class="text-danger">Cancelado</td>';
-                        }
-                        texto += '<td>' + history['descripcion'] + '</td>';
+                        texto += '<td colspan="4" class="text-danger text-center">No hay entradas</td>';
                         texto += '</tr>';
                         $("#display tbody").append(texto);
-                    });
+                    }
                 },
                 error: function(data) {
                     alert("ERROR: " + data);
@@ -89,7 +96,7 @@
         } else {
             $("#display tbody *").remove();
             var texto = '<tr>';
-            texto += '<td colspan="4" class="text-danger text-center">Sin resultados</td>';
+            texto += '<td colspan="4" class="text-danger text-center">Seleccione un cliente</td>';
             texto += '</tr>';
             $("#display tbody").append(texto);
         }
