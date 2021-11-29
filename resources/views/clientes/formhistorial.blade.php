@@ -30,6 +30,7 @@
             </div>
             <div class="mt-3 ms-0 w-auto align-self-end">
                 <button type="button" id="cargar" class="btn btn-success">Cargar</button>
+                <button id="pdf" class="bi bi-file-earmark-pdf-fill btn btn-warning w-auto"> PDF</button>
             </div>
         </div>
         <div class="mt-5">
@@ -99,6 +100,47 @@
             texto += '<td colspan="4" class="text-danger text-center">Seleccione un cliente</td>';
             texto += '</tr>';
             $("#display tbody").append(texto);
+        }
+    });
+
+    // descargar pdf
+    $("#pdf").click(function(e) {
+        e.preventDefault();
+        if ($("#cliente").val() != "Seleccionar") {
+            $.ajaxSetup({ // cabeceras con el token csrf
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('ajax.pdf') }}",
+                type: 'GET',
+                data: {
+                    html: $("#display").parent().html(),
+                    titulo: "Histórico de cliente: " + $("#cliente option").filter(":selected").text(),
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "historico_cliente_" + $("#cliente option").filter(":selected").text();
+                    link.click();
+                },
+                error: function(data) {
+                    alert("ERROR: " + data);
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Campos vacíos',
+                text: "Debe elegir una fecha de inicio y otra de fin",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'De acuerdo'
+            });
         }
     });
 </script>

@@ -233,4 +233,6 @@ class CitasController extends Controller
         return redirect()->route('citas.index')
             ->with('success', 'Client has been deleted successfully');
     }
+
+    
 }

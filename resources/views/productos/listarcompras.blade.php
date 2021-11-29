@@ -30,6 +30,7 @@
             </div>
             <div class="mt-3 ms-0 w-auto align-self-end">
                 <button type="button" id="cargar" class="btn btn-success">Cargar</button>
+                <button id="pdf" class="bi bi-file-earmark-pdf-fill btn btn-warning w-auto"> PDF</button>
             </div>
         </div>
         <div class="mt-5">
@@ -51,6 +52,7 @@
 <script>
     $("#cargar").click(function(e) {
         if ($("#producto").val() != "Seleccionar") {
+            $("#display tbody *").remove();
             // cargamos por ajax el historial
             $.ajaxSetup({ // cabeceras con el token csrf
                 headers: {
@@ -64,29 +66,33 @@
                     id: $("#producto").val(),
                 },
                 success: function(data) {
+                    check = true
                     $("#display tbody *").remove();
                     if (data.length >= 1) {
                         $.each(data, function(index, history) {
                             if (history['cantidad'] <= -1) { // mostramos solamente los productos vendidos a los clientes
+                                check = false;
                                 var texto = '<tr>';
                                 texto += '<td>' + history['id'] + '</td>';
                                 texto += '<td>' + history['fecha_hora'] + '</td>';
                                 texto += '<td class="text-success">' + history['cantidad'] * -1 + '</td>';
                                 texto += '</tr>';
                                 $("#display tbody").append(texto);
-                            } else {
-                                var texto = '<tr>';
-                                texto += '<td colspan="3" class="text-danger text-center">No hay entradas</td>';
-                                texto += '</tr>';
-                                $("#display tbody").append(texto);
                             }
                         });
+                        if (check) {
+                            var texto = '<tr>';
+                            texto += '<td colspan="3" class="text-danger text-center">No hay entradas</td>';
+                            texto += '</tr>';
+                            $("#display tbody").append(texto);
+                        }
                     } else {
                         var texto = '<tr>';
                         texto += '<td colspan="3" class="text-danger text-center">No hay entradas</td>';
                         texto += '</tr>';
                         $("#display tbody").append(texto);
                     }
+
                 },
                 error: function(data) {
                     alert("ERROR: " + data);
@@ -98,6 +104,47 @@
             texto += '<td colspan="4" class="text-danger text-center">Seleccione un producto</td>';
             texto += '</tr>';
             $("#display tbody").append(texto);
+        }
+    });
+
+    // descargar pdf
+    $("#pdf").click(function(e) {
+        e.preventDefault();
+        if ($("#producto").val() != "Seleccionar") {
+            $.ajaxSetup({ // cabeceras con el token csrf
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('ajax.pdf') }}",
+                type: 'GET',
+                data: {
+                    html: $("#display").parent().html(),
+                    titulo: "Histórico de ventas: " + $("#producto option").filter(":selected").text(),
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "historico_ventas_" + $("#producto option").filter(":selected").text();
+                    link.click();
+                },
+                error: function(data) {
+                    alert("ERROR: " + data);
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Campos vacíos',
+                text: "Debe elegir un producto",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'De acuerdo'
+            });
         }
     });
 </script>

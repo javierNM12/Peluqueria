@@ -8,6 +8,7 @@ use App\Models\Clientes;
 use App\Models\Servicios;
 use Carbon\Carbon;
 use DB;
+use Dompdf\Dompdf;
 
 class PeluqueriaController extends Controller
 {
@@ -15,7 +16,7 @@ class PeluqueriaController extends Controller
     {
         $this->middleware('alarmas');
     }
-    
+
     // cargar en index principal
     public function inicio()
     {
@@ -104,5 +105,47 @@ class PeluqueriaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function generatePDF(Request $request)
+    {
+        $dompdf = new Dompdf();
+
+        $html = '<html>
+                    <head>
+                        <style>
+                        table {
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+                        
+                        table td, table th {
+                        border: 1px solid black;
+                        padding: 8px;
+                        }
+                        </style>
+                    </head>
+                    <body>
+                    <h1>' . $request->titulo . '</h1>';
+        $html .= $request->html;
+        $html .= '<footer class="ps-5 py-4 border-bottom" style="margin-top: 3rem;">
+                <span>Peluquería Yadira</span>
+            </footer>
+            </body>
+        </html>
+        ';
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
+        // return $dompdf->stream();
+
+        return response()->download($dompdf);
     }
 }

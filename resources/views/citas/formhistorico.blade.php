@@ -16,7 +16,8 @@
     <div class="row">
         @csrf
         <div class="row d-flex justify-content-end">
-            <button id="buscar" class="btn btn-primary w-auto">Buscar</button>
+            <button id="buscar" class="btn btn-primary w-auto me-2">Buscar</button>
+            <button id="pdf" class="bi bi-file-earmark-pdf-fill btn btn-warning w-auto"> PDF</button>
         </div>
         <div class="row">
             <div class="mb-3 col-6">
@@ -106,6 +107,46 @@
                         texto += '<tr>';
                         $("#mostrar tbody").append(texto);
                     }
+                },
+                error: function(data) {
+                    alert("ERROR: " + data);
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Campos vacíos',
+                text: "Debe elegir una fecha de inicio y otra de fin",
+                icon: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'De acuerdo'
+            });
+        }
+    });
+
+    // descargar pdf
+    $("#pdf").click(function(e) {
+        if ($("#fecha_i").val() != "" && $("#fecha_f").val() != "") {
+            $.ajaxSetup({ // cabeceras con el token csrf
+                headers: {
+                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('ajax.pdf') }}",
+                type: 'GET',
+                data: {
+                    html: $("#mostrar").parent().html(),
+                    titulo: "Histórico de citas " + $("#fecha_i").val() +" - " + $("#fecha_f").val(),
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    var blob = new Blob([response]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "historico_citas_" + $("#fecha_i").val() + " -- " + $("#fecha_f").val();
+                    link.click();
                 },
                 error: function(data) {
                     alert("ERROR: " + data);

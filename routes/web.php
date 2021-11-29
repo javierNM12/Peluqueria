@@ -46,6 +46,7 @@ Route::POST('ajax/horas', [CitasController::class, 'horas'])->name('ajaxcita.hor
 Route::POST('ajax/historicoclientes', [ClientesController::class, 'historicoclientes'])->name('ajax.historicoclientes');
 Route::POST('ajax/historicoventas', [ProductoController::class, 'historicoventas'])->name('ajax.historicoventas');
 Route::POST('ajax/historicocitas', [CitasController::class, 'historicocitas'])->name('ajax.historicocitas');
+Route::GET('ajax/pdf', [PeluqueriaController::class, 'generatePDF'])->name('ajax.pdf');
 
 // .----****** CRUDS ******----.//
 
@@ -98,9 +99,9 @@ Route::get('/formhistorial', [ClientesController::class, 'formhistorial'])->midd
 // Seleccionar tramo de fechas historico citas
 Route::get('/formhistoricocitas', [CitasController::class, 'formhistorico'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistoricocitas');
 
-
-//https://codepen.io/AllThingsSmitty/pen/MyqmdM <--- Tabla responsive, revisar para implementar
-
+// https://codepen.io/AllThingsSmitty/pen/MyqmdM <--- Tabla responsive, revisar para implementar
+// https://laravel.com/docs/8.x/sanctum -> secret code
+// https://laravel.com/docs/8.x/authorization -> authorization
 
 
 // Inicio del sitio
