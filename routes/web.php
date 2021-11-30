@@ -11,6 +11,8 @@ use App\Http\Controllers\HistoricoController;
 use App\Http\Controllers\CitasServiciosController;
 use App\Http\Controllers\InventarioController;
 
+use App\Http\Controllers\PinController;
+
 // COMENTARIO PARA COMPROBAR QUE SE SUBE BIEN LOS FICHEROS
 
 /*
@@ -81,14 +83,14 @@ Route::resource('inventario', InventarioController::class)->middleware(['alarmas
 // .----****** RUTAS ******----.//
 
 // Mostrar formulario para actualizar el inventario
-Route::get('/actuinventario', [InventarioController::class, 'actuinventario'])->middleware(['alarmas'])->middleware(['auth'])->name('actuinventario');
+Route::get('/actuinventario', [InventarioController::class, 'actuinventario'])->middleware(['alarmas'])->middleware(['auth'])->middleware('pin')->name('actuinventario');
 Route::POST('/storeactuproductos', [InventarioController::class, 'storeactuproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('storeactuproductos');
 
 // Mostrar formulario para realizar compras presenciales
 Route::get('/compras', [InventarioController::class, 'compras'])->middleware(['alarmas'])->middleware(['auth'])->name('compras');
 
 // Mostrar el formulario para añadir productos al inventario
-Route::get('/addproductos', [InventarioController::class, 'addproductos'])->middleware(['alarmas'])->middleware(['auth'])->name('addproductos');
+Route::get('/addproductos', [InventarioController::class, 'addproductos'])->middleware(['alarmas'])->middleware(['auth'])->middleware('pin')->name('addproductos');
 
 // Listar las compras
 Route::get('/listarcompras', [ProductoController::class, 'listarcompras'])->middleware(['alarmas'])->middleware(['auth'])->name('listarcompras');
@@ -99,9 +101,23 @@ Route::get('/formhistorial', [ClientesController::class, 'formhistorial'])->midd
 // Seleccionar tramo de fechas historico citas
 Route::get('/formhistoricocitas', [CitasController::class, 'formhistorico'])->middleware(['alarmas'])->middleware(['auth'])->name('formhistoricocitas');
 
+// Form cambiar ajustes admin
+Route::get('/formajustes', [PeluqueriaController::class, 'formajustes'])->middleware(['alarmas'])->middleware(['auth'])->name('formajustes');
+
+// Guardar ajustes admin
+Route::post('/guardarajustes', [PeluqueriaController::class, 'guardarajustes'])->middleware(['alarmas'])->middleware(['auth'])->name('guardarajustes');
+
 // https://codepen.io/AllThingsSmitty/pen/MyqmdM <--- Tabla responsive, revisar para implementar
 // https://laravel.com/docs/8.x/sanctum -> secret code
 // https://laravel.com/docs/8.x/authorization -> authorization
+// config(['settings.PIN' => '0000']); -> para cambiar el PIN
+
+Route::get('pin/create', function () {
+    return view('create');
+})->name('pin.create');
+
+//Route::post('pin/store', 'PinController@store')->name('pin.store')->middleware('throttle:3,1');
+Route::post('pin/store', [PinController::class, 'store'])->middleware(['throttle:3,1'])->name('pin.store'); // 3 intentos en 1 minuto
 
 
 // Inicio del sitio

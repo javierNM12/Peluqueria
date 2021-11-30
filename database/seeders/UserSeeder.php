@@ -21,7 +21,15 @@ class UserSeeder extends Seeder
             'apellidos' => 'Nunez',
             'email' => 'javi@javi.com',
             'password' => bcrypt('javi'),
-            'rol' => '1', // 0 -> admin (pero no muestra el navbar)
+            'rol' => '1', // 1 -> empresa
+        ]);
+
+        User::create([
+            'name' => 'admin',
+            'apellidos' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin'),
+            'rol' => '0', // 0 -> admin
         ]);
 /*
         DB::table('users')->insert([

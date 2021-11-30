@@ -56,7 +56,7 @@
 
     @if (Auth::guest())
     <!-- Invitado -->
-    #region
+
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
             </form>
         </div>
     </nav>
-    #endregion
+
 
 
     @elseif(Auth::user()->rol == "1")
@@ -219,7 +219,7 @@
 
     @elseif(Auth::user()->rol == "0")
     <!-- Administrador -->
-    #region
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #457b9d !important;">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgb(33, 37, 41) !important; border:3px solid">
@@ -344,6 +344,7 @@
             </div>
             <form class="form-inline my-2 my-lg-0" method="POST" action="{{ Route ('logout') }}">
                 @csrf
+                <a class="btn btn-dark" href="{{ Route('formajustes') }}" role="button">PIN</a>
                 <a class='fw-bolder px-1 mnutop text-decoration-none' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button' style="color: #ee9b00 !important;">
                     <span class="bi bi-exclamation-octagon-fill"></span> Alarmas
                 </a>
@@ -351,7 +352,7 @@
             </form>
         </div>
     </nav>
-    #endregion
+
     @endif
 
     <main>
