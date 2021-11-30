@@ -37,16 +37,16 @@ use App\Http\Controllers\InventarioController;
 
 
 // .----****** ROUTES AJAX ******----.//
-Route::POST('ajax/finalizarcita', [CitasController::class, 'finalizar'])->name('ajaxcita.finalizar');
-Route::POST('ajax/cancelarcita', [CitasController::class, 'cancelar'])->name('ajaxcita.cancelar');
-Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->name('ajaxcita.eliminar');
-Route::POST('ajax/crearcita', [CitasController::class, 'store'])->name('ajaxcita.crear');
-Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->name('ajaxcita.listar');
-Route::POST('ajax/horas', [CitasController::class, 'horas'])->name('ajaxcita.horas');
-Route::POST('ajax/historicoclientes', [ClientesController::class, 'historicoclientes'])->name('ajax.historicoclientes');
-Route::POST('ajax/historicoventas', [ProductoController::class, 'historicoventas'])->name('ajax.historicoventas');
-Route::POST('ajax/historicocitas', [CitasController::class, 'historicocitas'])->name('ajax.historicocitas');
-Route::GET('ajax/pdf', [PeluqueriaController::class, 'generatePDF'])->name('ajax.pdf');
+Route::POST('ajax/finalizarcita', [CitasController::class, 'finalizar'])->middleware(['auth'])->name('ajaxcita.finalizar');
+Route::POST('ajax/cancelarcita', [CitasController::class, 'cancelar'])->middleware(['auth'])->name('ajaxcita.cancelar');
+Route::POST('ajax/eliminarcita', [CitasController::class, 'eliminar'])->middleware(['auth'])->name('ajaxcita.eliminar');
+Route::POST('ajax/crearcita', [CitasController::class, 'store'])->middleware(['auth'])->name('ajaxcita.crear');
+Route::POST('ajax/listarcita', [CitasController::class, 'listar'])->middleware(['auth'])->name('ajaxcita.listar');
+Route::POST('ajax/horas', [CitasController::class, 'horas'])->middleware(['auth'])->name('ajaxcita.horas');
+Route::POST('ajax/historicoclientes', [ClientesController::class, 'historicoclientes'])->middleware(['auth'])->name('ajax.historicoclientes');
+Route::POST('ajax/historicoventas', [ProductoController::class, 'historicoventas'])->middleware(['auth'])->name('ajax.historicoventas');
+Route::POST('ajax/historicocitas', [CitasController::class, 'historicocitas'])->middleware(['auth'])->name('ajax.historicocitas');
+Route::GET('ajax/pdf', [PeluqueriaController::class, 'generatePDF'])->middleware(['auth'])->name('ajax.pdf');
 
 // .----****** CRUDS ******----.//
 

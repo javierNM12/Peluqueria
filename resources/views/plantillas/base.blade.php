@@ -220,36 +220,134 @@
     @elseif(Auth::user()->rol == "0")
     <!-- Administrador -->
     #region
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fourth navbar example" style="background-color: #457b9d !important;">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation" style="border-color: rgb(33, 37, 41) !important; border:3px solid">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-info">Empresario</button>
+                    <li class="nav-item me-2">
+                        <a class="nav-link fw-bolder text-white" href="{{ Route('inicio') }}">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Inicio</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <a class="nav-link fw-bolder dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Carta de productos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar carta de productos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto a la carta</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Comprobar entradas</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <a class="nav-link fw-bolder dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Proveedores
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Comprobar películas</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <a class="nav-link fw-bolder dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Inventario
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('inventario.index') }}">Ver inventario</a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('compras') }}">Realizar venta presencial</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar productos gastados</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('addproductos') }}">Entrega de nuevos productos</a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('historicos.index') }}">Lista de movimientos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('listarcompras') }}">Histórico de ventas por producto</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ Route('inicio') }}">Añadir película</a>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <a class="nav-link fw-bolder dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Clientes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('clientes.index') }}">Listar clientes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('clientes.create') }}">Añadir cliente</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('formhistorial') }}">Historial de citas por cliente</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <a class="nav-link fw-bolder dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Citas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('citas.index') }}">Listar citas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('citas.create') }}">Añadir citas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('formhistoricocitas') }}">Historico de citas</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item me-2">
+                        <div class="dropdown">
+                            <a class="nav-link fw-bolder dropdown-toggle text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Servicios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('servicios.index') }}">Carta de servicios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ Route('servicios.create') }}">Añadir servicio</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
             <form class="form-inline my-2 my-lg-0" method="POST" action="{{ Route ('logout') }}">
                 @csrf
-                <a class='px-1 mnutop text-warning' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button'>
-                    <i class="bi bi-exclamation-octagon text-warning"></i> Alarmas
+                <a class='fw-bolder px-1 mnutop text-decoration-none' title='alarmas' id='alarmas' data-bs-toggle='modal' data-bs-target='#exampleModal' role='button' style="color: #ee9b00 !important;">
+                    <span class="bi bi-exclamation-octagon-fill"></span> Alarmas
                 </a>
-                <button class="btn btn-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
+                <button class="fw-bolder border-3 btn btn-danger mr-sm-2 my-2 my-sm-0" action="submit">Cerrar Sesión</button>
             </form>
         </div>
     </nav>

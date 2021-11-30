@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('clave_temp')->nullable();
             // 0-> Admin
             // 1-> Empresario
-            // 2-> Trabajador
             $table->tinyInteger('rol')->default(2);
             $table->rememberToken();
             $table->timestamps();
