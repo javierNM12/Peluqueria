@@ -22,7 +22,7 @@
             <th>Nombre</th>
             <th>Mínimo</th>
             <th>P.V.P.</th>
-            <th class="col-2">Acciones</th>
+            <th>Acciones</th>
         </tr>
         @foreach ($productos as $producto)
         <tr>
@@ -31,11 +31,11 @@
             <td>{{ $producto->minimo }}</td>
             <td>{{ $producto->pvp }}</td>
             <td>
-                <form action="{{ route('productos.destroy',$producto->id) }}" method="Post" class="d-flex justify-content-between">
-                    <a class="btn btn-primary ms-2 me-2" href="{{ route('productos.edit',$producto->id) }}">Editar</a>
+                <form action="{{ route('productos.destroy',$producto->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around">
+                    <a class="btn btn-primary mt-2" href="{{ route('productos.edit',$producto->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
                 </form>
             </td>
         </tr>

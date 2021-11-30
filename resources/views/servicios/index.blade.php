@@ -18,11 +18,11 @@
     @endif
     <table class="table table-bordered">
         <tr>
-            <th class="col-2">ID</th>
-            <th class="col-2">Precio</th>
-            <th class="col-3">Nombre</th>
-            <th class="col-3">Descripción</th>
-            <th class="col-2">Action</th>
+            <th>ID</th>
+            <th>Precio</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Action</th>
         </tr>
         @foreach ($servicios as $servicio)
         <tr>
@@ -31,11 +31,11 @@
             <td>{{ $servicio->nombre }}</td>
             <td>{{ $servicio->desc }}</td>
             <td>
-                <form action="{{ route('servicios.destroy',$servicio->id) }}" method="Post" class="d-flex justify-content-between">
-                    <a class="btn btn-primary ms-2 me-2" href="{{ route('servicios.edit',$servicio->id) }}">Editar</a>
+                <form action="{{ route('servicios.destroy',$servicio->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around">
+                    <a class="btn btn-primary mt-2" href="{{ route('servicios.edit',$servicio->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
                 </form>
             </td>
         </tr>

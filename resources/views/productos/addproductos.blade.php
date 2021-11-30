@@ -126,7 +126,7 @@
             texto += '<td>' + existencias + '</td>';
             texto += '<td>' + minimo + '</td>';
             texto += '<td>' + pvp + '</td>';
-            texto += '<td><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text me-3 text-danger" role="button"></a></td>';
+            texto += '<td class="w-auto d-flex justify-content-center align-items-center"><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text ms-3 text-danger" role="button"></a></td>';
             texto += '<td>' + select + '</td>';
             texto += '<td><input type="text" class="form-control border-bottom" name="precio[]" id="precio[]"></td>';
             texto += '</tr>';

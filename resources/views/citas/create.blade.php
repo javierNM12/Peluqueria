@@ -166,7 +166,7 @@
         }
         $("#servicios").val(parseInt($("#servicios").val()) + 1);
 
-        var texto = '<div class="row mb-3 servicio">';
+        var texto = '<div class="mb-3 pe-0 ps-0 servicio">';
         texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
         texto += '<option selected>Seleccione un servicio</option>';
         texto += '@foreach ($servicios as $servicio)';

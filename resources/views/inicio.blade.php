@@ -108,11 +108,11 @@
             <div class="modal-body justify-content-start">
                 <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data" id="formmodalcita">
                     @csrf
-                    <input type="hidden" name="tipo" value="true">
+                    <input type="hidden" name="tipo" value="true"><!-- Puede que no se este utilizando -->
                     <input type="hidden" name="servicios" id="servicios" value="1">
                     <div class="row mb-3">
-                        <label for="descripcion" class="form-label">Descripción de la cita</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" aria-describedby="descripcion citas">
+                        <label for="descripcion" class="form-label ps-0">Descripción de la cita</label>
+                        <textarea class="form-control" id="descripcion" rows="3" name="descripcion" aria-describedby="descripcion citas"></textarea>
                         @error('descripcion')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -125,7 +125,7 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>-->
-                        <div class="col-6 mb-3 ps-0">
+                        <div class="col-6 mb-3 ps-0 align-self-center">
                             <label for="dia" class="form-label">Seleccione un día</label>
                             <input type="date" class="form-control" id="dia" name="dia" aria-describedby="Día">
                             @error('dia')
@@ -146,7 +146,7 @@
                             <option value="{{ $cliente->id}}">{{ $cliente->apellidos }}, {{ $cliente->nombre }}</option>
                             @endforeach
                         </select>
-                        @error('servicios_id')
+                        @error('clientes_id')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="row mb-3 servicio">
+                        <div class="mb-3 pe-0 ps-0 servicio">
                             <label for="servicios_id" class="form-label">Servicio</label>
                             <select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">
                                 <option selected>Seleccione un servicio</option>
@@ -428,7 +428,7 @@
         }
         $("#servicios").val(parseInt($("#servicios").val()) + 1);
 
-        var texto = '<div class="row mb-3 servicio">';
+        var texto = '<div class="mb-3 pe-0 ps-0 servicio">';
         texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
         texto += '<option selected>Seleccione un servicio</option>';
         texto += '@foreach ($servicios as $servicio)';

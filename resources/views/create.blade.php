@@ -14,12 +14,11 @@
 
         <form method="POST" action="{{ route('pin.store') }}">
             @csrf
-            {{Session::get('url')}}
             <!-- PIN -->
             <div>
                 <x-label for="pin" :value="__('Para acceder se requiere PIN')" />
 
-                <x-input id="pin" class="block mt-1 w-full" type="number" name="pin" :value="old('pin')" required autofocus />
+                <x-input id="pin" class="block mt-1 w-full" type="password" name="pin" :value="old('pin')" required autofocus />
             </div>
 
             <div class="flex items-center justify-end mt-4">

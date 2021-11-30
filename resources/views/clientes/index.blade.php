@@ -22,7 +22,7 @@
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Teléfono</th>
-            <th class="col-2">Acciones</th>
+            <th>Acciones</th>
         </tr>
         @foreach ($clientes as $cliente)
         <tr>
@@ -31,11 +31,11 @@
             <td>{{ $cliente->apellidos }}</td>
             <td>{{ $cliente->telefono }}</td>
             <td>
-                <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post"  class="d-flex justify-content-center">
-                    <a class="btn btn-primary ms-2 me-2" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
+                <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post"  class="d-flex flex-xl-row flex-column justify-content-around">
+                    <a class="btn btn-primary mt-2" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger me-2">Eliminar</button>
+                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
                 </form>
             </td>
         </tr>
