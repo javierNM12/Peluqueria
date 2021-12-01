@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
         // PARA EJECUTAR EL SEEDER-> php artisan migrate:fresh --seed
         // WEB TUTORIAL -> https://laravel.com/docs/8.x/seeding
         User::create([
-            'name' => 'Javi',
-            'apellidos' => 'Nunez',
-            'email' => 'javi@javi.com',
-            'password' => bcrypt('javi'),
+            'name' => 'yadira',
+            'apellidos' => 'peluqueria',
+            'email' => 'yadira@peluqueria.com',
+            'password' => bcrypt('yadira'),
             'rol' => '1', // 1 -> empresa
         ]);
 

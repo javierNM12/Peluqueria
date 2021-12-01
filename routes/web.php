@@ -107,6 +107,12 @@ Route::get('/formajustes', [PeluqueriaController::class, 'formajustes'])->middle
 // Guardar ajustes admin
 Route::post('/guardarajustes', [PeluqueriaController::class, 'guardarajustes'])->middleware(['alarmas'])->middleware(['auth'])->name('guardarajustes');
 
+// Finalizar cita desde el index de citas
+Route::get('/fincita/{id}', [CitasController::class, 'fincita'])->middleware(['auth'])->name('fincita');
+
+Route::get('/canelcita/{id}', [CitasController::class, 'canelcita'])->middleware(['auth'])->name('canelcita');
+
+
 // https://codepen.io/AllThingsSmitty/pen/MyqmdM <--- Tabla responsive, revisar para implementar
 // https://laravel.com/docs/8.x/sanctum -> secret code
 // https://laravel.com/docs/8.x/authorization -> authorization

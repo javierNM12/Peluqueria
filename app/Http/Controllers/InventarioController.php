@@ -40,15 +40,6 @@ class InventarioController extends Controller
         $id = Auth::id();
         $mytime = Carbon::now();
 
-
-        /*
-        $producto = Productos::find($id);
-        $producto->historico()->delete();
-        $producto->proveedores()->detach();
-        $producto->delete();
-        */
-
-
         $contador = 0;
         $precio = 0;
         for ($i = 0; $i < count($request->get('producto')); $i++) {
@@ -72,14 +63,6 @@ class InventarioController extends Controller
                 }
             }
 
-            // $producto->existencias = $cantidad;
-            // $producto->save();
-            // fecha_hora
-            // cantidad
-            // productos_id
-            // precio
-            // users_id
-
             $historico = new Historicos();
             $historico->users_id = $id;
             $historico->cantidad = $contador;
@@ -90,8 +73,8 @@ class InventarioController extends Controller
         }
 
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Company has been created successfully.');
+        return redirect()->route('inventario.index')
+            ->with('success', 'Inventario actualizado correctamente.');
     }
 
     /**

@@ -91,8 +91,41 @@
                     llave = false;
                 }
             });
+
+            //proveedores
+            var llave2 = true;
+            $(".proveedores").each(function(a) {
+                if (parseInt($(this).val()) <= 0) {
+                    llave2 = false;
+                }
+            });
+
+            //precio
+            var llave3 = true;
+            $(".precio").each(function(a) {
+                if ($(this).val() == "") {
+                    llave3 = false;
+                }
+            });
+            
             if (llave) {
-                $("#formdataactualizar").submit();
+                if (llave2) {
+                    if (llave3) {
+                        $("#formdataactualizar").submit();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Seleccione un precio para cada producto',
+                        })
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Seleccione un proveedor para cada producto',
+                    })
+                }
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -110,7 +143,7 @@
 
     function addproducto(id, nombre, existencias, minimo, pvp) {
 
-        var select = '<select class="form-select border-bottom" id="proveedores[]" name="proveedores[]">';
+        var select = '<select class="form-select border-bottom proveedores" id="proveedores[]" name="proveedores[]">';
         select += '<option selected value="-1">Seleccione un proveedor</option>';
         for (let index = 0; index < proveedores.length; index++) {
             select += '<option value="' + proveedores[index]['id'] + '">' + proveedores[index]['nombre'] + '</option>';
@@ -128,7 +161,7 @@
             texto += '<td>' + pvp + '</td>';
             texto += '<td class="w-auto d-flex justify-content-center align-items-center"><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text ms-3 text-danger" role="button"></a></td>';
             texto += '<td>' + select + '</td>';
-            texto += '<td><input type="text" class="form-control border-bottom" name="precio[]" id="precio[]"></td>';
+            texto += '<td><input type="text" class="form-control border-bottom precio" name="precio[]" id="precio[]"></td>';
             texto += '</tr>';
 
             $("#tablaprincipal tbody").append(texto);

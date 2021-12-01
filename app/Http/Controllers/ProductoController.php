@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Productos;
 use App\Models\Proveedores;
 use App\Models\Historicos;
@@ -70,12 +71,22 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'minimo' => 'required',
-            'pvp' => 'required',
-            'tipo' => 'required'
-        ]);
+        $rules = [
+            'nombre' => 'required|string',
+            'minimo' => 'required|numeric',
+            'pvp' => 'required|numeric',
+            'tipo' => 'required|in:0,1'
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            'string' => 'El campo :attribute debe ser texto.',
+            'in' => 'Debe elegir una opción para el campo :attribute.',
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $producto = new Productos;
         $producto->nombre = $request->nombre;
         $producto->minimo = $request->minimo;
@@ -83,14 +94,8 @@ class ProductoController extends Controller
         $producto->tipo = $request->tipo;
         $producto->save();
 
-        /*foreach ($request->get('proveedor') as $dato => $value) {
-            foreach ($request->get('precio') as $dato2 => $value2) {
-                $new[$dato] = array('proveedores_id' => $value, 'precio' => $value2);
-            }
-        }*/
-
         return redirect()->route('productos.index')
-            ->with('success', 'Company has been created successfully.');
+            ->with('success', 'Producto creado correctamente.');
     }
 
     /**
@@ -128,20 +133,27 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'existencias' => 'required',
-            'minimo' => 'required',
-            'pvp' => 'required',
-        ]);
+        $rules = [
+            'nombre' => 'required|string',
+            'minimo' => 'required|numeric',
+            'pvp' => 'required|numeric',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+            'string' => 'El campo :attribute debe ser texto.'
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $producto = Productos::find($id);
         $producto->nombre = $request->nombre;
-        $producto->existencias = $request->existencias;
         $producto->minimo = $request->minimo;
         $producto->pvp = $request->pvp;
         $producto->save();
         return redirect()->route('productos.index')
-            ->with('success', 'Company Has Been updated successfully');
+            ->with('success', 'Producto actualizado');
     }
 
     /**
@@ -154,12 +166,12 @@ class ProductoController extends Controller
     {
         $producto = Productos::find($id);
 
-        $producto->historico()->delete();
-        $producto->proveedores()->detach();
+        // $producto->historico()->delete();   -> no eliminamos las entradas del historico para que quede constancia de las transacciones anteriores
+        // $producto->inventario()->detach();  -> no eliminamos las entradas del inventario para que quede constancia de los productos anteriores
 
         $producto->delete();
         return redirect()->route('productos.index')
-            ->with('success', 'Company has been deleted successfully');
+            ->with('success', 'Producto eliminado correctamente');
     }
 
     /* Get listado de alarmas */

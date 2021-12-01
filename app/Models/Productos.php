@@ -10,7 +10,6 @@ class Productos extends Model
     use HasFactory;
     protected $fillable = [
         'nombre',
-        // 'existencias',
         'minimo',
         'pvp',
         'tipo'

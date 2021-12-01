@@ -78,18 +78,26 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'telefono' => 'required',
-            'nombre' => 'required',
-            'web' => 'required',
-        ]);
+        $rules = [
+            'nombre' => 'required|string',
+            'telefono' => 'required|string',
+            'web' => 'required|string',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.'
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $proveedor = new Proveedores;
         $proveedor->telefono = $request->telefono;
         $proveedor->nombre = $request->nombre;
         $proveedor->web = $request->web;
         $proveedor->save();
         return redirect()->route('proveedores.index')
-            ->with('success', 'proveedor has been created successfully.');
+            ->with('success', 'Proveedor creado correctamente');
     }
 
     /**
@@ -125,18 +133,26 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'telefono' => 'required',
-            'nombre' => 'required',
-            'web' => 'required',
-        ]);
+        $rules = [
+            'nombre' => 'required|string',
+            'telefono' => 'required|string',
+            'web' => 'required|string',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.'
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $proveedor = Proveedores::find($id);
         $proveedor->telefono = $request->telefono;
         $proveedor->nombre = $request->nombre;
         $proveedor->web = $request->web;
         $proveedor->save();
         return redirect()->route('proveedores.index')
-            ->with('success', 'proveedor Has Been updated successfully');
+            ->with('success', 'Proveedor actualizado');
     }
 
     /**
@@ -150,6 +166,6 @@ class ProveedorController extends Controller
         $proveedor = Proveedores::find($id);
         $proveedor->delete();
         return redirect()->route('proveedores.index')
-            ->with('success', 'proveedor has been deleted successfully');
+            ->with('success', 'Proveedor eliminado correctamente');
     }
 }

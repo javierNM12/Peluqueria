@@ -13,7 +13,7 @@
         {{ session('status') }}
     </div>
     @endif
-    <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data" id="crear">
         @csrf
         <input type="hidden" name="servicios" id="servicios" value="1">
         <div class="row mb-3">
@@ -65,7 +65,7 @@
         <div class="row">
             <div class="mb-3 pe-0 ps-0 servicio">
                 <label for="servicios_id" class="form-label">Servicio</label>
-                <select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">
+                <select class="form-select servicios_id" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">
                     <option selected>Seleccione un servicio</option>
                     @foreach ($servicios as $servicio)
                     <option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>
@@ -80,7 +80,7 @@
 
         <div class="row d-flex justify-content-between">
             <div class="col-6 ps-0">
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="submit" class="btn btn-success" id="guardar">Guardar</button>
             </div>
             <div class="col-6 d-flex justify-content-end pe-0">
                 <a class="btn btn-danger" href="{{ route('citas.index') }}">Cancelar</a>
@@ -89,6 +89,48 @@
     </form>
 </div>
 <script>
+    $("#guardar").click(function(e) {
+        e.preventDefault();
+        if ($("#clientes_id").val() != "Seleccione un cliente") {
+            var llave = true;
+            $(".servicios_id").each(function(a) {
+                if ($(this).val() == "Seleccione un servicio") {
+                    llave = false;
+                }
+            });
+
+            var llave2 = true;
+            horasarray = $(".horas").val();
+            if (horasarray.length == 0 || horasarray[0] == "No se ha seleccionado un día") {
+                llave2 = false;
+            }
+            if (llave) {
+                if (llave2) {
+                    $("#crear").submit();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Se debe elegir una hora para la cita',
+                    })
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se permiten servicios en blanco',
+                })
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Debe seleccionar un cliente',
+            })
+        }
+    });
+
+
     // comprobar horas disponibles cuando se selecciona el día
     $("#dia").change(function(e) {
         var array = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
@@ -167,7 +209,7 @@
         $("#servicios").val(parseInt($("#servicios").val()) + 1);
 
         var texto = '<div class="mb-3 pe-0 ps-0 servicio">';
-        texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
+        texto += '<select class="form-select servicios_id" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
         texto += '<option selected>Seleccione un servicio</option>';
         texto += '@foreach ($servicios as $servicio)';
         texto += '<option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>';

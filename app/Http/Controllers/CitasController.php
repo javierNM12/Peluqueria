@@ -48,6 +48,24 @@ class CitasController extends Controller
         return response()->json(['success' => $request->id]);
     }
 
+    public function fincita($id)
+    {
+        $cita = Citas::find($id);
+        $cita->finalizado = 1;
+        $cita->save();
+        return redirect()->route('citas.index')
+            ->with('success', 'Cita finalizada.');
+    }
+
+    public function canelcita($id)
+    {
+        $cita = Citas::find($id);
+        $cita->finalizado = 2;
+        $cita->save();
+        return redirect()->route('citas.index')
+            ->with('success', 'Cita cancelada.');
+    }
+
     public function cancelar(Request $request)
     {
         $request->validate([
@@ -122,9 +140,16 @@ class CitasController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'descripcion' => 'required',
-        ]);
+        $rules = [
+            'descripcion' => 'required|string',
+        ];
+
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.'
+        ];
+
+        $this->validate($request, $rules, $customMessages);
 
         // DB::enableQueryLog();
         $cliente = Clientes::find($request->clientes_id)->first();
@@ -153,7 +178,7 @@ class CitasController extends Controller
 
         $citas->servicios()->sync($new);
         return redirect()->route('citas.index')
-            ->with('success', 'citas has been created successfully.');
+            ->with('success', 'Cita guardada correctamente.');
     }
 
     /**
@@ -193,11 +218,20 @@ class CitasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'fecha_hora_i' => 'required',
-            'fecha_hora_f' => 'required',
-            'descripcion' => 'required',
-        ]);
+        $rules = [
+            'fecha_hora_i' => 'required|date_format:Y-m-d H:i:s',
+            'fecha_hora_f' => 'required|date_format:Y-m-d H:i:s',
+            'descripcion' => 'required|string',
+        ];
+
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.',
+            'date' => 'El campo :attribute no es un campo de fecha correcto.',
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+
         $cita = Citas::find($id);
         $cita->fecha_hora_i = $request->fecha_hora_i;
         $cita->fecha_hora_f = $request->fecha_hora_f;
@@ -216,7 +250,7 @@ class CitasController extends Controller
         $cita->servicios()->sync($new);
 
         return redirect()->route('citas.index')
-            ->with('success', 'Cita Has Been updated successfully');
+            ->with('success', 'Cita actualizada correctamente');
     }
 
     /**
@@ -231,8 +265,6 @@ class CitasController extends Controller
         $cita->servicios()->detach();
         $cita->delete();
         return redirect()->route('citas.index')
-            ->with('success', 'Client has been deleted successfully');
+            ->with('success', 'Cita eliminada correctamente');
     }
-
-    
 }

@@ -47,7 +47,7 @@
                     <option value="0">Consumo propio</option>
                     <option value="1">Venta al público</option>
                 </select>
-                @error('minimo')
+                @error('tipo')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror
             </div>

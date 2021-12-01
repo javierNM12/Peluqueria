@@ -39,11 +39,23 @@
             <td class="text-danger">Cancelada</td>
             @endif
             <td>
-                <form action="{{ route('citas.destroy',$cita->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around">
-                    <a class="btn btn-primary mt-2" href="{{ route('citas.edit',$cita->id) }}">Editar</a>
+                <form action="{{ route('citas.destroy',$cita->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around" id="eliminar">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+                    <div class="row">
+                        <div class="col-3 text-center">
+                            <a href="javascript: void(0)" onclick="eliminar('{{ $cita->id }}')" class="bi bi-trash del text-danger" role="button"></a>
+                        </div>
+                        <div class="col-3 text-center">
+                            <a href="{{ route('canelcita',$cita->id) }}" class="bi-x-circle del text-warning" role="button"></a>
+                        </div>
+                        <div class="col-3 text-center">
+                            <a href="{{ route('fincita',$cita->id) }}" class="bi-check-lg text-success" role="button"></a>
+                        </div>
+                        <div class="col-3 text-center">
+                            <a href="{{ route('citas.edit',$cita->id) }}" class="bi bi-pencil-square text-primary" role="button"></a>
+                        </div>
+                    </div>
                 </form>
             </td>
         </tr>
@@ -53,5 +65,26 @@
         <a class="btn btn-secondary" href="{{ route('inicio') }}">Volver</a>
     </div>
 </div>
+<script>
+    function eliminar(e) {
+        Swal.fire({
+                title: "¿Seguro que desea eliminar la cita?",
+                text: "Este proceso es permanente",
+                icon: "warning",
+                showDenyButton: true,
+                confirmButtonText: 'Eliminar',
+                denyButtonText: `Cancelar`,
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $("#eliminar").submit();
+                } else if (result.isDenied) {
+                    Swal.fire('Se ha cancelado el proceso', '', 'info')
+                }
+            });
+    }
+</script>
 {!! $citas->links() !!}
 @endsection

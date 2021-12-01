@@ -55,12 +55,20 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'apellidos' => 'required',
-            'telefono' => 'required',
-            'descripcion' => 'required',
-        ]);
+        $rules = [
+            'nombre' => 'required|string',
+            'apellidos' => 'required|string',
+            'telefono' => 'required|string',
+            'descripcion' => 'required|string',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.'
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $cliente = new Clientes;
         $cliente->nombre = $request->nombre;
         $cliente->apellidos = $request->apellidos;
@@ -74,7 +82,7 @@ class ClientesController extends Controller
         // ];
         // $cliente->proveedores()->sync($data);
         return redirect()->route('clientes.index')
-            ->with('success', 'Client has been created successfully.');
+            ->with('success', 'Cliente creado correctamente.');
     }
 
     /**
@@ -110,12 +118,20 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'apellidos' => 'required',
-            'telefono' => 'required',
-            'descripcion' => 'required',
-        ]);
+        $rules = [
+            'nombre' => 'required|string',
+            'apellidos' => 'required|string',
+            'telefono' => 'required|string',
+            'descripcion' => 'required|string',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.'
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $cliente = Clientes::find($id);
         $cliente->nombre = $request->nombre;
         $cliente->apellidos = $request->apellidos;
@@ -123,7 +139,7 @@ class ClientesController extends Controller
         $cliente->descripcion = $request->descripcion;
         $cliente->save();
         return redirect()->route('clientes.index')
-            ->with('success', 'Client Has Been updated successfully');
+            ->with('success', 'Cliente actualizado correctamente.');
     }
 
     /**
@@ -137,6 +153,6 @@ class ClientesController extends Controller
         $cliente = Clientes::find($id);
         $cliente->delete();
         return redirect()->route('clientes.index')
-            ->with('success', 'Client has been deleted successfully');
+            ->with('success', 'Cliente eliminado correctamente.');
     }
 }

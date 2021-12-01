@@ -41,11 +41,20 @@ class ServiciosController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'precio' => 'required',
-            'nombre' => 'required',
-            'desc' => 'required',
-        ]);
+        $rules = [
+            'precio' => 'required|numeric',
+            'nombre' => 'required|string',
+            'desc' => 'required|string',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+
         $servicios = new servicios;
         $servicios->precio = $request->precio;
         $servicios->nombre = $request->nombre;
@@ -58,7 +67,7 @@ class ServiciosController extends Controller
         // ];
         // $cliente->proveedores()->sync($data);
         return redirect()->route('servicios.index')
-            ->with('success', 'servicios has been created successfully.');
+            ->with('success', 'Servicio añadido correctamente');
     }
 
     /**
@@ -94,18 +103,27 @@ class ServiciosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'precio' => 'required',
-            'nombre' => 'required',
-            'desc' => 'required',
-        ]);
+        $rules = [
+            'precio' => 'required|numeric',
+            'nombre' => 'required|string',
+            'desc' => 'required|string',
+        ];
+    
+        $customMessages = [
+            'required' => 'El campo :attribute no se puede dejar en blanco.',
+            'string' => 'El campo :attribute debe ser texto.',
+            'numeric' => 'El campo :attribute debe ser numérico.',
+        ];
+    
+        $this->validate($request, $rules, $customMessages);
+        
         $servicio = Servicios::find($id);
         $servicio->precio = $request->precio;
         $servicio->nombre = $request->nombre;
         $servicio->desc = $request->desc;
         $servicio->save();
         return redirect()->route('servicios.index')
-            ->with('success', 'servicio Has Been updated successfully');
+            ->with('success', 'Servicio actualizado correctamente.');
     }
 
     /**
@@ -119,6 +137,6 @@ class ServiciosController extends Controller
         $servicio = Servicios::find($id);
         $servicio->delete();
         return redirect()->route('servicios.index')
-            ->with('success', 'Client has been deleted successfully');
+            ->with('success', 'Servicio eliminado correctamente.');
     }
 }
