@@ -104,7 +104,7 @@
                     } else {
                         var texto = '<tr class="table-danger">';
                         texto += '<td colspan="7" class="mx-auto">No hay registros para este tramo de fechas</td>';
-                        texto += '<tr>';
+                        texto += '</tr>';
                         $("#mostrar tbody").append(texto);
                     }
                 },

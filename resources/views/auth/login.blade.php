@@ -1,9 +1,6 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
         </x-slot>
 
         <!-- Session Status -->
@@ -14,6 +11,11 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
+
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none d-inline-flex">
+                    <i class="bi bi-scissors"></i>
+                    <span class="fs-4 my-3"> Peluquería Yadira</span>
+                </a>
 
             <!-- Email Address -->
             <div>

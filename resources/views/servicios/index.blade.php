@@ -17,29 +17,33 @@
     </div>
     @endif
     <table class="table table-bordered">
-        <tr>
-            <th>ID</th>
-            <th>Precio</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Action</th>
-        </tr>
-        @foreach ($servicios as $servicio)
-        <tr>
-            <td>{{ $servicio->id }}</td>
-            <td>{{ $servicio->precio }}</td>
-            <td>{{ $servicio->nombre }}</td>
-            <td>{{ $servicio->desc }}</td>
-            <td>
-                <form action="{{ route('servicios.destroy',$servicio->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around">
-                    <a class="btn btn-primary mt-2" href="{{ route('servicios.edit',$servicio->id) }}">Editar</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Precio</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($servicios as $servicio)
+            <tr>
+                <td>{{ $servicio->id }}</td>
+                <td>{{ $servicio->precio }} €</td>
+                <td>{{ $servicio->nombre }}</td>
+                <td>{{ $servicio->desc }}</td>
+                <td>
+                    <form action="{{ route('servicios.destroy',$servicio->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around">
+                        <a class="btn btn-primary mt-2" href="{{ route('servicios.edit',$servicio->id) }}">Editar</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
     <div class="d-flex justify-content-end py-3">
         <a class="btn btn-secondary" href="{{ route('inicio') }}">Volver</a>

@@ -14,11 +14,28 @@ class InventarioSeeder extends Seeder
      */
     public function run()
     {
-        Inventario::create([
-            'id' => '1',
-            'productos_id' => '1',
-            'proveedores_id' => '1',
-            'precio' => '14',
-        ]);
+        for ($i=0; $i < 5; $i++) { 
+            Inventario::create([
+                'productos_id' => '1',
+                'proveedores_id' => '1',
+                'precio' => '14.00',
+            ]);
+        }
+
+        for ($i=0; $i < 5; $i++) { 
+            Inventario::create([
+                'productos_id' => '2',
+                'proveedores_id' => '1',
+                'precio' => '14.00',
+            ]);
+        }
+
+        for ($i=0; $i < 5; $i++) { 
+            Inventario::create([
+                'productos_id' => '3',
+                'proveedores_id' => '2',
+                'precio' => '14.00',
+            ]);
+        }
     }
 }

@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="mt-5">
-            <table id="display" class="display mb-5" style="width:100%">
+            <table id="display" class="display mb-5 table table" style="width:100%">
                 <thead>
                     <tr>
                         <th>Fecha inicio</th>

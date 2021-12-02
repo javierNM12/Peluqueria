@@ -20,5 +20,12 @@ class ProveedorSeeder extends Seeder
             'nombre' => 'Proveedor 1',
             'web' => 'www.web.com',
         ]);
+
+        Proveedores::create([
+            'id' => '2',
+            'telefono' => '999999999',
+            'nombre' => 'Proveedor dos',
+            'web' => 'www.webdos.com',
+        ]);
     }
 }

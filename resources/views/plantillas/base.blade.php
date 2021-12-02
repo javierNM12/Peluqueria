@@ -356,10 +356,9 @@
     @endif
 
     <main>
-        <!--<div class="container py-4">-->
         <div>
             <header class="ps-5 py-4 border-bottom" style="background-color: #ee9b00 !important;">
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none d-inline-flex">
                     <i class="bi bi-scissors"></i>
                     <span class="fs-4"> Peluquería Yadira</span>
                 </a>
@@ -392,9 +391,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <input id="id_alarma" type="hidden" name="id_alarma" value=""></input>
-                    <input type="hidden" name="tipo" id="tipo" value="none"></input>
-                    <input type="hidden" name="listaalarmas" id="listaalarmas"></input>
+                    <input id="id_alarma" type="hidden" name="id_alarma" value="">
+                    <input type="hidden" name="tipo" id="tipo" value="none">
+                    <input type="hidden" name="listaalarmas" id="listaalarmas">
                     <table class="table">
                         <thead>
                             <tr>
@@ -405,28 +404,48 @@
                         </thead>
                         <tbody>
                             @if(Session::get('alarmas') != null)
-                            @php
-                            $contador = true;
-                            @endphp
-                            @foreach (Session::get('alarmas')['productos']; as $key => $producto)
-                            @if(isset(Session::get('alarmas')['inventario'][$producto['id']]['existencias']))
-                            @if($producto['minimo'] > Session::get('alarmas')['inventario'][$producto['id']]['existencias'])
-                            @php
-                            $contador = false;
-                            @endphp
-                            <tr>
-                                <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
-                                <td>Existencias: {{ Session::get('alarmas')['inventario'][$producto['id']]['existencias'] }}</td>
-                                <td>Mínimo: {{ $producto->minimo }}</td>
-                            </tr>
-                            @endif
-                            @endif
-                            @endforeach
-                            @if($contador)
-                            <tr>
-                                <td class="text-success">Sin alarmas</td>
-                            </tr>
-                            @endif
+                                @php
+                                    $contador = true;
+                                @endphp
+                                @foreach (Session::get('alarmas')['productos']; as $key => $producto)
+                                    @if(isset(Session::get('alarmas')['inventario'][$producto['id']]['existencias']))
+                                        @if(Session::get('alarmas')['inventario'][$producto['id']] == NULL)
+                                            @php
+                                            $contador = false;
+                                            @endphp
+                                            <tr>
+                                                <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
+                                                <td>Existencias: 0</td>
+                                                <td>Mínimo: {{ $producto->minimo }}</td>
+                                            </tr>
+                                        @else
+                                            @if($producto['minimo'] > Session::get('alarmas')['inventario'][$producto['id']]['existencias'])
+                                                @php
+                                                $contador = false;
+                                                @endphp
+                                                <tr>
+                                                    <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
+                                                    <td>Existencias: {{ Session::get('alarmas')['inventario'][$producto['id']]['existencias'] }}</td>
+                                                    <td>Mínimo: {{ $producto->minimo }}</td>
+                                                </tr>
+                                            @endif
+                                        @endif
+                                    @else
+                                        @php
+                                            $contador = false;
+                                        @endphp
+                                        <tr>
+                                            <td>Sin existencias del producto <strong>{{ $producto->nombre }}</strong></td>
+                                            <td>Existencias: 0</td>
+                                            <td>Mínimo: {{ $producto->minimo }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                                @if($contador)
+                                    <tr>
+                                        <td class="text-success">Sin alarmas</td>
+                                    </tr>
+                                @endif
                             @endif
                         </tbody>
                     </table>
