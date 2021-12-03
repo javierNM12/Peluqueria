@@ -49,7 +49,7 @@ class PeluqueriaController extends Controller
         $html = '<html>
                     <head>
                         <style>
-                            html, body {
+                            html, bsody {
                                 height: 100% !important;
                             }
 
