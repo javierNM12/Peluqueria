@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
-                <h2>Entrega de nuevos productos</h2>
+                <h2>Añadir entrega de productos</h2>
                 <p class="lead text-muted">
                     Añadir productos entregados por los proveedores a la peluquería
                 </p>

@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Lista de citas</h2>
+                <h2>Listar citas</h2>
             </div>
             <div class="pull-right mb-2 d-flex justify-content-end">
-                <a class="btn btn-success" href="{{ route('citas.create') }}"> Crear cita</a>
+                <a class="btn btn-success" href="{{ route('citas.create') }}"> Añadir cita</a>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
-                <h2>Venta de producto</h2>
+                <h2>Realizar venta presencial</h2>
                 <p class="lead text-muted">
                     Vender un producto a un cliente presencial
                 </p>

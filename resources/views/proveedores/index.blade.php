@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Lista de proveedores</h2>
+                <h2>Listar proveedores</h2>
             </div>
             <div class="pull-right mb-2 d-flex justify-content-end">
-                <a class="offset-10 btn btn-success" href="{{ route('proveedores.create') }}">Añadir</a>
+                <a class="btn btn-success" href="{{ route('proveedores.create') }}">Añadir proveedor</a>
             </div>
         </div>
     </div>

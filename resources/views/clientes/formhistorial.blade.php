@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
-                <h2>Historial del cliente</h2>
+                <h2>Historial de citas por cliente</h2>
             </div>
         </div>
     </div>
@@ -15,6 +15,7 @@
     @endif
     <form action="{{ route('clientes.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <img src="{{asset('logo.png')}}" alt="Logo" height="75px">
         <div class="row d-flex justify-content-center">
             <div class="me-0 w-auto align-self-end">
                 <label for="cliente" class="form-label">Seleccione el cliente</label>

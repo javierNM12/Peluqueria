@@ -1,21 +1,21 @@
 <script>
     $(document).ready(function() {
-        animate();
-
-        function animate() {
+        function anim() {
+            $('#fondo').css({
+                backgroundPositionY: 600
+            });
             $("#fondo").animate({
-                backgroundPositionY: "-450"
-            }, 20000);
-            window.setTimeout(function() {
-                animate()
-            }, 500)
+                backgroundPositionY: "-600"
+            }, 40000, 'linear', function() {
+                anim();
+            });
         };
+
+        anim();
     });
 </script>
-<style>
 
-</style>
-<div id="fondo" class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0" style="background-image: url(fondo.jpg);
+<div id="fondo" class="icon min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0" style="background-image: url(fondo.jpg);
 background-repeat: repeat;">
     <div>
         {{ $logo }}

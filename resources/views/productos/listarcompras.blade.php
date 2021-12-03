@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mb-5">
-                <h2>Histórico de ventas</h2>
+                <h2>Histórico de ventas por producto</h2>
             </div>
         </div>
     </div>

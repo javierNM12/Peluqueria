@@ -102,10 +102,10 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Listar carta de productos</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.index') }}">Carta de productos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto a la carta</a>
+                                    <a class="dropdown-item" href="{{ Route('productos.create') }}">Añadir producto</a>
                                 </li>
                             </ul>
                         </div>
@@ -117,7 +117,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Lista de proveedores</a>
+                                    <a class="dropdown-item" href="{{ Route('proveedores.index') }}">Listar proveedores</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ Route('proveedores.create') }}">Añadir proveedor</a>
@@ -132,7 +132,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('inventario.index') }}">Ver inventario</a>
+                                    <a class="dropdown-item" href="{{ Route('inventario.index') }}">Listar inventario</a>
                                 </li>
                                 <div class="dropdown-divider"></div>
                                 <li class="nav-item">
@@ -142,7 +142,7 @@
                                     <a class="dropdown-item" href="{{ Route('actuinventario') }}">Actualizar productos gastados</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('addproductos') }}">Entrega de nuevos productos</a>
+                                    <a class="dropdown-item" href="{{ Route('addproductos') }}">Añadir entrega de productos</a>
                                 </li>
                                 <div class="dropdown-divider"></div>
                                 <li class="nav-item">
@@ -182,10 +182,10 @@
                                     <a class="dropdown-item" href="{{ Route('citas.index') }}">Listar citas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('citas.create') }}">Añadir citas</a>
+                                    <a class="dropdown-item" href="{{ Route('citas.create') }}">Añadir cita</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ Route('formhistoricocitas') }}">Historico de citas</a>
+                                    <a class="dropdown-item" href="{{ Route('formhistoricocitas') }}">Histórico de citas</a>
                                 </li>
                             </ul>
                         </div>

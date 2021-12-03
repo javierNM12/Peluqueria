@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Lista de clientes</h2>
+                <h2>Listar clientes</h2>
             </div>
             <div class="pull-right mb-2 d-flex justify-content-end">
-                <a class="btn btn-success" href="{{ route('clientes.create') }}">Crear cliente</a>
+                <a class="btn btn-success" href="{{ route('clientes.create') }}">Añadir cliente</a>
             </div>
         </div>
     </div>

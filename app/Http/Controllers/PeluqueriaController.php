@@ -49,26 +49,36 @@ class PeluqueriaController extends Controller
         $html = '<html>
                     <head>
                         <style>
-                        table {
-                        border-collapse: collapse;
-                        width: 100%;
-                        }
-                        
-                        table td, table th {
-                        border: 1px solid black;
-                        padding: 8px;
-                        }
+                            html, body {
+                                height: 100% !important;
+                            }
+
+                            footer {
+                                position: fixed;
+                                height: 100px;
+                                bottom: 0;
+                                width: 100%;
+                            }
+
+                            table {
+                            border-collapse: collapse;
+                            width: 100%;
+                            }
+                            
+                            table td, table th {
+                            border: 1px solid black;
+                            padding: 8px;
+                            }
                         </style>
                     </head>
                     <body>
-                    <h1>' . $request->titulo . '</h1>';
+                        <h1>' . $request->titulo . '</h1>';
         $html .= $request->html;
-        $html .= '<footer class="ps-5 py-4 border-bottom" style="margin-top: 3rem;">
-                <span>Peluquería Yadira</span>
-            </footer>
-            </body>
-        </html>
-        ';
+        $html .= '      <footer class="ps-5 py-4 border-bottom" style="margin-top: 3rem;">
+                            <span>Peluquería Yadira</span>
+                        </footer>
+                    </body>
+                </html>';
         $dompdf->loadHtml($html);
 
         // (Optional) Setup the paper size and orientation
