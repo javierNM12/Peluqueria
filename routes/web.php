@@ -118,6 +118,12 @@ Route::get('/canelcita/{id}', [CitasController::class, 'canelcita'])->middleware
 // https://laravel.com/docs/8.x/authorization -> authorization
 // config(['settings.PIN' => '0000']); -> para cambiar el PIN
 
+// Server: sql4.freemysqlhosting.net
+// Name: sql4457087
+// Username: sql4457087
+// Password: LxHlirbJfR
+// Port number: 3306
+
 Route::get('pin/create', function () {
     return view('create');
 })->name('pin.create');
