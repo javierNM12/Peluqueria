@@ -376,7 +376,7 @@
                 © JavierNM 2021
             </div>
             <div class="d-flex col justify-content-end me-2">
-                Proyecto DAW
+                <a href="{{ Route('acercade') }}">Acerca del autor</a>
             </div>
         </div>
     </footer>

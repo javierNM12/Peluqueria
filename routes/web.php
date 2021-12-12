@@ -112,11 +112,9 @@ Route::get('/fincita/{id}', [CitasController::class, 'fincita'])->middleware(['a
 
 Route::get('/canelcita/{id}', [CitasController::class, 'canelcita'])->middleware(['auth'])->name('canelcita');
 
+// Ruta para el "Acerca del autor"
+Route::get('/acercade', [PeluqueriaController::class, 'acercade'])->middleware(['alarmas'])->middleware(['auth'])->name('acercade');
 
-// https://codepen.io/AllThingsSmitty/pen/MyqmdM <--- Tabla responsive, revisar para implementar
-// https://laravel.com/docs/8.x/sanctum -> secret code
-// https://laravel.com/docs/8.x/authorization -> authorization
-// config(['settings.PIN' => '0000']); -> para cambiar el PIN
 
 Route::get('pin/create', function () {
     return view('create');

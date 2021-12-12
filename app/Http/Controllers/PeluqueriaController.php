@@ -36,6 +36,11 @@ class PeluqueriaController extends Controller
         return view("admin.form");
     }
 
+    public function acercade()
+    {
+        return view("acercade");
+    }
+
     public function guardarajustes(Request $request)
     {
         config(['settings.PIN' => $request->pin]);
