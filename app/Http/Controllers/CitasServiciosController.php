@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Citas_Servicios;
 use Illuminate\Http\Request;
 
 class CitasServiciosController extends Controller
@@ -10,7 +11,14 @@ class CitasServiciosController extends Controller
     {
         $this->middleware('alarmas');
     }
-    
+
+    public function citascantidadserviciosid(Request $request)
+    {
+        $data = Citas_Servicios::selectRaw('count(*) as cantidad')->whereRaw('servicios_id = "' . $request->id . '"')->get();
+
+        return response()->json($data);
+    }
+
     /**
      * Display a listing of the resource.
      *

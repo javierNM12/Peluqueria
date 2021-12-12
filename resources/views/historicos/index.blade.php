@@ -83,7 +83,7 @@
                 var blob = new Blob([response]);
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = "historico_movimientos";
+                link.download = "historico_movimientos.pdf";
                 link.click();
             },
             error: function(data) {

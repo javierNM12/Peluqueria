@@ -16,6 +16,13 @@ class CitasController extends Controller
         $this->middleware('alarmas');
     }
 
+    public function citascantidadclientesid(Request $request)
+    {
+        $data = Citas::selectRaw('count(*) as cantidad')->whereRaw('clientes_id = "' . $request->id . '"')->get();
+
+        return response()->json($data);
+    }
+
     public function historicocitas(Request $request)
     {
         $data['citas'] = Citas::selectRaw('*')->whereRaw('fecha_hora_i >= "' . $request->fechai . ' 00:00:00"')->whereRaw('fecha_hora_f <= "' . $request->fechaf . ' 23:59:59"')->get();

@@ -130,7 +130,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "historico_ventas_" + $("#producto option").filter(":selected").text();
+                    link.download = "historico_ventas_" + $("#producto option").filter(":selected").text() + ".pdf";
                     link.click();
                 },
                 error: function(data) {

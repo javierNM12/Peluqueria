@@ -34,11 +34,11 @@
                 <td>{{ $cliente->apellidos }}</td>
                 <td>{{ $cliente->telefono }}</td>
                 <td>
-                    <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around">
+                    <form action="{{ route('clientes.destroy',$cliente->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around" id="eliminar">
                         <a class="btn btn-primary mt-2" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+                        <a href="javascript: void(0)" onclick="eliminar('{{ $cliente->id }}')" class="btn btn-danger mt-2" role="button">Eliminar</a>
                     </form>
                 </td>
             </tr>
@@ -49,5 +49,54 @@
         <a class="btn btn-secondary" href="{{ route('inicio') }}">Volver</a>
     </div>
 </div>
+<script>
+    function eliminar(id) {
+        Swal.fire({
+                title: "¿Seguro que desea eliminar este cliente?",
+                text: "Este proceso es permanente",
+                icon: "warning",
+                showDenyButton: true,
+                confirmButtonText: 'Eliminar',
+                denyButtonText: `Cancelar`,
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    $.ajaxSetup({ // cabeceras con el token csrf
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{ route('ajax.citascantidadclientesid') }}",
+                        type: 'POST',
+                        data: {
+                            id: id,
+                        },
+                        success: function(data) {
+                            if (data[0]['cantidad'] >= 1) {
+                                Swal.fire({
+                                    title: "Error, hay citas guardadas de ese cliente",
+                                    text: "Elimine primero todas las citas de ese cliente",
+                                    icon: "warning",
+                                    confirmButtonText: 'Aceptar',
+                                    buttons: true,
+                                    dangerMode: true,
+                                })
+                            } else {
+                                $("#eliminar").submit();
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire('Se ha cancelado el proceso', '', 'info')
+                }
+            });
+    }
+</script>
 {!! $clientes->links() !!}
 @endsection

@@ -15,7 +15,6 @@
     @endif
     <form action="{{ route('clientes.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <img src="{{asset('logo.png')}}" alt="Logo" height="75px">
         <div class="row d-flex justify-content-center">
             <div class="me-0 w-auto align-self-end">
                 <label for="cliente" class="form-label">Seleccione el cliente</label>
@@ -127,7 +126,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "historico_cliente_" + $("#cliente option").filter(":selected").text();
+                    link.download = "historico_cliente_" + $("#cliente option").filter(":selected").text() + ".pdf";
                     link.click();
                 },
                 error: function(data) {

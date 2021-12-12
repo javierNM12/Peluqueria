@@ -145,7 +145,7 @@
                     var blob = new Blob([response]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = "historico_citas_" + $("#fecha_i").val() + " -- " + $("#fecha_f").val();
+                    link.download = "historico_citas_" + $("#fecha_i").val() + " -- " + $("#fecha_f").val() + ".pdf";
                     link.click();
                 },
                 error: function(data) {

@@ -13,6 +13,20 @@ use App\Models\Inventario;
 
 class InventarioController extends Controller
 {
+    public function productoscantidadproductoid(Request $request)
+    {
+        $data = Inventario::selectRaw('count(*) as cantidad')->whereRaw('productos_id = "' . $request->id . '"')->get();
+
+        return response()->json($data);
+    }
+
+    public function productoscantidadproveedorid(Request $request)
+    {
+        $data = Inventario::selectRaw('count(*) as cantidad')->whereRaw('proveedores_id = "' . $request->id . '"')->get();
+
+        return response()->json($data);
+    }
+
     public function compras()
     {
         $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
