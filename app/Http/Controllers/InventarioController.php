@@ -13,6 +13,11 @@ use App\Models\Inventario;
 
 class InventarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('alarmas');
+    }
+
     public function productoscantidadproductoid(Request $request)
     {
         $data = Inventario::selectRaw('count(*) as cantidad')->whereRaw('productos_id = "' . $request->id . '"')->get();
@@ -35,7 +40,7 @@ class InventarioController extends Controller
     }
     public function addproductos()
     {
-        $productos = Productos::selectRaw('*')->whereRaw('tipo = 1')->get(); // 1 = productos de venta
+        $productos = Productos::selectRaw('*')->get(); // 1 = productos de venta
         $inventario = Inventario::selectRaw('productos_id, COUNT(id) as existencias')->groupBy('productos_id')->get();
         $proveedores = Proveedores::select('*')->get();
         return view('productos.addproductos', compact(['productos', 'inventario', 'proveedores']));
@@ -43,7 +48,7 @@ class InventarioController extends Controller
 
     public function actuinventario()
     {
-        $productos = Productos::whereRaw("tipo = 1")->get();
+        $productos = Productos::get();
         // SELECT `productos_id`, COUNT(`id`) as cantidad FROM `inventarios` GROUP BY `productos_id`; 
         $inventario = Inventario::selectRaw('productos_id, COUNT(id) as existencias')->groupBy('productos_id')->get();
         return view('productos.actualizar', compact(['productos', 'inventario']));
@@ -73,7 +78,9 @@ class InventarioController extends Controller
                     $item->productos_id = $request->get('producto')[$i];
                     $item->proveedores_id = $request->get('proveedores')[$i];
                     $item->precio = $request->get('precio')[$i];
+                    $precio += $item->precio;
                     $item->save();
+                    $contador++;
                 }
             }
 

@@ -99,9 +99,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body justify-content-start">
-                <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data" id="formmodalcita">
+                <form action="{{ route('citas.store') }}" method="POST" enctype="multipart/form-data" id="crear">
                     @csrf
-                    <input type="hidden" name="tipo" value="true"><!-- Puede que no se este utilizando -->
                     <input type="hidden" name="servicios" id="servicios" value="1">
                     <div class="row mb-3">
                         <label for="descripcion" class="form-label ps-0">Descripción de la cita</label>
@@ -111,13 +110,6 @@
                         @enderror
                     </div>
                     <div class="row">
-                        <!--<div class="mb-3">
-                <label for="fecha_hora" class="form-label">Fecha y hora de la cita</label>
-                <input type="text" class="form-control" id="fecha_hora" name="fecha_hora" aria-describedby="fecha y hora de la cita">
-                @error('fecha_hora')
-                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                @enderror
-            </div>-->
                         <div class="col-6 mb-3 ps-0 align-self-center">
                             <label for="dia" class="form-label">Seleccione un día</label>
                             <input type="date" class="form-control" id="dia" name="dia" aria-describedby="Día">
@@ -152,7 +144,7 @@
                     <div class="row">
                         <div class="mb-3 pe-0 ps-0 servicio">
                             <label for="servicios_id" class="form-label">Servicio</label>
-                            <select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">
+                            <select class="form-select servicios_id" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">
                                 <option selected>Seleccione un servicio</option>
                                 @foreach ($servicios as $servicio)
                                 <option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>
@@ -167,7 +159,7 @@
 
                     <div class="row d-flex justify-content-between">
                         <div class="col-6">
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-success" id="guardar">Guardar</button>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
@@ -182,6 +174,115 @@
 
 
 <script>
+    $("#guardar").click(function(e) {
+        e.preventDefault();
+        if ($("#clientes_id").val() != "Seleccione un cliente") {
+            var llave = true;
+            $(".servicios_id").each(function(a) {
+                if ($(this).val() == "Seleccione un servicio") {
+                    llave = false;
+                }
+            });
+
+            var llave2 = true;
+            horasarray = $(".horas").val();
+            if (horasarray.length == 0 || horasarray[0] == "No se ha seleccionado un día") {
+                llave2 = false;
+            }
+
+            $("#descripcion").val();
+
+
+            if (llave) {
+                if (llave2) {
+                    if ($("#descripcion").val() != "") {
+                        // con ajax guardo la cita
+                        var formData = new FormData(document.getElementById("crear"));
+                        formData.append("dato", "valor");
+
+                        $.ajaxSetup({ // cabeceras con el token csrf
+                            headers: {
+                                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: "{{ route('ajaxcita.crear') }}",
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(data) {
+                                var a = data;
+                                // petición ajax para actualizar la tabla de citas del día
+                                $.ajaxSetup({ // cabeceras con el token csrf
+                                    headers: {
+                                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $.ajax({
+                                    url: "{{ route('ajaxcita.listar') }}",
+                                    type: 'POST',
+                                    success: function(data) { // elimino y recreo el listado de citas
+                                        $("#tablecita tbody *").remove();
+
+                                        $(data['citas']).each(function(indice, cita) {
+                                            $(data['clientes']).each(function(inde, cliente) {
+                                                texto = '<tr class="table-primary" data-id="' + cita.id + '"><td class="col-9 align-middle">' + cita.descripcion + '</td><td class="col-2 align-middle text-center">' + cita.fecha_hora_i + '</td><td class="col-1"><div class="row"><div class="col-4 text-center"><a href="javascript: void(0)" onclick="eliminar(' + cita.id + ')" class="bi-trash del text-danger" role="button"></a></div><div class="col-4 text-center"><a href="javascript: void(0)" onclick="cancelar(' + cita.id + ')" class="bi-x-circle del text-warning" role="button"></a></div><div class="col-4 text-center"><a href="javascript: void(0)" onclick="finalizar(' + cita.id + ')" class="bi-check-lg text-success" role="button"></a></div></div></td></tr><tr class="table-secondary" data-id="sub_' + cita.id + '" style="display:none"><td colspan="3">';
+
+                                                if (cliente.id == cita.clientes_id) {
+                                                    texto += '<div class="row"><div class="col-4">' + cliente.nombre + '</div><div class="col-4">' + cliente.apellidos + '</div><div class="col-4">' + cliente.telefono + '</div></div><div class="row text-center"><div class="col-12">' + cliente.descripcion + '</div></div>';
+                                                }
+                                                texto += '</td></tr>';
+                                                $("#tablecita tbody").append(texto);
+                                            });
+                                        });
+                                        // volvemos a lanzar el EventListener para que capture los nuevos elementos
+                                        $('.table-primary').click(function(e) {
+                                            $(this).next(".table-secondary").toggle();
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert("ERROR: " + data);
+                                    }
+                                });
+                                // cierro el modal
+                                //$('#crear').modal('close');
+                                $('#modalcita').modal('hide');
+                            },
+                            error: function(data) {
+                                alert("ERROR: " + data);
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se puede dejar la descripción en blanco',
+                        })
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Se debe elegir una hora para la cita',
+                    })
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se permiten servicios en blanco',
+                })
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Debe seleccionar un cliente',
+            })
+        }
+    });
+
     // comprobar horas disponibles cuando se selecciona el día
     $("#dia").change(function(e) {
         var array = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
@@ -342,69 +443,6 @@
         $(this).next(".table-secondary").toggle();
     });
 
-    // GESTION CITA FORMULARIO MODAL
-    $('#formmodalcita').submit(function(event) {
-
-        event.preventDefault();
-        // con ajax guardo la cita
-        var formData = new FormData(document.getElementById("formmodalcita"));
-        formData.append("dato", "valor");
-
-        $.ajaxSetup({ // cabeceras con el token csrf
-            headers: {
-                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: "{{ route('ajaxcita.crear') }}",
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(data) {
-                var a = data;
-                // petición ajax para actualizar la tabla de citas del día
-                $.ajaxSetup({ // cabeceras con el token csrf
-                    headers: {
-                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: "{{ route('ajaxcita.listar') }}",
-                    type: 'POST',
-                    success: function(data) { // elimino y recreo el listado de citas
-                        $("#tablecita tbody *").remove();
-
-                        $(data['citas']).each(function(indice, cita) {
-                            $(data['clientes']).each(function(inde, cliente) {
-                                texto = '<tr class="table-primary" data-id="' + cita.id + '"><td class="col-9 align-middle">' + cita.descripcion + '</td><td class="col-2 align-middle text-center">' + cita.fecha_hora_i + '</td><td class="col-1"><div class="row"><div class="col-4 text-center"><a href="javascript: void(0)" onclick="eliminar(' + cita.id + ')" class="bi-trash del text-danger" role="button"></a></div><div class="col-4 text-center"><a href="javascript: void(0)" onclick="cancelar(' + cita.id + ')" class="bi-x-circle del text-warning" role="button"></a></div><div class="col-4 text-center"><a href="javascript: void(0)" onclick="finalizar(' + cita.id + ')" class="bi-check-lg text-success" role="button"></a></div></div></td></tr><tr class="table-secondary" data-id="sub_' + cita.id + '" style="display:none"><td colspan="3">';
-
-                                if (cliente.id == cita.clientes_id) {
-                                    texto += '<div class="row"><div class="col-4">' + cliente.nombre + '</div><div class="col-4">' + cliente.apellidos + '</div><div class="col-4">' + cliente.telefono + '</div></div><div class="row text-center"><div class="col-12">' + cliente.descripcion + '</div></div>';
-                                }
-                                texto += '</td></tr>';
-                                $("#tablecita tbody").append(texto);
-                            });
-                        });
-                        // volvemos a lanzar el EventListener para que capture los nuevos elementos
-                        $('.table-primary').click(function(e) {
-                            $(this).next(".table-secondary").toggle();
-                        });
-                    },
-                    error: function(data) {
-                        alert("ERROR: " + data);
-                    }
-                });
-                // cierro el modal
-                //$('#formmodalcita').modal('close');
-                $('#modalcita').modal('hide');
-            },
-            error: function(data) {
-                alert("ERROR: " + data);
-            }
-        });
-    });
-
     //cambiar el raton cuando esté por encima de los botones de puntuación
     $(".bi-plus-circle").hover(function() {
         $(this).css("cursor", "pointer");
@@ -422,7 +460,7 @@
         $("#servicios").val(parseInt($("#servicios").val()) + 1);
 
         var texto = '<div class="mb-3 pe-0 ps-0 servicio">';
-        texto += '<select class="form-select" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
+        texto += '<select class="form-select servicios_id" aria-label="Seleccione un servicio" name="servicios_id[]" id="servicios_id[]">';
         texto += '<option selected>Seleccione un servicio</option>';
         texto += '@foreach ($servicios as $servicio)';
         texto += '<option value="{{ $servicio->id}}">{{ $servicio->nombre }}</option>';

@@ -32,7 +32,7 @@
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->minimo }}</td>
-                <td>{{ $producto->pvp }}</td>
+                <td>{{ $producto->pvp }} €</td>
                 <td>
                     <form action="{{ route('productos.destroy',$producto->id) }}" method="Post" class="d-flex flex-xl-row flex-column justify-content-around" id="eliminar">
                         <a class="btn btn-primary mt-2" href="{{ route('productos.edit',$producto->id) }}">Editar</a>

@@ -96,7 +96,7 @@
                             }
                             servicios = servicios.slice(0, -2);
                             texto += '<td>' + servicios + '</td>';
-                            texto += '<td>' + total + '</td>';
+                            texto += '<td>' + total + ' €</td>';
                             texto += '<td>' + data['clientes'][data['citas'][index]['id']][0]['nombre'] + ' ' + data['clientes'][data['citas'][index]['id']][0]['apellidos'] + '</td>';
                             texto += '</tr>';
                             $("#mostrar tbody").append(texto);

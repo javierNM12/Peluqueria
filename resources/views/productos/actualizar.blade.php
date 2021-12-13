@@ -44,7 +44,7 @@
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $existtemp }}</td>
-                <td>{{ $producto->pvp }}</td>
+                <td>{{ $producto->pvp }} €</td>
                 <td>
                     <a href="javascript: void(0)" onclick="addproducto('{{ $producto->id }}', '{{ $producto->nombre }}', <?php echo $existtemp; ?>, '{{ $producto->minimo }}', '{{ $producto->pvp }}')" class="bi bi-plus-circle fs-3 text me-3" role="button"></a>
                 </td>
@@ -118,7 +118,7 @@
                 texto += '<td>' + nombre + '</td>';
                 texto += '<td>' + existencias + '</td>';
                 texto += '<td>' + minimo + '</td>';
-                texto += '<td>' + pvp + '</td>';
+                texto += '<td>' + pvp + ' €</td>';
                 texto += '<td class="w-auto d-flex justify-content-center align-items-center"><a href="javascript: void(0)" onclick="addcantidad(' + id + ', ' + existencias + ')" class="bi bi-plus-lg fs-3 text me-3 text-success" role="button"></a><span data-spanid="' + id + '">0</span><a href="javascript: void(0)" onclick="delcantidad(' + id + ')" class="bi bi-dash-lg fs-3 text ms-3 text-danger" role="button"></a></td>';
                 texto += '</tr>';
 

@@ -25,14 +25,14 @@
         </div>
         <div class="mb-3">
             <label for="minimo" class="form-label">Cantidad mínima del producto (Alarma)</label>
-            <input type="text" class="form-control" id="minimo" name="minimo" value="{{ $productos->minimo }}" aria-describedby="minimo producto">
+            <input type="number" class="form-control" id="minimo" name="minimo" value="{{ $productos->minimo }}" aria-describedby="minimo producto">
             @error('minimo')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-3">
             <label for="pvp" class="form-label">P.V.P.</label>
-            <input type="text" class="form-control" id="pvp" name="pvp" value="{{ $productos->pvp }}" aria-describedby="pvp producto">
+            <input type="number" class="form-control" id="pvp" name="pvp" value="{{ $productos->pvp }}" aria-describedby="pvp producto">
             @error('pvp')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror

@@ -104,9 +104,21 @@
             if (horasarray.length == 0 || horasarray[0] == "No se ha seleccionado un día") {
                 llave2 = false;
             }
+
+            $("#descripcion").val();
+
+
             if (llave) {
                 if (llave2) {
-                    $("#crear").submit();
+                    if ($("#descripcion").val() != "") {
+                        $("#crear").submit();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se puede dejar la descripción en blanco',
+                        })
+                    }
                 } else {
                     Swal.fire({
                         icon: 'error',
