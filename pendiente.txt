@@ -1,1 +1,0 @@
-* en el cuadro de las clientas pendientes poner dos desplegables, 1 para la descripción del tratamiento y otro con un par de campos par
